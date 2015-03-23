@@ -173,5 +173,5 @@ server/typings/
 *.css
 *.css.map
 *.min.css
-!Gruntfile.js
+!gulpfile.js
 /.tscache
