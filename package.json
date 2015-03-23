@@ -1,0 +1,21 @@
+{
+  "name": "depot",
+  "version": "1.0.0",
+  "description": "Innovation Depot website",
+  "main": "index.js",
+  "scripts": {
+    "prepublish": "node_modules/.bin/gulp install"
+  },
+  "author": "Darion Welch",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.12.3",
+    "platypus": "^0.12.9",
+    "platypusui": "^0.2.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-tsc": "^0.9.3",
+    "gulp-tsd": "0.0.4"
+  }
+}
