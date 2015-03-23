@@ -3,7 +3,7 @@ var config = {
 		name: 'Innovation Depot',
 		url: 'http://localhost'
 	},
-	port: 3000
-}
+	port: 8888
+};
 
 export = config;

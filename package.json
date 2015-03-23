@@ -15,9 +15,13 @@
     "platypusui": "^0.2.3"
   },
   "devDependencies": {
+    "browserify": "^9.0.3",
     "gulp": "^3.8.11",
+    "gulp-browserify": "^0.5.1",
     "gulp-nodemon": "^2.0.2",
     "gulp-tsc": "^0.9.3",
-    "gulp-tsd": "0.0.4"
+    "gulp-tsd": "0.0.4",
+    "stringify": "^3.1.0",
+    "vinyl-source-stream": "^1.1.0"
   }
 }
