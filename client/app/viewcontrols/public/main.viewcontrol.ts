@@ -8,7 +8,7 @@ import JoinViewControl = require('./join/join.viewcontrol');
 import StaffViewControl = require('./staff/staff.viewcontrol');
 
 class PublicViewControl extends BaseViewControl {
-	templateString = '<nav>Public Navigation</nav><plat-viewport></plat-viewport>';
+	templateString = require('./main.viewcontrol.html');
 	context = {};
 	constructor(router: plat.routing.Router) {
 	    super();

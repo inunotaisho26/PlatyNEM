@@ -9,7 +9,7 @@ import ListCompaniesViewControl = require('./companies/list.viewcontrol');
 import ListUsersViewControl = require('./users/list.viewcontrol');
 
 class AdminViewControl extends BaseViewControl {
-	templateString = '<nav>Admin Navigation</nav><plat-viewport></plat-viewport>';
+	templateString = require('./main.viewcontrol.html');
 	context = {};
 	constructor(router: plat.routing.Router) {
 	    super();

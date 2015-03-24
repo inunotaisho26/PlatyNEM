@@ -4,7 +4,7 @@ var stringify = require('stringify');
 var source = require('vinyl-source-stream');
 var nodemon = require('gulp-nodemon');
 var typescript = require('gulp-tsc');
-var tsd = require('gulp-tsd');
+var less = require('gulp-less');
 
 var root = require('path').normalize(__dirname);
 var paths = {
@@ -12,6 +12,7 @@ var paths = {
 		client: root + '/client/**/*.ts',
 		server: root + '/server/**/*.ts'
 	},
+	less: root + '/client/styles/**/*.less',
 	dist: root + '/client/dist'
 };
 
@@ -31,6 +32,12 @@ gulp.task('browserify', function() {
 	return bundle();
 });
 
+gulp.task('less', function() {
+	return gulp.src('./client/styles/main.less')
+		.pipe(less())
+		.pipe(gulp.dest(paths.dist));
+});
+
 gulp.task('ts:server', function() {
 	return gulp.src([paths.ts.server])
 		.pipe(typescript())
@@ -43,23 +50,10 @@ gulp.task('ts:client', function() {
 		.pipe(gulp.dest('client'));
 });
 
-gulp.task('tsd:server', function() {
-	tsd({
-		command: 'reinstall',
-		config: './tsd.server.json'
-	});
-});
-
-gulp.task('tsd:client', function() {
-	tsd({
-		command: 'reinstall',
-		config: './tsd.client.json'
-	});
-});
-
 gulp.task('watch', function() {
 	gulp.watch([paths.ts.server], ['ts:server']);
 	gulp.watch([paths.ts.client], ['ts:client', 'browserify']);
+	gulp.watch([paths.less], ['less']);
 });
 
 gulp.task('nodemon', function() {
@@ -70,4 +64,3 @@ gulp.task('nodemon', function() {
 });
 
 gulp.task('default', ['watch', 'nodemon']);
-gulp.task('install', ['tsd:server', 'tsd:client']);
