@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.3.1",
+    "es6-promise": "^2.0.1",
     "express": "^4.12.3",
+    "mysql": "^2.5.5",
     "platypus": "^0.12.9",
     "platypusui": "^0.2.3"
   },
