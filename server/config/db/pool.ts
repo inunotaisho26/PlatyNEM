@@ -1,4 +1,4 @@
-/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../references.d.ts" />
 
 import mysql = require('mysql');
 import utils = require('../utils/utils');

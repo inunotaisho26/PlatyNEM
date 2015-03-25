@@ -1,10 +1,12 @@
 /// <reference path="./typings/tsd.d.ts" />
 
 import express = require('express');
+import passport = require('passport');
 import config = require('./config/env/all');
 
 var app = express();
 
+require('./config/passport')(passport, config);
 require('./config/express')(app);
 
 app.listen(config.port, () => {

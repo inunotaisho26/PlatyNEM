@@ -14,3 +14,4 @@ var config = {
 };
 
 export = config;
+
