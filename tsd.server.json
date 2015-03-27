@@ -25,6 +25,9 @@
     },
     "bcrypt/bcrypt.d.ts": {
       "commit": "0c2ee8583c9a27873d7c40cc79fdcb79b5868150"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "be0b6b394f77a59e192ad7cfec18078706e44db5"
     }
   }
 }

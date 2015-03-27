@@ -1,0 +1,14 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& { 
+	/// Dashboard Container
+	.dashboard-container {
+		.container();
+
+		& > .dashboard {
+			background-color: @white;
+		}
+	}
+}

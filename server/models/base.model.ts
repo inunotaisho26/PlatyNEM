@@ -5,7 +5,7 @@ import utils = require('../config/utils/utils');
 import PromiseStatic = require('es6-promise');
 
 class Model<T> {
-	Promise = PromiseStatic.Promise;
+	Promise: typeof Promise = PromiseStatic.Promise;
 	utils: typeof utils = utils;
 	ValidationError: typeof ValidationError = ValidationError;
 

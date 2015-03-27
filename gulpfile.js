@@ -13,10 +13,11 @@ var paths = {
 		server: root + '/server/**/*.ts'
 	},
 	less: root + '/client/styles/**/*.less',
+	html: root + '/client/app/**/*.html',
 	dist: root + '/client/dist'
 };
 
-gulp.task('browserify', function() {
+gulp.task('browserify', ['ts:client'], function() {
 	var bundler = browserify({
 		entries: './client/app/main.js'
 	});
@@ -44,15 +45,19 @@ gulp.task('ts:server', function() {
 		.pipe(gulp.dest('server'));
 });
 
-gulp.task('ts:client', function() {
+gulp.task('ts:client', function(cb) {
 	return gulp.src([paths.ts.client])
 		.pipe(typescript())
 		.pipe(gulp.dest('client'));
+
+	// task must finish successfully for browserify to run
+	cb(err);
 });
 
 gulp.task('watch', function() {
 	gulp.watch([paths.ts.server], ['ts:server']);
 	gulp.watch([paths.ts.client], ['ts:client', 'browserify']);
+	gulp.watch([paths.html], ['browserify']);
 	gulp.watch([paths.less], ['less']);
 });
 

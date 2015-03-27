@@ -1,11 +1,10 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../references.d.ts" />
 
 import plat = require('platypus');
 import BaseViewControl = require('../base.viewcontrol');
 import DashboardViewControl = require('./dashboard/dashboard.viewcontrol');
 import ListPostsViewControl = require('./blog/list/list.viewcontrol');
 import ManagePostViewControl = require('./blog/manage/manage.viewcontrol');
-import ListCompaniesViewControl = require('./companies/list.viewcontrol');
 import ListUsersViewControl = require('./users/list.viewcontrol');
 
 class AdminViewControl extends BaseViewControl {
@@ -16,7 +15,6 @@ class AdminViewControl extends BaseViewControl {
 
 	    router.configure([
 			{ pattern: '', view: DashboardViewControl },
-			{ pattern: 'companies', view: ListCompaniesViewControl },
 			{ pattern: 'posts', view: ListPostsViewControl },
 			{ pattern: 'posts/manage/:id', view: ManagePostViewControl },
 	    	{ pattern: 'users', view: ListUsersViewControl }

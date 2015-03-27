@@ -1,6 +1,7 @@
-/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../references.d.ts" />
 
 require('platypus');
+require('platypusui');
 
 // app
 require('./app/app');

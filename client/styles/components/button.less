@@ -1,0 +1,31 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& {
+	#platui > #mixins;
+
+	/// Button Constants
+	@border-radius: 3px;
+
+	.button-block {
+		width: 100%;
+	}
+
+	/// plat-button overrides
+
+	.plat-button, .button {
+		padding: 1em 1.5em;
+	}
+	
+	.plat-button.button-primary {
+		background-color: @sea-green;
+		border-radius: @border-radius;
+		border: none;
+		border-bottom: 2px solid darken(@sea-green, 10%);
+
+		&:hover, &:active {
+			background-color: lighten(@sea-green, 2%);
+		}
+	}
+}

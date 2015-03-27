@@ -1,0 +1,64 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& {
+	#platui > #mixins;
+
+	/// Input Constants
+	@border-radius: 3px;
+	@accent-color: @light-grey;
+	@input-padding: 3%;
+
+	.input-container {
+		margin-bottom: 2em;
+		
+		& > div:first-child {
+			border-top-right-radius: @border-radius;
+			border-top-left-radius: @border-radius;
+		}
+
+		& > div:last-child {
+			border-bottom-right-radius: @border-radius;
+			border-bottom-left-radius: @border-radius;
+		}
+
+		& > .plat-input {
+			height: 3em;
+			width: 100%;
+			background-color: @white;
+			display: block;
+
+			.plat-input-container {
+				position: relative;
+
+				input {
+					position: static;
+					padding: 0 @input-padding;
+					border: none;
+				}
+
+				.plat-input-action {
+					display: none;
+				}
+
+				&:after {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					right: 0;
+					width: 100% - @input-padding;
+					height: 1px;
+					background-color: lighten(@accent-color, 10%);
+				}
+			}
+
+			&:last-child .plat-input-container:after {
+				height: 0;
+			}
+		}
+	}
+
+	/// PlatypusUI Overrides
+
+}

@@ -1,1 +1,6 @@
-<h1>Admin Navigation</h1>
+<plat-link plat-options="{ view: logoView, isUrl: false }" class="navbar-logo">Depot</plat-link>
+<ul class="navbar-menu" plat-control="plat-foreach" plat-context="menuItems">
+	<li>
+		<plat-link plat-options="{ view: '' }">{{title}}</plat-link>
+	</li>
+</ul>

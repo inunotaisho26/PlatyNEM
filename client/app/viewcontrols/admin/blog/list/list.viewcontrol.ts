@@ -1,4 +1,4 @@
-/// <reference path="../../../../../typings/tsd.d.ts" />
+/// <reference path="../../../../../references.d.ts" />
 
 import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');

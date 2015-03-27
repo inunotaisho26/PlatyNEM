@@ -1,11 +1,10 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+/// <reference path="../../../references.d.ts" />
 
 import plat = require('platypus');
 import BaseViewControl = require('../base.viewcontrol');
-import CompaniesViewControl = require('./companies/companies.viewcontrol');
 import HomeViewControl = require('./home/home.viewcontrol');
-import JoinViewControl = require('./join/join.viewcontrol');
-import StaffViewControl = require('./staff/staff.viewcontrol');
+import LoginViewControl = require('./auth/login/login.viewcontrol');
+import RegisterViewControl = require('./auth/register/register.viewcontrol');
 
 class PublicViewControl extends BaseViewControl {
 	templateString = require('./main.viewcontrol.html');
@@ -15,9 +14,8 @@ class PublicViewControl extends BaseViewControl {
 
 	    router.configure([
 	    	{ pattern: '', view: HomeViewControl },
-	    	{ pattern: 'companies', view: CompaniesViewControl },
-	    	{ pattern: 'join', view: JoinViewControl },
-	    	{ pattern: 'staff', view: StaffViewControl }
+	    	{ pattern: 'login', view: LoginViewControl },
+	    	{ pattern: 'register', view: RegisterViewControl }
 	    ]);
 	}
 }

@@ -6,8 +6,8 @@ import bcrypt = require('bcrypt');
 var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 var salt_work_factor = 10;
 
-class User extends Base<models.IUser> {
-	generateHashedPassword(user, password) {
+class Model extends Base<models.IUser> {
+	generateHashedPassword(user, password): Thenable<string> {
 		return new this.Promise((resolve, reject) => {
 			if (!this.utils.isString(password) || password.length === 0 || !this.utils.isString(user.salt)) {
 	            reject();
@@ -22,7 +22,7 @@ class User extends Base<models.IUser> {
 		});
 	}
 
-	generateSalt(password) {
+	generateSalt(password): Thenable<string> {
 		return new this.Promise((resolve, reject) => {
 			bcrypt.genSalt(salt_work_factor, (err, salt) => {
 				if (err) {
@@ -33,13 +33,13 @@ class User extends Base<models.IUser> {
 		});
 	}
 
-	authenticate(user: models.IUser, password: string) {
+	authenticate(user: models.IUser, password: string): Thenable<boolean> {
 		return this.generateHashedPassword(user, password).then((hash) => {
 			return hash === user.password;
 		});
 	}
 
-	validateProperties(user: models.IUser, options?: { checkPassword: boolean }): any {
+	validateProperties(user: models.IUser, options?: { checkPassword: boolean }): models.IValidationErrors {
 		var validations: models.IValidationErrors = [
 			this.validateFirstName(user.firstname),
 			this.validateLastName(user.lastname),
@@ -74,5 +74,5 @@ class User extends Base<models.IUser> {
 	}
 }
 
-var model = new User();
+var model = new Model();
 export = model;
