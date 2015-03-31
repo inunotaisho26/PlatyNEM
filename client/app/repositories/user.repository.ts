@@ -8,6 +8,7 @@ import BaseRepository = require('../repositories/base.repository');
 
 class UserRepository extends BaseRepository<models.UserFactory, UserService, models.IUser> {
 	private __currentUser: models.IUser;
+	private __currentUserPromise: plat.async.IThenable<models.IUser>;
 	
 	create(user: any, password: string) {
 		var u = this.Factory.create(user);
@@ -22,6 +23,13 @@ class UserRepository extends BaseRepository<models.UserFactory, UserService, mod
 		var u = this.Factory.create(user);
 		return this.service.login(u, user.password).then((user) => {
 			this.__currentUser = this.Factory.create(user);
+		});
+	}
+
+	logout(): plat.async.IThenable<void> {
+		return this.service.logout().then(() => {
+			this.__currentUser = null;
+			this.__currentUserPromise = null;
 		});
 	}
 

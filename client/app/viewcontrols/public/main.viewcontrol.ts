@@ -4,6 +4,7 @@ import plat = require('platypus');
 import BaseViewControl = require('../base.viewcontrol');
 import HomeViewControl = require('./home/home.viewcontrol');
 import LoginViewControl = require('./auth/login/login.viewcontrol');
+import LogoutViewControl = require('./auth/logout/logout.viewcontrol');
 import RegisterViewControl = require('./auth/register/register.viewcontrol');
 
 class PublicViewControl extends BaseViewControl {
@@ -15,6 +16,7 @@ class PublicViewControl extends BaseViewControl {
 	    router.configure([
 	    	{ pattern: '', view: HomeViewControl },
 	    	{ pattern: 'login', view: LoginViewControl },
+	    	{ pattern: 'logout', view: LogoutViewControl },
 	    	{ pattern: 'register', view: RegisterViewControl }
 	    ]);
 	}

@@ -16,6 +16,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 	initialize(baseRoute: string, router: express.Router) {
 		router.post(baseRoute, this.create.bind(this));
 		router.post(baseRoute + '/login', this.authenticate.bind(this));
+		router.post(baseRoute + '/logout', this.logout.bind(this));
 		router.get(baseRoute + '/contributor', this.auth.populateSession, this.isContributor.bind(this));
 	}
 
@@ -55,6 +56,13 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 				resolve(this.format.response(err, req.user));
 			});
 		});	
+	}
+
+	logout(req: express.Request, res: express.Response) {
+		req.logout();
+		req.session.destroy(() => {
+			Crud.sendResponse(res, this.format.response(null, true));
+		});
 	}
 
 	isContributor(req: express.Request, res: express.Response) {

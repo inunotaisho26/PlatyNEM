@@ -2,7 +2,7 @@
 
 import plat = require('platypus');
 import HomeViewControl = require('../../../../viewcontrols/public/home/home.viewcontrol');
-import LoginViewControl = require('../../../../viewcontrols/public/auth/login/login.viewcontrol');
+import LogoutViewControl = require('../../../../viewcontrols/public/auth/logout/logout.viewcontrol');
 
 class AdminNavigation extends plat.ui.TemplateControl {
 	templateString = require('./admin.templatecontrol.html');
@@ -12,7 +12,7 @@ class AdminNavigation extends plat.ui.TemplateControl {
 		menuItems: [
 			{
 				title: 'Log Out',
-				view: LoginViewControl
+				view: LogoutViewControl
 			}
 		]
 	};
