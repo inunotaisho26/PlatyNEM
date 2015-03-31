@@ -22,7 +22,7 @@ declare module server {
     export module ajax {
         export interface IValidationError {
             message: string;
-            property: string;
+            property?: string;
         }
 
         export interface IValidationErrors extends Array<IValidationError> { }

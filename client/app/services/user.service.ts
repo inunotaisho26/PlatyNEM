@@ -2,19 +2,28 @@
 /// <reference path="../models/server.model.d.ts" />
 
 import plat = require('platypus');
-import BaseService = require('./base.service');
+import models = require('../models/user.model');
+import CrudService = require('./crud.service');
 
-class UserService extends BaseService {
+class UserService extends CrudService<server.IUser> {
 	constructor() {
 		super('users');
 	}
 
-	create(user: any, password: string): plat.async.IAjaxThenable<number> {
-		var payload = this._utils.extend({}, user, {
+	register(user: models.IUser, password: string): plat.async.IAjaxThenable<number> {
+		return super.create(this._utils.extend({}, user, {
 			password: password
-		});
+		}));
+	}
 
-		return super.create(payload);
+	login(user: models.IUser, password: string) {
+		return this._post<server.IUser>({
+			data: this._utils.extend({}, user, { password: password })
+		}, 'login');
+	}
+
+	isContributor() {
+		return this._get<boolean>('contributor');
 	}
 };
 

@@ -10,12 +10,11 @@ import UserModel = require('../models/user/user.model');
 var Promise = PromiseStatic.Promise,
 	LocalStrategy = Local.Strategy;
 
-var passportConfig = (passport: passport.Passport, config) => {
+var passportConfig = (passport: passport.Passport) => {
 	passport.serializeUser((user: models.IUser, done: Function) => {
 		if (!utils.isObject(user)) {
 			done(false);
 		}
-
 		done(null, user.id);
 	});
 

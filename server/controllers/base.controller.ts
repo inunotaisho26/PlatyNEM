@@ -4,11 +4,13 @@ import express = require('express');
 import PromiseStatic = require('es6-promise');
 import ValidationError = require('../models/error/error.model');
 import utils = require('../config/utils/utils');
+import auth = require('./auth.controller');
 import format = require('../config/utils/format');
 
 var Promise = PromiseStatic.Promise;
 
 class Controller {
+	auth: typeof auth = auth;
 	Promise: typeof Promise = Promise;
 	ValidationError: typeof ValidationError = ValidationError;
 	utils: typeof utils = utils;

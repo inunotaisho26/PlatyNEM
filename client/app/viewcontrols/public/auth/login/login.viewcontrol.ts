@@ -3,22 +3,47 @@
 import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');
 import RegisterViewControl = require('../register/register.viewcontrol');
+import UserRepository = require('../../../../repositories/user.repository');
 
 class LoginViewControl extends BaseViewControl {
 	title = 'Login';
 	templateString = require('./login.viewcontrol.html');
 	context = {
-		email: '',
-		password: '',
+		user: {
+			email: '',
+			password: '',
+		},
 		register: RegisterViewControl
 	};
 
-	login() {
-		var context = this.context;
-		console.log(context.email, context.password);
+	constructor(private usersRepository: UserRepository) {
+		super();
+	}
+
+	login(ev: Event) {
+		ev.preventDefault();
+		ev.stopPropagation();
+
+		this.usersRepository.login(this.context.user).then((result) => {
+			return this.usersRepository.isContributor();
+		}).then((isContributor) => {
+			if (isContributor) {
+				this.navigator.navigate('admin-vc', {
+					replace: true
+				});
+			} else {
+				this.navigator.navigate('public-vc', {
+					replace: true
+				});
+			}
+		}, (err) => {
+			console.log(err);
+		});
 	}
 }
 
-plat.register.viewControl('login-vc', LoginViewControl);
+plat.register.viewControl('login-vc', LoginViewControl, [
+	UserRepository
+]);
 
 export = LoginViewControl;

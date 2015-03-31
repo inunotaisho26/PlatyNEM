@@ -10,6 +10,7 @@ var config = {
 		dbName: 'depot',
 		connectionLimit: 2
 	},
+	sessionKey: 'You should change this',
 	port: 8888
 };
 

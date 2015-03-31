@@ -11,3 +11,7 @@
     background-repeat: no-repeat;
     background-position: 50% 50%;
 }
+
+.backgroundHexToRGBA(@hex, @alpha) {
+	background-color: rgba(red(@hex), green(@hex), blue(@hex), @alpha);
+}

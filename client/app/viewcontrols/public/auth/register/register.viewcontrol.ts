@@ -3,7 +3,7 @@
 import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');
 import LoginViewControl = require('../login/login.viewcontrol');
-import repositories = require('../../../../repositories/user.repository');
+import UserRepository = require('../../../../repositories/user.repository');
 
 class RegisterViewControl extends BaseViewControl {
 	title = 'Register';
@@ -13,25 +13,31 @@ class RegisterViewControl extends BaseViewControl {
 		lastname: '',
 		email: '',
 		password: '',
-		login: LoginViewControl
+		login: LoginViewControl,
+		alerts: <server.ajax.IValidationErrors>[]
 	};
 
-	constructor(private userRepository: repositories.UserRepository) {
+	constructor(private userRepository: UserRepository) {
 	    super();
 	}
 
 	register() {
 		var context = this.context;
+		
 		this.userRepository.create({
 			firstname: context.firstname,
 			lastname: context.lastname,
 			email: context.email
-		}, context.password);
+		}, context.password).then(() => {
+			context.alerts.push({ message: 'Account created successfully.' });
+		}, (errors) => {
+			context.alerts = errors;
+		});
 	}
 }
 
 plat.register.viewControl('register-vc', RegisterViewControl, [
-	repositories.UserRepository
+	UserRepository
 ]);
 
 export = RegisterViewControl;
