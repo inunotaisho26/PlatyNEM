@@ -49,7 +49,6 @@ class SessionStore implements models.session.IStore, models.session.IStoreOption
             var row = result[0][0] || {},
                 session = row.session,
                 json = (this.secret) ? this.decryptData(session) : session;
-
             if (!utils.isString(json)) {
                 return cb();
             }
@@ -62,8 +61,9 @@ class SessionStore implements models.session.IStore, models.session.IStoreOption
 
     set(sid: string, session: any, cb: (err?: any) => void): any {
         var expires = new Date(session.cookie.expires).getTime() / 1000;
-        session = JSON.stringify((this.secret) ? this.encryptData(JSON.stringify(session)) : session);
 
+        session = JSON.stringify((this.secret) ? this.encryptData(JSON.stringify(session)) : session);
+        
         return this.call(this.procedures.insert, [sid, session, expires]).then(() => {
             cb();
         }, (err: Error) => {

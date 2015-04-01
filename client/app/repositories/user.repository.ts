@@ -33,8 +33,8 @@ class UserRepository extends BaseRepository<models.UserFactory, UserService, mod
 		});
 	}
 
-	isContributor(): plat.async.IThenable<boolean> {
-		return this.service.isContributor();
+	isAdmin(): plat.async.IThenable<boolean> {
+		return this.service.isAdmin();
 	}
 }
 

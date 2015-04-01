@@ -9,6 +9,6 @@ class HomeViewControl extends BaseViewControl {
  	context = {};
 }
 
-plat.register.viewControl('home-vc', HomeViewControl);
+plat.register.viewControl('', HomeViewControl);
 
 export = HomeViewControl;

@@ -6,9 +6,15 @@
 	/// Dashboard Container
 	.dashboard-container {
 		.container();
+		height: calc(~'100% - (@{dashboard-margin} + @{navbar-height})');
 
 		& > .dashboard {
 			background-color: @white;
+			height: 100%;
+			.container();
+			padding-top: 1em;
+			border-bottom-left-radius: @dashboard-radius;
+			border-bottom-right-radius: @dashboard-radius;
 		}
 	}
 }

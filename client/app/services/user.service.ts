@@ -26,8 +26,8 @@ class UserService extends CrudService<server.IUser> {
 		return this._post<boolean>('logout');
 	}
 
-	isContributor() {
-		return this._get<boolean>('contributor');
+	isAdmin() {
+		return this._get<boolean>('admin');
 	}
 };
 

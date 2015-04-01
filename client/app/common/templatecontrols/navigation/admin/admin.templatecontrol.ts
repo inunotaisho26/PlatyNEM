@@ -1,14 +1,14 @@
 /// <reference path="../../../../../references.d.ts" />
 
 import plat = require('platypus');
-import HomeViewControl = require('../../../../viewcontrols/public/home/home.viewcontrol');
-import LogoutViewControl = require('../../../../viewcontrols/public/auth/logout/logout.viewcontrol');
+import DashboardViewControl = require('../../../../viewcontrols/admin/dashboard/dashboard.viewcontrol');
+import LogoutViewControl = require('../../../../viewcontrols/admin/logout/logout.viewcontrol');
 
 class AdminNavigation extends plat.ui.TemplateControl {
 	templateString = require('./admin.templatecontrol.html');
 	hasOwnContext = true;
 	context = {
-		logoView: HomeViewControl,
+		logoView: DashboardViewControl,
 		menuItems: [
 			{
 				title: 'Log Out',

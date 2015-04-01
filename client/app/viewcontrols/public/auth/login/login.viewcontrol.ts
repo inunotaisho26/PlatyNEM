@@ -25,9 +25,9 @@ class LoginViewControl extends BaseViewControl {
 		ev.stopPropagation();
 
 		this.usersRepository.login(this.context.user).then((result) => {
-			return this.usersRepository.isContributor();
-		}).then((isContributor) => {
-			if (isContributor) {
+			return this.usersRepository.isAdmin();
+		}).then((isAdmin) => {
+			if (isAdmin) {
 				this.navigator.navigate('admin-vc', {
 					replace: true
 				});

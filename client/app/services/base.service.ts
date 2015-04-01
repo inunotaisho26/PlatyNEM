@@ -16,7 +16,6 @@ export class BaseService {
 
 	constructor(baseRoute: string = '') { 
 		this.baseRoute = 'api/' + baseRoute;
-		console.log(this.baseRoute);
 	}
 
 	protected _get<T>(...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;

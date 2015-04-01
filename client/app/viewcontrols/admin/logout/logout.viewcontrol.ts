@@ -1,8 +1,8 @@
-/// <reference path="../../../../../references.d.ts" />
+/// <reference path="../../../../references.d.ts" />
 
 import plat = require('platypus');
-import UserRepository = require('../../../../repositories/user.repository');
-import BaseViewControl = require('../../../base.viewcontrol');
+import UserRepository = require('../../../repositories/user.repository');
+import BaseViewControl = require('../../base.viewcontrol');
 
 class LogOutViewControl extends BaseViewControl {
 	title = 'Platypi | Logout';
@@ -17,7 +17,7 @@ class LogOutViewControl extends BaseViewControl {
 		this.userRepository.logout()
 			.catch(this.utils.noop)
 			.then(() => {
-				this.navigator.navigate('public-vc', {
+				this.navigator.navigate('', {
 					replace: true
 				});
 			});

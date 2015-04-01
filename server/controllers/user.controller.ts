@@ -17,7 +17,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 		router.post(baseRoute, this.create.bind(this));
 		router.post(baseRoute + '/login', this.authenticate.bind(this));
 		router.post(baseRoute + '/logout', this.logout.bind(this));
-		router.get(baseRoute + '/contributor', this.auth.populateSession, this.isContributor.bind(this));
+		router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
 	}
 
 	create(req: express.Request, res: express.Response, next?: Function) {
@@ -53,6 +53,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 				if (this.utils.isObject(user)) {
 					delete ips[ip];
 				}
+
 				resolve(this.format.response(err, req.user));
 			});
 		});	
@@ -65,13 +66,14 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 		});
 	}
 
-	isContributor(req: express.Request, res: express.Response) {
+	isAdmin(req: express.Request, res: express.Response) {
 		var user: models.IUser = req.user;
-		console.log(user);
+		
 		if (!this.utils.isObject(user)) {
 			return Crud.sendResponse(res, this.format.response(null, false));
 		}
-		Crud.sendResponse(res, this.format.response(null, user.role === 'admin' || user.role === 'contributor'));
+		
+		Crud.sendResponse(res, this.format.response(null, user.role === 'admin'));
 	}
 
 	authenticate(req: express.Request, res: express.Response) {
