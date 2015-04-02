@@ -7,7 +7,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
 		super('User');
 	}
 
-	create(user: models.IUser): Thenable<number> {
+    create(user: models.IUser): Thenable<number> {
 		return this.isUnique(user).then((row: { email: boolean }) => {
 			var errors: models.IValidationErrors = [];
 
@@ -23,7 +23,6 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
 				console.log(errors);
 				throw errors;
 			}
-
 			return super.create(user);
 		});
 	}

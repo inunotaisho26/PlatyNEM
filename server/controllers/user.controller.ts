@@ -23,14 +23,16 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 	create(req: express.Request, res: express.Response, next?: Function) {
 		var user: models.IUser = req.body;
 		user.role = 'visitor';
-		
+
 		return this.model.generateSalt(user.password)
 			.then((salt) => {
 				user.salt = salt;
-				return this.model.generateHashedPassword(user, user.password)
+
+                return this.model.generateHashedPassword(user, user.password);
 			})
 			.then((hash) => {
 				user.password = hash;
+                console.log(user);
 				return this.procedures.create(user);
 			})
 			.then((response) => {
