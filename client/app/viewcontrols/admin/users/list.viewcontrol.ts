@@ -1,9 +1,9 @@
 /// <reference path="../../../../references.d.ts" />
 
 import plat = require('platypus');
-import BaseViewControl = require('../../base.viewcontrol');
+import AdminBaseViewControl = require('../base.viewcontrol');
 
-class ListUsersViewControl extends BaseViewControl {
+class ListUsersViewControl extends AdminBaseViewControl {
 	title = 'All Users';
  	templateString = require('./list.viewcontrol.html');
  	context = {};

@@ -24,6 +24,12 @@ class Toolbar extends plat.ui.TemplateControl {
 			}
 		]
 	};
+
+	// register(control: any) {
+	// 	console.log(control);
+	// }
 }
 
 plat.register.control('toolbar', Toolbar, null, true);
+
+export = Toolbar;

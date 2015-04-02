@@ -16,7 +16,7 @@ export class App extends plat.App {
 			{ pattern: 'admin', view: AdminViewControl }
 		]);
 
-		 config.routingType = config.STATE;
+		config.routingType = config.STATE;
 
 		router.intercept((info) => {
 			return repository.isAdmin();

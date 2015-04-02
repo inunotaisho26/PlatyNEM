@@ -2,9 +2,9 @@
 
 import plat = require('platypus');
 import UserRepository = require('../../../repositories/user.repository');
-import BaseViewControl = require('../../base.viewcontrol');
+import AdminBaseViewControl = require('../base.viewcontrol');
 
-class LogOutViewControl extends BaseViewControl {
+class LogOutViewControl extends AdminBaseViewControl {
 	title = 'Platypi | Logout';
 
 	constructor(private userRepository: UserRepository) {
