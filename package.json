@@ -16,6 +16,7 @@
     "es6-promise": "^2.0.1",
     "express": "^4.12.3",
     "express-session": "^1.10.4",
+    "multer": "^0.1.8",
     "mysql": "^2.5.5",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",

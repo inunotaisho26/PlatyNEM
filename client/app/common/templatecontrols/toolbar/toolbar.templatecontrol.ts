@@ -25,11 +25,17 @@ class Toolbar extends plat.ui.TemplateControl {
 		]
 	};
 
+	constructor(private Promise: plat.async.IPromise) {
+		super();
+	}
+
 	// register(control: any) {
 	// 	console.log(control);
 	// }
 }
 
-plat.register.control('toolbar', Toolbar, null, true);
+plat.register.control('toolbar', Toolbar, [
+	plat.async.IPromise
+], true);
 
 export = Toolbar;

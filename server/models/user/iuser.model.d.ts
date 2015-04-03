@@ -7,5 +7,6 @@ declare module models {
         role: string;
         password: string;
         salt: string;
+        avatar: string;
     }
 }

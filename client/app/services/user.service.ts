@@ -18,7 +18,8 @@ class UserService extends CrudService<server.IUser> {
 
 	login(user: models.IUser, password: string) {
 		return this._post<server.IUser>({
-			data: this._utils.extend({}, user, { password: password })
+			data: this._utils.extend({}, user, { password: password }),
+			contentType: this._http.contentType.MULTIPART_FORM
 		}, 'login');
 	}
 

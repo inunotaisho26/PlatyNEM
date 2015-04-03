@@ -5,6 +5,7 @@ import passport = require('passport');
 import userProcedures = require('../config/db/procedures/users');
 import userModel = require('../models/user/user.model');
 import Crud = require('./crud.controller');
+import fs = require('fs');
 
 var ips: { [key: string]: number; } = {};
 
@@ -22,8 +23,13 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
 	create(req: express.Request, res: express.Response, next?: Function) {
 		var user: models.IUser = req.body;
+		var avatar: any;
 		user.role = 'visitor';
 		
+		if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
+			avatar = req.files.avatar;
+		}
+
 		return this.model.generateSalt(user.password)
 			.then((salt) => {
 				user.salt = salt;
@@ -32,6 +38,14 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 			.then((hash) => {
 				user.password = hash;
 				return this.procedures.create(user);
+			})
+			.then((id: any) => {
+				if (!user.id) {
+					user.id = id;
+				}
+				if (this.utils.isObject(avatar)) {
+					return this.__uploadAvatar(avatar, user, req);
+				}
 			})
 			.then((response) => {
 				this.sendResponse(res, this.format.response(response));
@@ -74,6 +88,20 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 		}
 		
 		Crud.sendResponse(res, this.format.response(null, user.role === 'admin'));
+	}
+
+	private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
+		var errors: models.IValidationErrors = [];
+
+		if (avatar.mimetype.indexOf('image') >= 0) {
+			return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
+				user.avatar = url;
+				req.body = user;
+				return this.procedures.update.call(this.procedures, user);
+			}).then(() => {
+				return this.file.destroy(avatar);
+			});
+		}
 	}
 
 	authenticate(req: express.Request, res: express.Response) {

@@ -1,0 +1,39 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& {
+	#platui > #mixins;
+
+	.users {
+		.flexbox();
+		.flex-wrap(wrap);
+		margin: 0;
+		padding: 0;
+
+		list-style: none;
+
+		& > .user {
+			min-width: 14em;
+			margin: 0 1em 1em 0;
+			background-color: @white;
+			border-radius: @dashboard-radius;
+
+			& > .user-avatar {
+				.background-cover();
+				height: 12em;
+				border-top-right-radius: @dashboard-radius;
+				border-top-left-radius: @dashboard-radius;
+			}
+
+			& > .user-details {
+				padding: 1em @container-horizontal;
+
+				& > .user-name {
+					padding-bottom: 0.5em;
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}

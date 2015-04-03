@@ -8,9 +8,9 @@ class DashboardViewControl extends AdminBaseViewControl {
  	templateString = require('./dashboard.viewcontrol.html');
  	context = {};
 
- 	// navigatedTo() {
- 	// 	console.log(this.toolbar);
- 	// }
+ 	navigatedTo() {
+ 		console.log(this.toolbar);
+ 	}
 }
 
 plat.register.viewControl('dashboard-vc', DashboardViewControl);

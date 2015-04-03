@@ -7,10 +7,19 @@ import path = require('path');
 import auth = require('../controllers/auth.controller');
 import utils = require('./utils/utils');
 
+var multer = require('multer');
+
 var configure = (app: express.Application) => {
 	app.set('views', path.join(__dirname, '../views'));
 	app.set('view engine', 'ejs');
 	app.use(bodyparser.json());
+	app.use(multer({
+		dest: path.join(__dirname, 'client/dist/assets/images/avatars'),
+		onError(err: any, next: Function) {
+			console.log(err);
+			next();
+		}
+	}));
 	app.route('*')
 		.post(auth.populateSession)
 		.put(auth.populateSession)

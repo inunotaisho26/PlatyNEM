@@ -9,9 +9,11 @@ class RegisterViewControl extends BaseViewControl {
 	title = 'Register';
 	templateString = require('./register.viewcontrol.html');
 	context = {
-		firstname: '',
-		lastname: '',
-		email: '',
+		user: {
+			firstname: '',
+			lastname: '',
+			email: ''
+		},
 		password: '',
 		login: LoginViewControl,
 		alerts: <server.ajax.IValidationErrors>[]
@@ -24,11 +26,7 @@ class RegisterViewControl extends BaseViewControl {
 	register() {
 		var context = this.context;
 		
-		this.userRepository.create({
-			firstname: context.firstname,
-			lastname: context.lastname,
-			email: context.email
-		}, context.password).then(() => {
+		this.userRepository.create(context.user, context.password).then(() => {
 			context.alerts.push({ message: 'Account created successfully.' });
 		}, (errors) => {
 			context.alerts = errors;

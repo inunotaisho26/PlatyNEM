@@ -1,1 +1,12 @@
-List Users
+<div class="dashboard-button-row">
+	<plat-button class="button-primary">Add User</plat-button>
+</div>
+<ul class="users" plat-control="plat-foreach" plat-context="users">
+	<li class="user">
+		<div class="user-avatar" style="background-image: url('http://ww3.hdnux.com/photos/20/54/42/4376742/3/628x471.jpg')"></div>
+		<div class="user-details">
+			<div class="user-name">{{name}}</div>
+			<span>{{email}}</span>
+		</div>
+	</li>
+</ul>

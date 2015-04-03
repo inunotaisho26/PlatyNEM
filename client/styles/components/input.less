@@ -59,6 +59,35 @@
 		}
 	}
 
-	/// PlatypusUI Overrides
+	label.avatar-input-label {
+		.flex-vertical-center();
+		position: relative;
+		background-color: @white;
+		height: 3em;
+		width: 100%;
+		cursor: pointer;
+		color: #dddddd;
 
+		input[type="file"] {
+			display: none;
+		}
+
+		&:before {
+			content: 'Choose an Avatar';
+			position: relative;
+			left: @input-padding;
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			right: 0;
+			width: 100% - @input-padding;
+			height: 1px;
+			background-color: lighten(@accent-color, 10%);
+		}
+	}
+
+	/// PlatypusUI Overrides
 }
