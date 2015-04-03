@@ -4,9 +4,10 @@ declare module server {
     }
 
     export interface IUser extends IBaseModel {
-        firstname?: string;
-        lastname?: string;
+        firstname: string;
+        lastname: string;
         email: string;
+        avatar: string;
     }
 
     export interface IPost extends IBaseModel {

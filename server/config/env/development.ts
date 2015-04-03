@@ -1,7 +1,9 @@
 var config = {
 	app: {
-		name: 'Innovation Depot',
-		url: 'http://localhost'
+		name: 'BlogStarter',
+		url: 'http://localhost',
+		dist: './client/dist/',
+		uploads: '/assets'
 	},
 	db: {
 		host: '127.0.0.1',

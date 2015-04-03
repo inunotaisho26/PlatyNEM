@@ -17,6 +17,10 @@ class Controller<P extends Store, M extends BaseModel<any>> extends BaseControll
 		this.procedures = procedures;
 		this.model = model;
 	}
+
+	all(req: express.Request, res: express.Response): Thenable<void> {
+		return this.handleResponse(this.procedures.all(), res);
+	}
 }
 
 export = Controller;

@@ -72,6 +72,13 @@ class Procedures<C, R, U, D> {
 		return [];
 	}
 
+	all(): Thenable<Array<R>> {
+		return this.callProcedure('Get' + this._getAllProcedure(this.procedure), [0,0])
+			.then((results) => {
+				return results[0];
+			});
+	}
+
 	create(obj: any): Thenable<C> {
 		if (!utils.isObject(obj)) {
 			return Promise.resolve(null);
@@ -82,6 +89,17 @@ class Procedures<C, R, U, D> {
 		});
 	}
 
+	update(obj: any): Thenable<U> {
+		if (!utils.isObject(obj)) {
+			return Promise.resolve(null);
+		}
+
+		return this.callProcedure('Update' + this.procedure, [obj.id].concat(this.getArgs(obj)))
+			.then((values: Array<U>) => {
+				return values[1];
+			})
+	}
+
 	read(id: number, ...args: any[]): Thenable<R> {
 		return this._read.apply(this, !!id ? [id].concat(args) : args).then((results: Array<Array<any>>) => {
 			return results[0][0];
@@ -90,6 +108,10 @@ class Procedures<C, R, U, D> {
 
 	protected _read(id: number, ...args: any[]): Thenable<Array<Array<any>>> {
 		return this.callProcedure('Get' + this.procedure, [id].concat(args));
+	}
+
+	protected _getAllProcedure(procedure: string) {
+		return procedure + 's';
 	}
 }
 

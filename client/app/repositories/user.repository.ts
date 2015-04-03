@@ -1,5 +1,4 @@
 /// <reference path="../../references.d.ts" />
-/// <reference path="../models/server.model.d.ts" />
 
 import plat = require('platypus');
 import models = require('../models/user.model');

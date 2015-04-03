@@ -10,11 +10,11 @@
 			<plat-input type="text" plat-bind="user.firstname" placeholder="First Name"></plat-input>
 			<plat-input type="text" plat-bind="user.lastname" placeholder="Last Name"></plat-input>
 			<plat-input type="email" plat-bind="user.email" placeholder="Email"></plat-input>
-			<label class="avatar-input-label">
-				<input type="file" plat-bind="user.avatar" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
+			<label class="avatar-input-label" plat-name="avatarInput">{{avatarPrompt}}
+				<input type="file" plat-bind="user.avatar" plat-change="avatarSelected()" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
 			</label>
 			<plat-input type="password" plat-bind="password" placeholder="Password"></plat-input>
 		</div>
-		<plat-button plat-tap="register" class="button-block button-primary">Sign Up</plat-button>
+		<plat-button plat-tap="register(user, password)" class="button-block button-primary">Sign Up</plat-button>
 	</div>
 </div>

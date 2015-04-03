@@ -3,17 +3,24 @@
 import PromiseStatic = require('es6-promise');
 import fs = require('fs');
 import utils = require('./utils');
+import config = require('../env/all');
+import path = require('path');
 
 var Promise = PromiseStatic.Promise;
 
-export var upload = (tmpPath: string, destPath: string) => {
+export var upload = (tmpPath: string, rename: string) => {
 	return new Promise<string>((resolve, reject) => {
+		var filename = '/avatars/' + rename + path.extname(tmpPath);
+		var destPath = path.join(path.dirname(tmpPath), filename);
+		console.log(filename);
+		console.log(destPath);
+		console.log(path.join(config.app.uploads, filename));
 		fs.rename(tmpPath, destPath, (err) => {
 			if (err) {
+				console.log(err);
 				return reject(err)
 			}
-
-			resolve(destPath);
+			resolve(path.join(config.app.uploads, filename));
 		});
 	});
 };

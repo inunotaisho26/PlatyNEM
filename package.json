@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Innovation Depot website",
   "main": "index.js",
-  "scripts": {
-    "prepublish": "node_modules/.bin/gulp install"
-  },
   "author": "Darion Welch",
   "license": "ISC",
   "dependencies": {

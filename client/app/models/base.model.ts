@@ -8,6 +8,11 @@ export class BaseFactory<T extends IBaseModel> {
 
 	constructor(public canUpdate: boolean = false) { }
 
+	all(data: Array<server.IBaseModel>): Array<T> {
+		data = data || [];
+		return data.map(this.create, this);
+	}
+
 	create(data: server.IBaseModel): T {
 		if (this.utils.isObject(data)) {
 			return this._instantiate(data);

@@ -2,32 +2,33 @@
 
 import plat = require('platypus');
 import AdminBaseViewControl = require('../base.viewcontrol');
+import UserRepository = require('../../../repositories/user.repository');
 
 class ListUsersViewControl extends AdminBaseViewControl {
 	title = 'All Users';
  	templateString = require('./list.viewcontrol.html');
  	context = {
- 		users: [
- 			{
- 				name: 'Darion Welch',
- 				email: 'darion.welch@gmail.com'
- 			},
- 			{
- 				name: 'Emily Nicholson',
- 				email: 'emily@gmail.com'
- 			},
- 			{
- 				name: 'Claire Flowers',
- 				email: 'claire@gmail.com'
- 			},
- 			{
- 				name: 'Matt Landers',
- 				email: 'matt@gmail.com'
- 			}
- 		]
+ 		users: []
  	};
+
+ 	constructor(private userRepository: UserRepository) {
+ 		super();
+ 	}
+
+ 	initialize() {
+ 		var context = this.context;
+ 		
+ 		this.userRepository.all().then((result) => {
+ 			console.log(result);
+ 			context.users = result;
+ 		}, (err) => {
+ 			// handle error
+ 		});
+ 	}
 }
 
-plat.register.viewControl('listusers-vc', ListUsersViewControl);
+plat.register.viewControl('listusers-vc', ListUsersViewControl, [
+	UserRepository
+]);
 
 export = ListUsersViewControl;

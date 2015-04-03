@@ -16,17 +16,22 @@ class RegisterViewControl extends BaseViewControl {
 		},
 		password: '',
 		login: LoginViewControl,
-		alerts: <server.ajax.IValidationErrors>[]
+		alerts: <server.ajax.IValidationErrors>[],
+		avatarPrompt: 'Choose an Avatar'
 	};
 
 	constructor(private userRepository: UserRepository) {
 	    super();
 	}
 
-	register() {
+	avatarSelected(ev) {
+		this.context.avatarPrompt = ev.target.files[0].name;
+	}
+
+	register(user, password) {
 		var context = this.context;
 		
-		this.userRepository.create(context.user, context.password).then(() => {
+		this.userRepository.create(context.user, context.password).then((response) => {
 			context.alerts.push({ message: 'Account created successfully.' });
 		}, (errors) => {
 			context.alerts = errors;

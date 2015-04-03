@@ -13,13 +13,12 @@ class UserService extends CrudService<server.IUser> {
 	register(user: models.IUser, password: string): plat.async.IAjaxThenable<number> {
 		return super.create(this._utils.extend({}, user, {
 			password: password
-		}));
+		}), this._http.contentType.MULTIPART_FORM);
 	}
 
 	login(user: models.IUser, password: string) {
 		return this._post<server.IUser>({
-			data: this._utils.extend({}, user, { password: password }),
-			contentType: this._http.contentType.MULTIPART_FORM
+			data: this._utils.extend({}, user, { password: password })
 		}, 'login');
 	}
 

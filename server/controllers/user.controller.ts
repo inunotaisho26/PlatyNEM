@@ -18,6 +18,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 		router.post(baseRoute, this.create.bind(this));
 		router.post(baseRoute + '/login', this.authenticate.bind(this));
 		router.post(baseRoute + '/logout', this.logout.bind(this));
+		router.get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this));
 		router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
 	}
 
@@ -33,7 +34,6 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 		return this.model.generateSalt(user.password)
 			.then((salt) => {
 				user.salt = salt;
-
                 return this.model.generateHashedPassword(user, user.password);
 			})
 			.then((hash) => {
@@ -94,9 +94,10 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
 	private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
 		var errors: models.IValidationErrors = [];
-
+		console.log('upload avi');
 		if (avatar.mimetype.indexOf('image') >= 0) {
 			return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
+				console.log(url);
 				user.avatar = url;
 				req.body = user;
 				return this.procedures.update.call(this.procedures, user);

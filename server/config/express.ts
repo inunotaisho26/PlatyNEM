@@ -9,12 +9,12 @@ import utils = require('./utils/utils');
 
 var multer = require('multer');
 
-var configure = (app: express.Application) => {
+var configure = (app: express.Application, config: any) => {
 	app.set('views', path.join(__dirname, '../views'));
 	app.set('view engine', 'ejs');
 	app.use(bodyparser.json());
 	app.use(multer({
-		dest: path.join(__dirname, 'client/dist/assets/images/avatars'),
+		dest: path.join(config.app.dist + config.app.uploads),
 		onError(err: any, next: Function) {
 			console.log(err);
 			next();
@@ -39,7 +39,7 @@ var configure = (app: express.Application) => {
 			}
 		}
 	});
-	app.use(express.static(path.join(__dirname, '../../client/dist')));
+	app.use(express.static(path.resolve(config.app.dist)));
 	app.use(configureRouter('/api', express.Router()));
 	app.get('/*', (req: express.Request, res: express.Response) => {
 		res.render('index');
