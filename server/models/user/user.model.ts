@@ -1,7 +1,7 @@
 /// <reference path="../../references.d.ts" />
 
 import Base = require('../base.model');
-import bcrypt = require('bcrypt');
+var bcrypt: any = require('bcrypt-nodejs');
 
 var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 var salt_work_factor = 10;
@@ -13,12 +13,12 @@ class Model extends Base<models.IUser> {
 	            reject();
 	        }
 
-			bcrypt.hash(password, user.salt, (err, hash) => {
-				if (err) {
-					reject(err);
-				}
-				resolve(hash);
-			})
+            bcrypt.hash(password, user.salt, null, (err, hash) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve(hash);
+            });
 		});
 	}
 
