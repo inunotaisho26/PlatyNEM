@@ -4,28 +4,28 @@
 import plat = require('platypus');
 
 export class BaseFactory<T extends IBaseModel> {
-	utils: plat.Utils = plat.acquire(plat.Utils);
+    utils: plat.Utils = plat.acquire(plat.Utils);
 
-	constructor(public canUpdate: boolean = false) { }
+    constructor(public canUpdate: boolean = false) { }
 
-	all(data: Array<server.IBaseModel>): Array<T> {
-		data = data || [];
-		return data.map(this.create, this);
-	}
+    all(data: Array<server.IBaseModel>): Array<T> {
+        data = data || [];
+        return data.map(this.create, this);
+    }
 
-	create(data: server.IBaseModel): T {
-		if (this.utils.isObject(data)) {
-			return this._instantiate(data);
-		}
-	}
+    create(data: server.IBaseModel): T {
+        if (this.utils.isObject(data)) {
+            return this._instantiate(data);
+        }
+    }
 
-	_instantiate(data: server.IBaseModel): T {
-		return <any>{
-			id: data.id
-		};
-	}
+    _instantiate(data: server.IBaseModel): T {
+        return <any>{
+            id: data.id
+        };
+    }
 }
 
 export interface IBaseModel {
-	id?: number;
+    id?: number;
 }

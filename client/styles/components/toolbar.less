@@ -3,38 +3,38 @@
 @import (reference) '../../../node_modules/platypusui/platypus';
 
 & {
-	#platui > #mixins;
+    #platui > #mixins;
 
-	.toolbar {
-		height: 3em;
-		margin-top: @dashboard-margin;
-		.container();
+    .toolbar {
+        height: 3em;
+        margin-top: @dashboard-margin;
+        .container();
 
-		& > ul.toolbar-menu {
-			.flexbox();
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			list-style: none;
-			background-color: @expanse;
-			border-top-right-radius: @dashboard-radius;
-			border-top-left-radius: @dashboard-radius;
+        & > ul.toolbar-menu {
+            .flexbox();
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: @expanse;
+            border-top-right-radius: @dashboard-radius;
+            border-top-left-radius: @dashboard-radius;
 
-			& > li {
-				display: inline-block;
-				height: 100%;
+            & > li {
+                display: inline-block;
+                height: 100%;
 
-				& > a {
-					.flex-vertical-center();
-					height: 100%;
-					width: 100%;
-					padding: 0 1em;
-					text-transform: uppercase;
-					font-size: 95%;
-					font-weight: bold;
-					color: @white;
-				}
-			}
-		}
-	}
+                & > a {
+                    .flex-vertical-center();
+                    height: 100%;
+                    width: 100%;
+                    padding: 0 1em;
+                    text-transform: uppercase;
+                    font-size: 95%;
+                    font-weight: bold;
+                    color: @white;
+                }
+            }
+        }
+    }
 }

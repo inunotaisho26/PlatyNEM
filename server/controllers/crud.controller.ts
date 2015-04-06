@@ -8,19 +8,19 @@ import BaseModel = require('../models/base.model');
 type Store = BaseProcedures<any, any, any, any>;
 
 class Controller<P extends Store, M extends BaseModel<any>> extends BaseController {
-	procedures: P;
-	model: M;
+    procedures: P;
+    model: M;
 
-	constructor(procedures: P, model?: M) {
-		super();
+    constructor(procedures: P, model?: M) {
+        super();
 
-		this.procedures = procedures;
-		this.model = model;
-	}
+        this.procedures = procedures;
+        this.model = model;
+    }
 
-	all(req: express.Request, res: express.Response): Thenable<void> {
-		return this.handleResponse(this.procedures.all(), res);
-	}
+    all(req: express.Request, res: express.Response): Thenable<void> {
+        return this.handleResponse(this.procedures.all(), res);
+    }
 }
 
 export = Controller;

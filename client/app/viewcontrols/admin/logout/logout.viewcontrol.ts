@@ -5,27 +5,27 @@ import UserRepository = require('../../../repositories/user.repository');
 import AdminBaseViewControl = require('../base.viewcontrol');
 
 class LogOutViewControl extends AdminBaseViewControl {
-	title = 'Platypi | Logout';
+    title = 'Platypi | Logout';
 
-	constructor(private userRepository: UserRepository) {
-	    super();
-	}
+    constructor(private userRepository: UserRepository) {
+        super();
+    }
 
-	context = {};
+    context = {};
 
-	navigatedTo() {
-		this.userRepository.logout()
-			.catch(this.utils.noop)
-			.then(() => {
-				this.navigator.navigate('', {
-					replace: true
-				});
-			});
-	}
+    navigatedTo() {
+        this.userRepository.logout()
+            .catch(this.utils.noop)
+            .then(() => {
+                this.navigator.navigate('', {
+                    replace: true
+                });
+            });
+    }
 }
 
 plat.register.viewControl('logout-vc', LogOutViewControl, [
-	UserRepository
+    UserRepository
 ]);
 
 export = LogOutViewControl;

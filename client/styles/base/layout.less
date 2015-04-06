@@ -3,22 +3,22 @@
 @import (reference) '../../../node_modules/platypusui/platypus';
 
 & { 
-	/// Dashboard Container
-	.dashboard-container {
-		.container();
-		height: calc(~'100% - (@{dashboard-margin} + @{navbar-height})');
+    /// Dashboard Container
+    .dashboard-container {
+        .container();
+        height: calc(~'100% - (@{dashboard-margin} + @{navbar-height})');
 
-		& > .dashboard {
-			background-color: @off-white;
-			height: 100%;
-			.container();
-			padding-top: 1em;
-			border-bottom-left-radius: @dashboard-radius;
-			border-bottom-right-radius: @dashboard-radius;
+        & > .dashboard {
+            background-color: @off-white;
+            height: 100%;
+            .container();
+            padding-top: 1em;
+            border-bottom-left-radius: @dashboard-radius;
+            border-bottom-right-radius: @dashboard-radius;
 
-			.dashboard-button-row {
-				margin-bottom: 1em;
-			}
-		}
-	}
+            .dashboard-button-row {
+                margin-bottom: 1em;
+            }
+        }
+    }
 }

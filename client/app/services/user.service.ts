@@ -6,29 +6,29 @@ import models = require('../models/user.model');
 import CrudService = require('./crud.service');
 
 class UserService extends CrudService<server.IUser> {
-	constructor() {
-		super('users');
-	}
+    constructor() {
+        super('users');
+    }
 
-	register(user: models.IUser, password: string): plat.async.IAjaxThenable<number> {
-		return super.create(this._utils.extend({}, user, {
-			password: password
-		}), this._http.contentType.MULTIPART_FORM);
-	}
+    register(user: models.IUser, password: string): plat.async.IAjaxThenable<number> {
+        return super.create(this._utils.extend({}, user, {
+            password: password
+        }), this._http.contentType.MULTIPART_FORM);
+    }
 
-	login(user: models.IUser, password: string) {
-		return this._post<server.IUser>({
-			data: this._utils.extend({}, user, { password: password })
-		}, 'login');
-	}
+    login(user: models.IUser, password: string) {
+        return this._post<server.IUser>({
+            data: this._utils.extend({}, user, { password: password })
+        }, 'login');
+    }
 
-	logout() {
-		return this._post<boolean>('logout');
-	}
+    logout() {
+        return this._post<boolean>('logout');
+    }
 
-	isAdmin() {
-		return this._get<boolean>('admin');
-	}
+    isAdmin() {
+        return this._get<boolean>('admin');
+    }
 };
 
 export = UserService;

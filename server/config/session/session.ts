@@ -9,42 +9,42 @@ import session = require('express-session');
 var Promise = PromiseStatic.Promise;
 
 class SessionStore implements models.session.IStore, models.session.IStoreOptions {
-	pool: mysql.IPool;
-	table: string;
-	procedures: models.session.IStoreProcedures;
-	secret: string;
-	algorithm: string;
+    pool: mysql.IPool;
+    table: string;
+    procedures: models.session.IStoreProcedures;
+    secret: string;
+    algorithm: string;
 
-	constructor(session: { Store: session.Store; }, options: models.session.IStoreOptions) {
-	    if (!utils.isObject(options) || !utils.isObject(options.pool)) {
-	    	throw new Error('SessionStore requires options including a MySQL connection pool.');
-	    }
+    constructor(session: { Store: session.Store; }, options: models.session.IStoreOptions) {
+        if (!utils.isObject(options) || !utils.isObject(options.pool)) {
+            throw new Error('SessionStore requires options including a MySQL connection pool.');
+        }
 
-	    this.pool = options.pool;
-	    this.table = options.table || 'sessions';
-	    this.secret = options.secret;
-	    this.algorithm = options.algorithm;
+        this.pool = options.pool;
+        this.table = options.table || 'sessions';
+        this.secret = options.secret;
+        this.algorithm = options.algorithm;
 
-	    var procedures: models.session.IStoreProcedures = options.procedures || {};
-	    var base = procedures.base ||
-	    	this.table[0].toUpperCase() + this.table.substring(1, this.table.length - 1);
-	    var tableProcedure = this.table[0].toUpperCase() + this.table.substr(1);
+        var procedures: models.session.IStoreProcedures = options.procedures || {};
+        var base = procedures.base ||
+            this.table[0].toUpperCase() + this.table.substring(1, this.table.length - 1);
+        var tableProcedure = this.table[0].toUpperCase() + this.table.substr(1);
 
-	    this.procedures = utils.extend({
-	    	base: base,
-	    	insert: 'Insert' + base,
-	    	read: 'Get' + base,
-	    	destroy: 'Delete' + base,
-	    	clear: 'Clear' + base,
-	    	length: 'Get' + tableProcedure + 'Length'
-	    }, procedures);
+        this.procedures = utils.extend({
+            base: base,
+            insert: 'Insert' + base,
+            read: 'Get' + base,
+            destroy: 'Delete' + base,
+            clear: 'Clear' + base,
+            length: 'Get' + tableProcedure + 'Length'
+        }, procedures);
 
-	    var Store = session.Store;
-	    (<any>SessionStore.prototype).__proto__ = (<any>Store).prototype;
-	    (<any>Store).call(this, options);
-	}
+        var Store = session.Store;
+        (<any>SessionStore.prototype).__proto__ = (<any>Store).prototype;
+        (<any>Store).call(this, options);
+    }
 
-	get(sid: string, cb: (err?: any, value?: any) => void) {
+    get(sid: string, cb: (err?: any, value?: any) => void) {
         return this.call(this.procedures.read, [sid]).then((result: any) => {
             var row = result[0][0] || {},
                 session = row.session,

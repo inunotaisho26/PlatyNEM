@@ -6,36 +6,36 @@ import ListUsersViewControl = require('../../../viewcontrols/admin/users/list.vi
 import DashboardViewControl = require('../../../viewcontrols/admin/dashboard/dashboard.viewcontrol');
 
 class Toolbar extends plat.ui.TemplateControl {
-	templateString = require('./toolbar.templatecontrol.html');
-	hasOwnContext = true;
-	context = {
-		menuItems: [
-			{
-				view: DashboardViewControl,
-				title: 'Dashboard'
-			},
-			{
-				view: ListPostsViewControl,
-				title: 'Blog'
-			},
-			{
-				view: ListUsersViewControl,
-				title: 'Users'
-			}
-		]
-	};
+    templateString = require('./toolbar.templatecontrol.html');
+    hasOwnContext = true;
+    context = {
+        menuItems: [
+            {
+                view: DashboardViewControl,
+                title: 'Dashboard'
+            },
+            {
+                view: ListPostsViewControl,
+                title: 'Blog'
+            },
+            {
+                view: ListUsersViewControl,
+                title: 'Users'
+            }
+        ]
+    };
 
-	constructor(private Promise: plat.async.IPromise) {
-		super();
-	}
+    constructor(private Promise: plat.async.IPromise) {
+        super();
+    }
 
-	// register(control: any) {
-	// 	console.log(control);
-	// }
+    // register(control: any) {
+    //  console.log(control);
+    // }
 }
 
 plat.register.control('toolbar', Toolbar, [
-	plat.async.IPromise
+    plat.async.IPromise
 ], true);
 
 export = Toolbar;

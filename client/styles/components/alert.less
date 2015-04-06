@@ -3,23 +3,23 @@
 @import (reference) '../../../node_modules/platypusui/platypus';
 
 & {
-	#platui > #mixins;
+    #platui > #mixins;
 
-	.alert {
-		.flex-vertical-center();
-		.justify-content(space-between);
-		min-height: 3em;
-		width: 100%;
-		padding: 0 @container-horizontal;
-		color: #ffffff;
+    .alert {
+        .flex-vertical-center();
+        .justify-content(space-between);
+        min-height: 3em;
+        width: 100%;
+        padding: 0 @container-horizontal;
+        color: #ffffff;
 
-		&.alert-danger {
-			.backgroundHexToRGBA(@red, 0.4);
-		}
+        &.alert-danger {
+            .backgroundHexToRGBA(@red, 0.4);
+        }
 
-		& > ul.alert-messages {
-			margin: 0;
-			padding: 1em @container-horizontal;
-		}
-	}
+        & > ul.alert-messages {
+            margin: 0;
+            padding: 1em @container-horizontal;
+        }
+    }
 }

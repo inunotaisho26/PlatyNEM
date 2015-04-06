@@ -9,23 +9,23 @@ import ListUsersViewControl = require('./users/list.viewcontrol');
 import LogoutViewControl = require('./logout/logout.viewcontrol');
 
 class AdminViewControl extends BaseViewControl {
-	templateString = require('./main.viewcontrol.html');
-	context = {};
-	constructor(router: plat.routing.Router) {
-	    super();
+    templateString = require('./main.viewcontrol.html');
+    context = {};
+    constructor(router: plat.routing.Router) {
+        super();
 
-	    router.configure([
-			{ pattern: '', view: DashboardViewControl },
-			{ pattern: 'posts', view: ListPostsViewControl },
-			{ pattern: 'posts/manage/:id', view: ManagePostViewControl },
-	    	{ pattern: 'users', view: ListUsersViewControl },
-	    	{ pattern: 'logout', view: LogoutViewControl }
-	    ]);
-	}
+        router.configure([
+            { pattern: '', view: DashboardViewControl },
+            { pattern: 'posts', view: ListPostsViewControl },
+            { pattern: 'posts/manage/:id', view: ManagePostViewControl },
+            { pattern: 'users', view: ListUsersViewControl },
+            { pattern: 'logout', view: LogoutViewControl }
+        ]);
+    }
 }
 
 plat.register.viewControl('admin-vc', AdminViewControl, [
-	plat.routing.Router
+    plat.routing.Router
 ]);
 
 export = AdminViewControl;

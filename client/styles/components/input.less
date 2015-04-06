@@ -3,86 +3,86 @@
 @import (reference) '../../../node_modules/platypusui/platypus';
 
 & {
-	#platui > #mixins;
+    #platui > #mixins;
 
-	/// Input Constants
-	@border-radius: 3px;
-	@accent-color: @light-grey;
-	@input-padding: 3%;
+    /// Input Constants
+    @border-radius: 3px;
+    @accent-color: @light-grey;
+    @input-padding: 3%;
 
-	.input-container {
-		margin-bottom: 2em;
-		
-		& > div:first-child {
-			border-top-right-radius: @border-radius;
-			border-top-left-radius: @border-radius;
-		}
+    .input-container {
+        margin-bottom: 2em;
+        
+        & > div:first-child {
+            border-top-right-radius: @border-radius;
+            border-top-left-radius: @border-radius;
+        }
 
-		& > div:last-child {
-			border-bottom-right-radius: @border-radius;
-			border-bottom-left-radius: @border-radius;
-		}
+        & > div:last-child {
+            border-bottom-right-radius: @border-radius;
+            border-bottom-left-radius: @border-radius;
+        }
 
-		& > .plat-input {
-			height: 3em;
-			width: 100%;
-			background-color: @white;
-			display: block;
+        & > .plat-input {
+            height: 3em;
+            width: 100%;
+            background-color: @white;
+            display: block;
 
-			.plat-input-container {
-				position: relative;
+            .plat-input-container {
+                position: relative;
 
-				input {
-					position: static;
-					padding: 0 @input-padding;
-					border: none;
-				}
+                input {
+                    position: static;
+                    padding: 0 @input-padding;
+                    border: none;
+                }
 
-				.plat-input-action {
-					display: none;
-				}
+                .plat-input-action {
+                    display: none;
+                }
 
-				&:after {
-					content: '';
-					position: absolute;
-					bottom: 0;
-					right: 0;
-					width: 100% - @input-padding;
-					height: 1px;
-					background-color: lighten(@accent-color, 10%);
-				}
-			}
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 100% - @input-padding;
+                    height: 1px;
+                    background-color: lighten(@accent-color, 10%);
+                }
+            }
 
-			&:last-child .plat-input-container:after {
-				height: 0;
-			}
-		}
-	}
+            &:last-child .plat-input-container:after {
+                height: 0;
+            }
+        }
+    }
 
-	label.avatar-input-label {
-		.flex-vertical-center();
-		position: relative;
-		background-color: @white;
-		height: 3em;
-		padding-left: @input-padding;
-		width: 100%;
-		cursor: pointer;
-		color: #dddddd;
+    label.avatar-input-label {
+        .flex-vertical-center();
+        position: relative;
+        background-color: @white;
+        height: 3em;
+        padding-left: @input-padding;
+        width: 100%;
+        cursor: pointer;
+        color: #dddddd;
 
-		input[type="file"] {
-			display: none;
-		}
+        input[type="file"] {
+            display: none;
+        }
 
-		&:after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			width: 100% - @input-padding;
-			height: 1px;
-			background-color: lighten(@accent-color, 10%);
-		}
-	}
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100% - @input-padding;
+            height: 1px;
+            background-color: lighten(@accent-color, 10%);
+        }
+    }
 
-	/// PlatypusUI Overrides
+    /// PlatypusUI Overrides
 }

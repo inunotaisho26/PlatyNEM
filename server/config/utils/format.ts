@@ -3,45 +3,45 @@
  import utils = require('./utils');
 
  export var response = (err?: any, data?: any): models.IFormattedResponse => {
- 	if (utils.isObject(err)) {
- 		if (err instanceof Error && !utils.isObject(err.errors)) {
- 			return {
- 				status: 500,
- 				body: {
- 					status: 'error',
- 					body: {
- 						status: 'error',
- 						message: err.message,
- 						data: err
- 					}
- 				}
- 			}
- 		}
+    if (utils.isObject(err)) {
+        if (err instanceof Error && !utils.isObject(err.errors)) {
+            return {
+                status: 500,
+                body: {
+                    status: 'error',
+                    body: {
+                        status: 'error',
+                        message: err.message,
+                        data: err
+                    }
+                }
+            }
+        }
 
- 		return {
- 			status: 400,
- 			body: {
- 				status: 'fail',
- 				data: err
- 			}
- 		}
- 	}
+        return {
+            status: 400,
+            body: {
+                status: 'fail',
+                data: err
+            }
+        }
+    }
 
- 	data = filterUser(data, [
- 		'hashedPassword',
- 		'salt',
- 		'resetPasswordToken',
- 		'resetPasswordExpires',
- 		'password'
- 	]);
+    data = filterUser(data, [
+        'hashedPassword',
+        'salt',
+        'resetPasswordToken',
+        'resetPasswordExpires',
+        'password'
+    ]);
 
- 	return {
- 		status: 200,
- 		body: {
- 			status: 'success',
- 			data: data
- 		}
- 	}
+    return {
+        status: 200,
+        body: {
+            status: 'success',
+            data: data
+        }
+    }
  };
 
 var filterUser = (obj: { user?: models.IUser }, properties: Array<string>): { user?: models.IUser }  => {

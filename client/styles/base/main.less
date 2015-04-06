@@ -4,22 +4,22 @@
 // ======== Global Style Resets/Defaults ==========
 
 html, body {
-	height: 100%;
-	box-sizing: border-box;
-	font-color: @font-color;
+    height: 100%;
+    box-sizing: border-box;
+    font-color: @font-color;
 }
 
 *, *:before, *:after {
-	box-sizing: inherit;
+    box-sizing: inherit;
 }
 
 body {
-	background-image:
-	linear-gradient( 45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4) ), 
-	url('assets/images/depot.jpg');
-	.background-cover();
+    background-image:
+    linear-gradient( 45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.4) ), 
+    url('assets/images/depot.jpg');
+    .background-cover();
 }
 
 [plat-control="plat-viewport"] {
-	height: calc(~'100% - @{navbar-height}');
+    height: calc(~'100% - @{navbar-height}');
 }

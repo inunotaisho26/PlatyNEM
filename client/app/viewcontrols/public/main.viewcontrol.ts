@@ -7,21 +7,21 @@ import LoginViewControl = require('./auth/login/login.viewcontrol');
 import RegisterViewControl = require('./auth/register/register.viewcontrol');
 
 class PublicViewControl extends BaseViewControl {
-	templateString = require('./main.viewcontrol.html');
-	context = {};
-	constructor(router: plat.routing.Router) {
-	    super();
+    templateString = require('./main.viewcontrol.html');
+    context = {};
+    constructor(router: plat.routing.Router) {
+        super();
 
-	    router.configure([
-	    	{ pattern: '', view: HomeViewControl },
-	    	{ pattern: 'login', view: LoginViewControl },
-	    	{ pattern: 'register', view: RegisterViewControl }
-	    ]);
-	}
+        router.configure([
+            { pattern: '', view: HomeViewControl },
+            { pattern: 'login', view: LoginViewControl },
+            { pattern: 'register', view: RegisterViewControl }
+        ]);
+    }
 }
 
 plat.register.viewControl('public-vc', PublicViewControl, [
-	plat.routing.Router
+    plat.routing.Router
 ]);
 
 export = PublicViewControl;

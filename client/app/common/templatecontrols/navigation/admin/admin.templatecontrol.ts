@@ -5,17 +5,17 @@ import DashboardViewControl = require('../../../../viewcontrols/admin/dashboard/
 import LogoutViewControl = require('../../../../viewcontrols/admin/logout/logout.viewcontrol');
 
 class AdminNavigation extends plat.ui.TemplateControl {
-	templateString = require('./admin.templatecontrol.html');
-	hasOwnContext = true;
-	context = {
-		logoView: DashboardViewControl,
-		menuItems: [
-			{
-				title: 'Log Out',
-				view: LogoutViewControl
-			}
-		]
-	};
+    templateString = require('./admin.templatecontrol.html');
+    hasOwnContext = true;
+    context = {
+        logoView: DashboardViewControl,
+        menuItems: [
+            {
+                title: 'Log Out',
+                view: LogoutViewControl
+            }
+        ]
+    };
 }
 
 plat.register.control('admin-navigation', AdminNavigation);

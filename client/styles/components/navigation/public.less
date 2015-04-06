@@ -3,49 +3,49 @@
 @import (reference) '../../../../node_modules/platypusui/platypus';
 
 & {
-	#platui > #mixins;
+    #platui > #mixins;
 
-	/// Navbar Constants
-	@background-color: @expanse;
-	@font-color: @white;
-	
-	.navbar {
-		.flex-vertical-center();
-		.justify-content(space-between);
-		.container();
-		height: @navbar-height;
-		border-bottom: 1px solid rgba(255,255,255, 0.2);
-		color: @font-color;
-		
-		& > .navbar-logo {
-			color: @white;
-			font-weight: bold;
-			text-transform: uppercase;
-		}
+    /// Navbar Constants
+    @background-color: @expanse;
+    @font-color: @white;
+    
+    .navbar {
+        .flex-vertical-center();
+        .justify-content(space-between);
+        .container();
+        height: @navbar-height;
+        border-bottom: 1px solid rgba(255,255,255, 0.2);
+        color: @font-color;
+        
+        & > .navbar-logo {
+            color: @white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-		& > ul.navbar-menu {
-			height: 100%;
-			margin: 0;
-			padding: 0;
-			list-style: none;
+        & > ul.navbar-menu {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
 
-			& > li {
-				display: inline-block;
-				margin-left: 0.2em;
-				height: 100%;
+            & > li {
+                display: inline-block;
+                margin-left: 0.2em;
+                height: 100%;
 
-				& > a {
-					.flex-vertical-center();
-					padding: 0 1em;
-					height: 100%;
-					cursor: pointer;
-					color: @font-color;
+                & > a {
+                    .flex-vertical-center();
+                    padding: 0 1em;
+                    height: 100%;
+                    cursor: pointer;
+                    color: @font-color;
 
-					&:hover {
-						background-color: rgba(255,255,255, 0.2);
-					}
-				}
-			}
-		}
-	}	
+                    &:hover {
+                        background-color: rgba(255,255,255, 0.2);
+                    }
+                }
+            }
+        }
+    }   
 }

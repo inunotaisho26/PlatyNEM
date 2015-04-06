@@ -9,33 +9,30 @@ import path = require('path');
 var Promise = PromiseStatic.Promise;
 
 export var upload = (tmpPath: string, rename: string) => {
-	return new Promise<string>((resolve, reject) => {
-		var filename = '/avatars/' + rename + path.extname(tmpPath);
-		var destPath = path.join(path.dirname(tmpPath), filename);
-		console.log(filename);
-		console.log(destPath);
-		console.log(path.join(config.app.uploads, filename));
-		fs.rename(tmpPath, destPath, (err) => {
-			if (err) {
-				console.log(err);
-				return reject(err)
-			}
-			resolve(path.join(config.app.uploads, filename));
-		});
-	});
+    return new Promise<string>((resolve, reject) => {
+        var filename = '/avatars/' + rename + path.extname(tmpPath);
+        var destPath = path.join(path.dirname(tmpPath), filename);
+        
+        fs.rename(tmpPath, destPath, (err) => {
+            if (err) {
+                return reject(err)
+            }
+            resolve(path.join(config.app.uploads, filename));
+        });
+    });
 };
 
 export var destroy = (file: any) => {
-	if (!utils.isObject(file)) {
-		return Promise.resolve(null);
-	}
+    if (!utils.isObject(file)) {
+        return Promise.resolve(null);
+    }
 
-	return new Promise((resolve, reject) => {
-		fs.unlink(file.path, (err) => {
-			if (err) {
-				return reject(err);
-			}
-			resolve(true);
-		});
-	});
+    return new Promise((resolve, reject) => {
+        fs.unlink(file.path, (err) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(true);
+        });
+    });
 };
