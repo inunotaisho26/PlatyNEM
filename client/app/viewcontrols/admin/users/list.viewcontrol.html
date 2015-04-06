@@ -18,7 +18,7 @@
             <div class="user back">
                 <i class="fa fa-lg fa-bars user-menu" plat-tap="hideUserDetails(@index)"></i>
                 <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar}}')">
-                    <label class="change-avatar" plat-name="avatarInput">{{avatarPrompt}}
+                    <label class="change-avatar">
                         <i class="fa fa-camera"></i>
                         <input type="file" plat-bind="@rootContext.editableUser.avatar" plat-change="changeAvatar(@index)" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
                     </label>

@@ -16,7 +16,8 @@ class ListUsersViewControl extends AdminBaseViewControl {
     shownElement: number = null;
 
     constructor(private userRepository: UserRepository,
-        private userFactory: models.UserFactory) {
+        private userFactory: models.UserFactory,
+        private animator: plat.ui.animations.Animator) {
         super();
     }
 
@@ -30,16 +31,14 @@ class ListUsersViewControl extends AdminBaseViewControl {
 
     showUserDetails(index: number) {
         var context = this.context;
-
+        context.editableUser = this.userFactory.create(context.users[index]);
+        
         if (index != this.shownElement) {
             this.hideUserDetails(this.shownElement);
         }
 
-        context.editableUser = this.userFactory.create(context.users[index]);
-
         this.dom.addClass(this.userFlipper.element.children[index], 'flip');
         this.shownElement = index;
-        console.log(context.editableUser);
     }
 
     hideUserDetails(index: number) {
@@ -72,7 +71,8 @@ class ListUsersViewControl extends AdminBaseViewControl {
 
 plat.register.viewControl('listusers-vc', ListUsersViewControl, [
     UserRepository,
-    models.UserFactory
+    models.UserFactory,
+    plat.ui.animations.Animator
 ]);
 
 export = ListUsersViewControl;
