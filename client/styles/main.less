@@ -1,9 +1,26 @@
 /// PlatypusUI
 @import '../../node_modules/platypusui/platypus';
 
+
+// FontAwesome Selected Styles
+@import '../../node_modules/font-awesome/less/variables';
+
+/// Overwrite font directory
+@fa-font-path: './assets/fonts/fontawesome';
+
+@import '../../node_modules/font-awesome/less/mixins';
+@import '../../node_modules/font-awesome/less/path';
+@import '../../node_modules/font-awesome/less/core';
+@import '../../node_modules/font-awesome/less/larger';
+@import '../../node_modules/font-awesome/less/icons';
+
 /// Base
-@import './base/main.less';
-@import './base/layout.less';
+@import './base/main';
+@import './base/layout';
+@import './base/typography';
+
+/// Common
+@import './common/animations';
 
 /// Components
 @import './components/alert';

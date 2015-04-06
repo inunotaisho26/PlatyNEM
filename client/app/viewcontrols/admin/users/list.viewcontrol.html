@@ -1,12 +1,46 @@
 <div class="dashboard-button-row">
-	<plat-button class="button-primary">Add User</plat-button>
+	<plat-button class="button-primary button-small">
+		<i class="fa fa-lg fa-user-plus"></i>
+	</plat-button>
+	<span class="button-sidetext">Add New User</span>
 </div>
-<ul class="users" plat-control="plat-foreach" plat-context="users">
-	<li class="user">
-		<div class="user-avatar" style="background-image: url('{{avatar}}')"></div>
-		<div class="user-details">
-			<div class="user-name">{{firstname + ' ' + lastname}}</div>
-			<span>{{email}}</span>
+<ul class="users" plat-control="plat-foreach" plat-context="users" plat-name="userFlipper">
+	<li class="flip-container user-container">
+		<div class="flipper user-flipper">
+			<div class="user front">
+				<i class="fa fa-lg fa-bars user-menu" plat-tap="showUserDetails(@index)"></i>
+				<div class="user-avatar" style="background-image: url('{{avatar}}')"></div>
+				<div class="user-details">
+					<div class="user-name">{{firstname + ' ' + lastname}}</div>
+					<span>{{email}}</span>
+				</div>
+			</div>
+			<div class="user back">
+				<i class="fa fa-lg fa-bars user-menu" plat-tap="hideUserDetails(@index)"></i>
+				<div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar}}')">
+					<label class="change-avatar" plat-name="avatarInput">{{avatarPrompt}}
+						<i class="fa fa-camera"></i>
+						<input type="file" plat-bind="@rootContext.editableUser.avatar" plat-change="changeAvatar(@index)" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
+					</label>
+				</div>
+				<div class="user-details">
+					<div class="input-container">
+						<plat-input type="text" plat-bind="@rootContext.editableUser.firstname" plat-react="enableSave(@index)" placeholder="First Name"></plat-input>
+						<plat-input type="text" plat-bind="@rootContext.editableUser.lastname" plat-react="enableSave(@index)" placeholder="Last Name"></plat-input>
+						<plat-input type="text" plat-bind="@rootContext.editableUser.email" plat-react="enableSave(@index)" placeholder="Email"></plat-input>
+					</div>
+					<div class="user-options">
+						<span class="user-option user-option-save" plat-tap="updateUser(@context)">
+							<i class="fa fa-check"></i>
+							save
+						</span>
+						<span class="user-option red-text">
+							<i class="fa fa-close"></i>
+							delete
+						</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</li>
 </ul>

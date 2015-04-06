@@ -15,3 +15,42 @@
 .backgroundHexToRGBA(@hex, @alpha) {
 	background-color: rgba(red(@hex), green(@hex), blue(@hex), @alpha);
 }
+
+/// 3D
+
+.perspective(@value) {
+	-webkit-perspective: @value;
+	-moz-perspective: @value;
+	-ms-perspective: @value;
+	-o-perspective: @value;
+	perspective: @value;
+}
+
+.transition(@values) {
+	-webkit-transition: @values;
+	-moz-transition: @values;
+	-ms-transition: @values;
+	-o-transition: @values;
+	transition: @values;
+}
+
+.transform(@values) {
+	-webkit-transform: @values;
+	-moz-transform: @values;
+	-ms-transform: @values;
+	-o-transform: @values;
+	transform: @values;
+}
+
+.transform-style(@values) {
+	-webkit-transform-style: @values;
+	-moz-transform-style: @values;
+	-ms-transform-style: @values;
+	-o-transform-style: @values;
+	transform-style: @values;	
+}
+
+.backface-visibility(@value) {
+	-webkit-backface-visibility: @value;
+	backface-visibility: @value;
+}

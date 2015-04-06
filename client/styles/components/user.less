@@ -10,29 +10,109 @@
 		.flex-wrap(wrap);
 		margin: 0;
 		padding: 0;
-
 		list-style: none;
 
-		& > .user {
-			min-width: 14em;
+		& > .user-container {
+			width: 14em;
+			min-height: 17em;
 			margin: 0 1em 1em 0;
-			background-color: @white;
 			border-radius: @dashboard-radius;
 
-			& > .user-avatar {
-				.background-cover();
-				height: 12em;
-				border-top-right-radius: @dashboard-radius;
-				border-top-left-radius: @dashboard-radius;
+			& > .user-flipper {
+
+				& > .user {
+					
+					& > .user-menu {
+						position: absolute;
+						top: @dashboard-radius * 3;
+						right: @dashboard-radius * 3;
+						color: @white;
+						cursor: pointer;
+						z-index: 5;
+					}
+
+					& > .user-avatar {
+						.background-cover();
+						height: 12em;
+						border-top-right-radius: @dashboard-radius;
+						border-top-left-radius: @dashboard-radius;
+					}
+
+					& > .user-details {
+						padding: 1em 0 1em 0.5em;
+						background-color: @white;
+						border-bottom-right-radius: @dashboard-radius;
+						border-bottom-left-radius: @dashboard-radius;
+
+						& > .input-container {
+							margin: 0;
+
+							& > .plat-input {
+								height: 2.5em;
+							}
+						}
+
+						& > .user-name {
+							padding-bottom: 0.5em;
+							font-weight: bold;
+						}
+
+						& > .user-options {
+							.flex-vertical-center();
+							.justify-content(flex-end);
+							padding-top: 0.3em;
+
+							& > .user-option {
+								text-transform: uppercase;
+								padding-right: 1em;
+								font-size: 83%;
+								color: lighten(@font-color, 40%);
+								font-weight: bold;
+								cursor: pointer;
+							}
+						}
+					}
+
+					&.back {
+						& > .user-avatar {
+							position: relative;
+							height: 7.3em;
+
+							& > .change-avatar {
+								.flex-vertical-center();
+								.justify-content(center);
+								border-top-right-radius: @dashboard-radius;
+								border-top-left-radius: @dashboard-radius;
+								position: absolute;
+								top: 0;
+								bottom: 0;
+								left: 0;
+								right: 0;
+								.backgroundHexToRGBA(@white, 60%);
+								cursor: pointer;
+
+								& > input[type="file"] {
+									display: none;
+								}
+
+								& > i.fa {
+									font-size: 300%;
+									color: @white;
+									opacity: 0.8;
+								}
+							}
+						}
+
+						& > .user-details {
+							padding-top: 0;
+							padding-bottom: 0.7em;
+						}
+					}
+				}
 			}
 
-			& > .user-details {
-				padding: 1em @container-horizontal;
-
-				& > .user-name {
-					padding-bottom: 0.5em;
-					font-weight: bold;
-				}
+			&.value-changed .user-option-save {
+				color: @sea-green!important;
 			}
 		}
 	}
