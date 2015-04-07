@@ -4,11 +4,11 @@
     </plat-button>
     <span class="button-sidetext">Add New User</span>
 </div>
-<ul class="users" plat-control="plat-foreach" plat-context="users" plat-name="userFlipper">
+<ul class="users" plat-control="plat-foreach" plat-context="users" plat-name="flipper">
     <li class="flip-container user-container">
         <div class="flipper user-flipper">
             <div class="user front">
-                <i class="fa fa-lg fa-bars user-menu" plat-tap="showUserDetails(@index)"></i>
+                <i class="fa fa-lg fa-bars user-menu" plat-tap="editUser(@index)"></i>
                 <div class="user-avatar" style="background-image: url('{{avatar}}')"></div>
                 <div class="user-details">
                     <div class="user-name">{{firstname + ' ' + lastname}}</div>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="user back">
-                <i class="fa fa-lg fa-bars user-menu" plat-tap="hideUserDetails(@index)"></i>
+                <i class="fa fa-lg fa-bars user-menu" plat-tap="cancelEdit(@index)"></i>
                 <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar}}')">
                     <label class="change-avatar">
                         <i class="fa fa-camera"></i>

@@ -12,7 +12,7 @@ class ListUsersViewControl extends AdminBaseViewControl {
         users: [],
         editableUser: <models.IUser> {}
     };
-    userFlipper: plat.controls.INamedElement<HTMLLIElement, any>;
+    flipper: plat.controls.INamedElement<HTMLLIElement, any>;
     shownElement: number = null;
 
     constructor(private userRepository: UserRepository,
@@ -29,32 +29,46 @@ class ListUsersViewControl extends AdminBaseViewControl {
         });
     }
 
-    showUserDetails(index: number) {
+    editUser(index) {
+        var userElements = this.flipper.element.children;
         var context = this.context;
-        context.editableUser = this.userFactory.create(context.users[index]);
-        
-        if (index != this.shownElement) {
-            this.hideUserDetails(this.shownElement);
-        }
 
-        this.dom.addClass(this.userFlipper.element.children[index], 'flip');
-        this.shownElement = index;
+        if (!this.utils.isNull(this.shownElement) && this.shownElement != index) { 
+            this.flipUserElement(userElements[this.shownElement].firstElementChild, false).then(() => {
+                context.editableUser = context.users[index];
+                this.shownElement = index;
+                return this.flipUserElement(userElements[index].firstElementChild);
+            })
+        } else {
+            context.editableUser = context.users[index];
+            this.shownElement = index;
+            this.flipUserElement(userElements[index].firstElementChild);
+        }
     }
 
-    hideUserDetails(index: number) {
-        this.dom.removeClass(this.userFlipper.element.children[index], 'flip');
+    cancelEdit(index) {
+        this.flipUserElement(this.flipper.element.children[index].firstElementChild, false).then(() => {
+            this.context.editableUser = null;
+            this.shownElement = null;
+        });
+    }
+    
+    flipUserElement(element: Element, showDetails: boolean = true) {
+        var degrees = showDetails ? '180deg' : '0deg';
+        
+        return this.animator.animate(element, 'plat-transition', {
+            properties: {
+                'transform': 'rotateY(' + degrees + ')'
+            }
+        });
     }
 
     enableSave(index: number) {
-        this.dom.addClass(this.userFlipper.element.children[index], 'value-changed');
+        this.dom.addClass(this.flipper.element.children[index], 'value-changed');
     }
 
     updateUser(user: models.IUser) {
         console.log(user);
-    }
-
-    cancelUpdate() {
-
     }
 
     changeAvatar(index: number, ev) {
