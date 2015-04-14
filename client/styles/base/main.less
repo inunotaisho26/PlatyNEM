@@ -6,7 +6,7 @@
 html, body {
     height: 100%;
     box-sizing: border-box;
-    font-color: @font-color;
+    color: @font-color;
 }
 
 *, *:before, *:after {
@@ -20,6 +20,7 @@ body {
     .background-cover();
 }
 
-[plat-control="plat-viewport"] {
-    height: calc(~'100% - @{navbar-height}');
+[plat-control="plat-viewport"] > [plat-control="admin-vc"] {
+    padding: @dashboard-margin @container-horizontal 0;
+
 }

@@ -6,9 +6,7 @@
     #platui > #mixins;
 
     .toolbar {
-        height: 3em;
-        margin-top: @dashboard-margin;
-        .container();
+        height: @toolbar-height;
 
         & > ul.toolbar-menu {
             .flexbox();
@@ -21,7 +19,6 @@
             border-top-left-radius: @dashboard-radius;
 
             & > li {
-                display: inline-block;
                 height: 100%;
 
                 & > a {

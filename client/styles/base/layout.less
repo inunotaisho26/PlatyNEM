@@ -5,20 +5,24 @@
 & { 
     /// Dashboard Container
     .dashboard-container {
+        height: 100%;
+        background-color: @off-white;
+        border-radius: @dashboard-radius;
+        border-top-left-radius: @dashboard-radius + 1px;
+        border-top-right-radius: @dashboard-radius + 1px;
+    }
+
+    .dashboard {
+        height: auto;
         .container();
-        height: calc(~'100% - (@{dashboard-margin} + @{navbar-height})');
-
-        & > .dashboard {
-            background-color: @off-white;
-            height: 100%;
-            .container();
-            padding-top: 1em;
-            border-bottom-left-radius: @dashboard-radius;
-            border-bottom-right-radius: @dashboard-radius;
-
-            .dashboard-button-row {
-                margin-bottom: 1em;
-            }
+        padding-top: 1em;
+        overflow-y: auto;
+        overflow-x: hidden;
+        
+        .dashboard-button-row {
+            margin-bottom: 1em;
         }
     }
+
+    /// Blog Editor
 }

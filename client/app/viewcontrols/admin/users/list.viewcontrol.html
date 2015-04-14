@@ -1,5 +1,5 @@
 <div class="dashboard-button-row">
-    <plat-button class="button-primary button-small">
+    <plat-button class="button-primary button-small" plat-tap="createUser">
         <i class="fa fa-lg fa-user-plus"></i>
     </plat-button>
     <span class="button-sidetext">Add New User</span>
@@ -9,7 +9,7 @@
         <div class="flipper user-flipper">
             <div class="user front">
                 <i class="fa fa-lg fa-bars user-menu" plat-tap="editUser(@index)"></i>
-                <div class="user-avatar" style="background-image: url('{{avatar}}')"></div>
+                <div class="user-avatar" style="background-image: url('{{avatar || '/assets/avatars/no-avatar.gif'}}')"></div>
                 <div class="user-details">
                     <div class="user-name">{{firstname + ' ' + lastname}}</div>
                     <span>{{email}}</span>
@@ -17,7 +17,7 @@
             </div>
             <div class="user back">
                 <i class="fa fa-lg fa-bars user-menu" plat-tap="cancelEdit(@index)"></i>
-                <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar}}')">
+                <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar || '/assets/avatars/no-avatar.gif'}}')">
                     <label class="change-avatar">
                         <i class="fa fa-camera"></i>
                         <input type="file" plat-bind="@rootContext.editableUser.avatar" plat-change="changeAvatar(@index)" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />

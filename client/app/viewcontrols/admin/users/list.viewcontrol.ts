@@ -71,6 +71,24 @@ class ListUsersViewControl extends AdminBaseViewControl {
         console.log(user);
     }
 
+    createUser() {
+        var context = this.context;
+        var users = context.users;
+
+        users.push({
+            firstname: 'First',
+            lastname: 'Last',
+            email: 'name@example.com'
+        });
+
+        this.utils.defer(() => { 
+            this.flipUserElement(this.flipper.element.children[users.length - 1].firstElementChild).then(() => {
+                context.editableUser = null;
+                this.shownElement = null;
+            });
+        }, 300);
+    }
+
     changeAvatar(index: number, ev) {
         if (ev.target.files && ev.target.files.length === 1) {
             var reader = new FileReader();
