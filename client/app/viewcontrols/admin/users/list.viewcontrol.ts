@@ -21,6 +21,8 @@ class ListUsersViewControl extends AdminBaseViewControl {
         super();
     }
 
+    // Lifecycle Methods
+
     initialize() {
         var context = this.context;
         
@@ -29,65 +31,25 @@ class ListUsersViewControl extends AdminBaseViewControl {
         });
     }
 
-    editUser(index) {
-        var userElements = this.flipper.element.children;
-        var context = this.context;
-
-        if (!this.utils.isNull(this.shownElement) && this.shownElement != index) { 
-            this.flipUserElement(userElements[this.shownElement].firstElementChild, false).then(() => {
-                context.editableUser = context.users[index];
-                this.shownElement = index;
-                return this.flipUserElement(userElements[index].firstElementChild);
-            })
-        } else {
-            context.editableUser = context.users[index];
-            this.shownElement = index;
-            this.flipUserElement(userElements[index].firstElementChild);
-        }
-    }
-
-    cancelEdit(index) {
-        this.flipUserElement(this.flipper.element.children[index].firstElementChild, false).then(() => {
-            this.context.editableUser = null;
-            this.shownElement = null;
-        });
-    }
-    
-    flipUserElement(element: Element, showDetails: boolean = true) {
-        var degrees = showDetails ? '180deg' : '0deg';
-        
-        return this.animator.animate(element, 'plat-transition', {
-            properties: {
-                'transform': 'rotateY(' + degrees + ')'
-            }
-        });
-    }
-
-    enableSave(index: number) {
-        this.dom.addClass(this.flipper.element.children[index], 'value-changed');
-    }
-
-    updateUser(user: models.IUser) {
-        console.log(user);
-    }
+    // Create Methods
 
     createUser() {
         var context = this.context;
         var users = context.users;
+        var userElements = this.flipper.element.children;
 
-        users.push({
+        users.unshift({
             firstname: 'First',
             lastname: 'Last',
             email: 'name@example.com'
         });
 
-        this.utils.defer(() => { 
-            this.flipUserElement(this.flipper.element.children[users.length - 1].firstElementChild).then(() => {
-                context.editableUser = null;
-                this.shownElement = null;
-            });
+        this.utils.defer(() => {
+            this.flipUserElement(0);
         }, 300);
     }
+
+    // Edit Methods
 
     changeAvatar(index: number, ev) {
         if (ev.target.files && ev.target.files.length === 1) {
@@ -98,6 +60,52 @@ class ListUsersViewControl extends AdminBaseViewControl {
             reader.readAsDataURL(ev.target.files[0]);
             this.enableSave(index);
         }
+    }
+
+    enableSave(index: number) {
+        this.dom.addClass(this.flipper.element.children[index], 'value-changed');
+    }
+
+    cancelEdit(index) {
+        this.animateFlip(this.flipper.element.children[index].firstElementChild, false).then(() => {
+            this.context.editableUser = null;
+            this.shownElement = null;
+        });
+    }
+
+    updateUser(user: models.IUser) {
+        console.log(user);
+    }
+
+    // Create/Edit UI Methods
+
+    flipUserElement(usersIndex: number): plat.async.IThenable<any> {
+        var context = this.context;
+        var userElements = this.flipper.element.children;
+        var promise: plat.async.IThenable<any> = this._Promise.resolve();
+
+        if (!this.utils.isNull(this.shownElement) && this.shownElement !== usersIndex) {
+            promise = this.animateFlip(userElements[this.shownElement].firstElementChild, false);
+        }
+
+        return promise
+            .then(() => {
+                context.editableUser = context.users[usersIndex];
+                this.shownElement = usersIndex;
+            })
+            .then(() => {
+                return this.animateFlip(userElements[usersIndex].firstElementChild);
+            });
+    }
+    
+    animateFlip(element: Element, showDetails: boolean = true) {
+        var degrees = showDetails ? '180deg' : '0deg';
+
+        return this.animator.animate(element, 'plat-transition', {
+            properties: {
+                'transform': 'rotateY(' + degrees + ')'
+            }
+        });
     }
 }
 
