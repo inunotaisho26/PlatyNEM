@@ -19,6 +19,14 @@ export class BaseFactory<T extends IBaseModel> {
         }
     }
 
+    update(data: T): T {
+        if (this.canUpdate) {
+            return this.create(data);
+        }
+
+        return data;
+    }
+
     _instantiate(data: server.IBaseModel): T {
         return <any>{
             id: data.id

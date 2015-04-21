@@ -38,7 +38,6 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             })
             .then((hash) => {
                 user.password = hash;
-                console.log(user);
                 return this.procedures.create(user);
             })
             .then((id: any) => {

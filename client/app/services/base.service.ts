@@ -47,6 +47,12 @@ export class BaseService {
         }, options));
     }
 
+    protected _put<T>(...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _put<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _put<T>(options?: any, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T> {
+        return this._do<T>('PUT', options, urlParams);
+    }
+
     protected _buildUrl(...urlParams) {
         var url = '/' + this.baseRoute;
 

@@ -74,7 +74,9 @@ class ListUsersViewControl extends AdminBaseViewControl {
     }
 
     updateUser(user: models.IUser) {
-        console.log(user);
+        this.userRepository.update(user).then((result) => {
+            console.log(result);
+        });
     }
 
     // Create/Edit UI Methods

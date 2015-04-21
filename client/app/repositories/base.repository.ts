@@ -15,6 +15,10 @@ class BaseRepository<F extends baseFactory.BaseFactory<any>,
                 return this.Factory.all(results);
             });
     }
+
+    update(model: any, ...args: any[]): plat.async.IThenable<M> {
+        return this.service.update.apply(this.service, [this.Factory.update(model)].concat(args));
+    }
 }
 
 export = BaseRepository;

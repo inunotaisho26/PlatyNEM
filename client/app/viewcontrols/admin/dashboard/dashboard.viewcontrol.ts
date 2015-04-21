@@ -9,7 +9,7 @@ class DashboardViewControl extends AdminBaseViewControl {
     context = {};
 
     navigatedTo() {
-        console.log(this.toolbar);
+        
     }
 }
 

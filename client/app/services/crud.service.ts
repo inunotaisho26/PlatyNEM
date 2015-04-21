@@ -19,6 +19,13 @@ class CrudService<T extends server.IBaseModel> extends service.BaseService {
         var params = this._utils.isNull(id) ? [] : [id];
         return this._get.apply(this, params.concat(args));
     }
+
+    update(data: any, contentType?: string): plat.async.IThenable<T> {
+        return this._put<T>({
+            contentType: contentType || this._http.contentType.JSON,
+            data: data
+        }, data.id);
+    }
 }
 
 export = CrudService;
