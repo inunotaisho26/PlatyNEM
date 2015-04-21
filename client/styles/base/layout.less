@@ -3,6 +3,8 @@
 @import (reference) '../../../node_modules/platypusui/platypus';
 
 & { 
+    #platui > #mixins;
+
     /// Dashboard Container
     .dashboard-container {
         height: 100%;
@@ -24,5 +26,17 @@
         }
     }
 
-    /// Blog Editor
+    /// Public Pages
+    
+    .plat-viewcontrol, [plat-control="plat-viewport"] {
+        .flexbox();
+        .flex-direction(column);
+        .justify-content(flex-start);
+        .align-items(stretch);
+    }
+
+    .plat-viewcontrol {
+        height: auto;
+        .flex(1);
+    }
 }
