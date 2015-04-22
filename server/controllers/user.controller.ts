@@ -18,6 +18,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.post(baseRoute, this.create.bind(this));
         router.post(baseRoute + '/login', this.authenticate.bind(this));
         router.post(baseRoute + '/logout', this.logout.bind(this));
+        router.put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this));
         router.get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this));
         router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
     }
@@ -53,6 +54,13 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             }, (err: models.IValidationErrors) => {
                 this.sendResponse(res, this.format.response(err));
             });
+    }
+
+    update(req: express.Request, res: express.Response) {
+        var user: models.IUser = req.body;
+        var avatar: any;
+
+        console.log(user);
     }
 
     login(user: models.IUser, req: express.Request) {

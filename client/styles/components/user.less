@@ -13,8 +13,8 @@
         list-style: none;
 
         & > .user-container {
-            width: 14em;
-            min-height: 17em;
+            width: 16em;
+            min-height: 22em;
             margin: 0 1em 1em 0;
             border-radius: @dashboard-radius;
 
@@ -69,6 +69,10 @@
                                 color: lighten(@font-color, 40%);
                                 font-weight: bold;
                                 cursor: pointer;
+
+                                & > i.fa {
+                                    margin-right: 0.3em;
+                                }
                             }
                         }
                     }
@@ -76,7 +80,7 @@
                     &.back {
                         & > .user-avatar {
                             position: relative;
-                            height: 7.3em;
+                            height: 5.5em;
 
                             & > .change-avatar {
                                 .flex-vertical-center();

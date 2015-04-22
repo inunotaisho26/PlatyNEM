@@ -66,10 +66,16 @@ class ListUsersViewControl extends AdminBaseViewControl {
         this.dom.addClass(this.flipper.element.children[index], 'value-changed');
     }
 
-    cancelEdit(index) {
+    cancelEdit(index, user) {
+        var context = this.context;
+
         this.animateFlip(this.flipper.element.children[index].firstElementChild, false).then(() => {
-            this.context.editableUser = null;
+            context.editableUser = null;
             this.shownElement = null;
+        }).then(() => {
+            if (this.utils.isNull(user.id)) {
+                context.users.splice(0, 1);
+            }
         });
     }
 

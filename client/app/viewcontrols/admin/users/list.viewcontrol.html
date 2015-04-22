@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="user back">
-                <i class="fa fa-lg fa-bars user-menu" plat-tap="cancelEdit(@index)"></i>
+                <i class="fa fa-lg fa-close user-menu" plat-tap="cancelEdit(@index, @context)" ></i>
                 <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar || '/assets/avatars/no-avatar.gif'}}')">
                     <label class="change-avatar">
                         <i class="fa fa-camera"></i>
@@ -27,16 +27,16 @@
                     <div class="input-container">
                         <plat-input type="text" plat-bind="@rootContext.editableUser.firstname" plat-react="enableSave(@index)" placeholder="First Name"></plat-input>
                         <plat-input type="text" plat-bind="@rootContext.editableUser.lastname" plat-react="enableSave(@index)" placeholder="Last Name"></plat-input>
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.email" plat-react="enableSave(@index)" placeholder="Email"></plat-input>
+                        <plat-input type="text" plat-bind="@rootContext.editableUser.password" plat-react="enableSave(@index)" placeholder="Password"></plat-input>
+                        <plat-input type="text" plat-bind="@rootContext.editableUser.newpassword" plat-react="enableSave(@index)" placeholder="New Password" plat-visible="{{!!@rootContext.editableUser.id}}"></plat-input>
+                        <plat-input type="text" plat-bind="@rootContext.editableUser.confirmpassword" plat-react="enableSave(@index)" placeholder="Confirm Password"></plat-input>
                     </div>
                     <div class="user-options">
                         <span class="user-option user-option-save" plat-tap="updateUser(@context)">
-                            <i class="fa fa-check"></i>
-                            save
+                            <i class="fa fa-check"></i>save
                         </span>
                         <span class="user-option red-text">
-                            <i class="fa fa-close"></i>
-                            delete
+                            <i class="fa fa-close"></i>delete
                         </span>
                     </div>
                 </div>
