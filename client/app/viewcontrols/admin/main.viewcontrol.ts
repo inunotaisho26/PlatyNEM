@@ -5,7 +5,8 @@ import BaseViewControl = require('../base.viewcontrol');
 import DashboardViewControl = require('./dashboard/dashboard.viewcontrol');
 import ListPostsViewControl = require('./blog/list/list.viewcontrol');
 import ManagePostViewControl = require('./blog/manage/manage.viewcontrol');
-import ListUsersViewControl = require('./users/list.viewcontrol');
+import ListUsersViewControl = require('./users/list/list.viewcontrol');
+import EditUsersViewControl = require('./users/edit/edituser.viewcontrol');
 import LogoutViewControl = require('./logout/logout.viewcontrol');
 
 class AdminViewControl extends BaseViewControl {
@@ -19,6 +20,7 @@ class AdminViewControl extends BaseViewControl {
             { pattern: 'posts', view: ListPostsViewControl },
             { pattern: 'posts/manage/:id', view: ManagePostViewControl },
             { pattern: 'users', view: ListUsersViewControl },
+            { pattern: 'users/edit/:id', view: EditUsersViewControl },
             { pattern: 'logout', view: LogoutViewControl }
         ]);
     }

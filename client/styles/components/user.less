@@ -13,8 +13,8 @@
         list-style: none;
 
         & > .user-container {
-            width: 16em;
-            min-height: 22em;
+            width: 14em;
+            min-height: 18em;
             margin: 0 1em 1em 0;
             border-radius: @dashboard-radius;
 
@@ -33,7 +33,7 @@
 
                     & > .user-avatar {
                         .background-cover();
-                        height: 12em;
+                        height: 10em;
                         border-top-right-radius: @dashboard-radius;
                         border-top-left-radius: @dashboard-radius;
                     }
@@ -44,7 +44,7 @@
                         border-bottom-right-radius: @dashboard-radius;
                         border-bottom-left-radius: @dashboard-radius;
 
-                        & > .input-container {
+                        .input-container {
                             margin: 0;
 
                             & > .plat-input {
@@ -57,30 +57,13 @@
                             font-weight: bold;
                         }
 
-                        & > .user-options {
-                            .flex-vertical-center();
-                            .justify-content(flex-end);
-                            padding-top: 0.3em;
 
-                            & > .user-option {
-                                text-transform: uppercase;
-                                padding-right: 1em;
-                                font-size: 83%;
-                                color: lighten(@font-color, 40%);
-                                font-weight: bold;
-                                cursor: pointer;
-
-                                & > i.fa {
-                                    margin-right: 0.3em;
-                                }
-                            }
-                        }
                     }
 
                     &.back {
                         & > .user-avatar {
                             position: relative;
-                            height: 5.5em;
+                            height: 8em;
 
                             & > .change-avatar {
                                 .flex-vertical-center();
@@ -118,6 +101,35 @@
             &.value-changed .user-option-save {
                 color: @sea-green!important;
             }
+        }
+    }
+
+    ul.user-options {
+        .flex-vertical-center();
+        .justify-content(flex-end);
+        padding: 0.5em 0 0;
+        margin: 0;
+        list-style: none;
+
+        & > li {
+            text-transform: uppercase;
+            padding-right: 1em;
+            font-size: 83%;
+            color: lighten(@font-color, 40%);
+            font-weight: bold;
+            cursor: pointer;
+
+            & > i.fa {
+                margin-right: 0.3em;
+            }
+        }
+
+        &.user-options-center {
+            .justify-content(center);
+        }
+
+        &.user-options-left {
+            .justify-content(flex-start);
         }
     }
 }

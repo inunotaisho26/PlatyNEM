@@ -1,16 +1,19 @@
-/// <reference path="../../../../references.d.ts" />
+/// <reference path="../../../../../references.d.ts" />
 
 import plat = require('platypus');
-import AdminBaseViewControl = require('../base.viewcontrol');
-import UserRepository = require('../../../repositories/user.repository');
-import models = require('../../../models/user.model');
+import AdminBaseViewControl = require('../../base.viewcontrol');
+import EditUserViewControl = require('../edit/edituser.viewcontrol');
+import UserRepository = require('../../../../repositories/user.repository');
+import models = require('../../../../models/user.model');
 
 class ListUsersViewControl extends AdminBaseViewControl {
     title = 'All Users';
     templateString = require('./list.viewcontrol.html');
     context = {
         users: [],
-        editableUser: <models.IUser> {}
+        editableUser: <models.IUser> {},
+        editUser: true,
+        roles: [ 'admin', 'visitor' ]
     };
     flipper: plat.controls.INamedElement<HTMLLIElement, any>;
     shownElement: number = null;
@@ -41,7 +44,8 @@ class ListUsersViewControl extends AdminBaseViewControl {
         users.unshift({
             firstname: 'First',
             lastname: 'Last',
-            email: 'name@example.com'
+            email: 'name@example.com',
+            role: 'visitor'
         });
 
         this.utils.defer(() => {
@@ -79,9 +83,19 @@ class ListUsersViewControl extends AdminBaseViewControl {
         });
     }
 
-    updateUser(user: models.IUser) {
+    selectUser(id: string) {
+        this.navigator.navigate(EditUserViewControl, {
+            parameters: {
+                id: id
+            }
+        });
+    }
+
+    updateUser(user: models.IUser, index: number) {
         this.userRepository.update(user).then((result) => {
             console.log(result);
+            this.context.users[index] = this.utils.extend({}, user, true);
+            console.log(this.context.users);
         });
     }
 
@@ -99,6 +113,7 @@ class ListUsersViewControl extends AdminBaseViewControl {
         return promise
             .then(() => {
                 context.editableUser = context.users[usersIndex];
+                console.log(context.editableUser);
                 this.shownElement = usersIndex;
             })
             .then(() => {
@@ -114,6 +129,10 @@ class ListUsersViewControl extends AdminBaseViewControl {
                 'transform': 'rotateY(' + degrees + ')'
             }
         });
+    }
+
+    setEditUser(status: boolean) {
+        this.context.editUser = status;
     }
 }
 

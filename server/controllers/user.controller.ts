@@ -21,6 +21,65 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this));
         router.get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this));
         router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
+        router.get(baseRoute + '/:id', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this));
+    }
+
+    private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
+        var user = req.body;
+        var avatar: any;
+        var promise: Thenable<any> = this.Promise.resolve();
+
+        console.log(user);
+
+        if (!this.utils.isNull(user.newpassword) && !this.utils.isNull(user.confirmpassword)) {
+            if (user.newpassword !== user.confirmpassword) {
+                return this.Promise.reject('Passwords do not match.');
+            }
+
+            if (!this.utils.isString(user.password) || user.password.length === 0) {
+                return this.Promise.reject('Invalid password.');
+            }
+
+            console.log('gets new password');
+
+            promise = this.model.authenticate(user, user.password).then((valid: boolean) => {
+                if (valid) {
+                    return this.model.generateSalt(user.newpassword)
+                }
+
+                return this.Promise.reject('Password incorrect.');
+            }).then((salt) => {
+                user.salt = salt;
+                return this.model.generateHashedPassword(user, user.newpassword);
+            }).then((hash) => {
+                user.password = hash;
+                return;
+            });
+        }
+
+        if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
+            avatar = req.files.avatar;
+        }
+
+        return promise
+            .then(() => {
+                return method.call(this.procedures, user);
+            })
+            .then((id: any) => {
+                if (!user.id) {
+                    user.id = id;
+                }
+
+                if (this.utils.isObject(avatar)) {
+                    return this.__uploadAvatar(avatar, user, req);
+                }
+            })
+            .then(null, (errors) => {
+                throw errors;
+            })
+            .then(() => {
+                return user;
+            });
     }
 
     create(req: express.Request, res: express.Response, next?: Function) {
@@ -60,7 +119,15 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         var user: models.IUser = req.body;
         var avatar: any;
 
-        console.log(user);
+        console.log('update');
+
+        return this.__createOrUpdate(req, this.procedures.update).then((result) => {
+            console.log(result);
+            return;
+        }, (err: string) => {
+            console.log(err);
+            return;
+        });
     }
 
     login(user: models.IUser, req: express.Request) {

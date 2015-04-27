@@ -7,6 +7,15 @@ import CrudService = require('../services/crud.service');
 class BaseRepository<F extends baseFactory.BaseFactory<any>,
     S extends CrudService<any>, M extends baseFactory.IBaseModel> {
 
+    protected static _inject: any = {
+        _Promise: plat.async.IPromise,
+        _utils: plat.Utils,
+        _cacheFactory: plat.storage.ICacheFactory
+    };
+
+    protected _Promise: plat.async.IPromise;
+    protected _utils: plat.Utils;
+
     constructor(public Factory: F, public service: S) { }
 
     all(...args: any[]): plat.async.IThenable<Array<M>> {
@@ -14,6 +23,20 @@ class BaseRepository<F extends baseFactory.BaseFactory<any>,
             .then((results: Array<any>) => {
                 return this.Factory.all(results);
             });
+    }
+
+    one(id: number, ...args: any[]): plat.async.IThenable<M>;
+    one(id: string, ...args: any[]): plat.async.IThenable<M>;
+    one(id: any, ...args: any[]): plat.async.IThenable<M> {
+        var idNum = Number(id);
+        
+        if (isNaN(idNum)) {
+            return this._Promise.resolve(null);
+        }
+
+        return this.service.read.apply(this.service, [idNum].concat(args)).then((model: any) => {
+            return this.Factory.create(model);
+        });
     }
 
     update(model: any, ...args: any[]): plat.async.IThenable<M> {

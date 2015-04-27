@@ -24,21 +24,8 @@
                     </label>
                 </div>
                 <div class="user-details">
-                    <div class="input-container">
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.firstname" plat-react="enableSave(@index)" placeholder="First Name"></plat-input>
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.lastname" plat-react="enableSave(@index)" placeholder="Last Name"></plat-input>
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.password" plat-react="enableSave(@index)" placeholder="Password"></plat-input>
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.newpassword" plat-react="enableSave(@index)" placeholder="New Password" plat-visible="{{!!@rootContext.editableUser.id}}"></plat-input>
-                        <plat-input type="text" plat-bind="@rootContext.editableUser.confirmpassword" plat-react="enableSave(@index)" placeholder="Confirm Password"></plat-input>
-                    </div>
-                    <div class="user-options">
-                        <span class="user-option user-option-save" plat-tap="updateUser(@context)">
-                            <i class="fa fa-check"></i>save
-                        </span>
-                        <span class="user-option red-text">
-                            <i class="fa fa-close"></i>delete
-                        </span>
-                    </div>
+                    <plat-button class="button-primary" plat-tap="selectUser(id)">Edit</plat-button>
+                    <plat-button class="button-primary">Delete</plat-button>
                 </div>
             </div>
         </div>

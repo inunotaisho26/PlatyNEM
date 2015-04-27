@@ -2,7 +2,7 @@
 
 import plat = require('platypus');
 import ListPostsViewControl = require('../../../viewcontrols/admin/blog/list/list.viewcontrol');
-import ListUsersViewControl = require('../../../viewcontrols/admin/users/list.viewcontrol');
+import ListUsersViewControl = require('../../../viewcontrols/admin/users/list/list.viewcontrol');
 import DashboardViewControl = require('../../../viewcontrols/admin/dashboard/dashboard.viewcontrol');
 
 class Toolbar extends plat.ui.TemplateControl {

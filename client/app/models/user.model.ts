@@ -11,7 +11,8 @@ export class UserFactory extends base.BaseFactory<IUser> {
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
-            avatar: user.avatar
+            avatar: user.avatar,
+            role: user.role
         }
     }
 }
@@ -21,6 +22,7 @@ export interface IUser extends base.IBaseModel {
     lastname: string;
     email: string;
     avatar?: string;
+    role?: string;
 }
 
 plat.register.injectable('userFactory', UserFactory, null, plat.register.injectable.FACTORY);

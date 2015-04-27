@@ -21,42 +21,7 @@
         & > div:last-child {
             border-bottom-right-radius: @border-radius;
             border-bottom-left-radius: @border-radius;
-        }
-
-        & > .plat-input {
-            height: 3em;
-            width: 100%;
-            background-color: @white;
-            display: block;
-
-            .plat-input-container {
-                position: relative;
-
-                input {
-                    position: static;
-                    padding: 0 @input-padding;
-                    border: none;
-                }
-
-                .plat-input-action {
-                    display: none;
-                }
-
-                &:after {
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    width: 100% - @input-padding;
-                    height: 1px;
-                    background-color: lighten(@accent-color, 10%);
-                }
-            }
-
-            &:last-child .plat-input-container:after {
-                height: 0;
-            }
-        }
+        }        
     }
 
     label.avatar-input-label {
@@ -85,4 +50,47 @@
     }
 
     /// PlatypusUI Overrides
+
+    .plat-select {
+        width: 100%;
+        border-width: 0;
+        background-color: @white;
+        height: 3em;
+        padding: 0 @input-padding;
+    }
+
+    .plat-input {
+        height: 3em;
+        width: 100%;
+        background-color: @white;
+        display: block;
+
+        .plat-input-container {
+            position: relative;
+
+            input {
+                position: static;
+                padding: 0 @input-padding;
+                border: none;
+            }
+
+            .plat-input-action {
+                display: none;
+            }
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 100% - @input-padding;
+                height: 1px;
+                background-color: lighten(@accent-color, 10%);
+            }
+        }
+
+        &:last-child .plat-input-container:after {
+            height: 0;
+        }
+    }
 }

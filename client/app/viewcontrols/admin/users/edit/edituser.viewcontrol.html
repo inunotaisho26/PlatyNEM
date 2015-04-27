@@ -1,0 +1,10 @@
+<p>User Information</p>
+<div class="input-container">
+    <plat-input type="text" plat-bind="user.firstname" plat-react="enableSave" placeholder="First Name"></plat-input>
+    <plat-input type="text" plat-bind="user.lastname" plat-react="enableSave" placeholder="Last Name"></plat-input>
+    <plat-input type="text" plat-bind="user.email" plat-react="enableSave" placeholder="Email"></plat-input>
+    <plat-select plat-bind="user.role" plat-react="enableSave" plat-context="roles">
+        <option value="{{@context}}">{{@context}}</option>
+    </plat-select>
+</div>
+<plat-button class="button-block button-primary" plat-name="saveButton" disabled plat-tap="updateUser(user)">Save Changes</plat-button>
