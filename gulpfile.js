@@ -1,10 +1,11 @@
-var gulp = require('gulp');
 var browserify = require('browserify');
-var stringify = require('stringify');
-var source = require('vinyl-source-stream');
-var nodemon = require('gulp-nodemon');
-var typescript = require('gulp-tsc');
+var gulp = require('gulp');
 var less = require('gulp-less');
+var nodemon = require('gulp-nodemon');
+var source = require('vinyl-source-stream');
+var stringify = require('stringify');
+var typescript = require('gulp-tsc');
+var tsd = require('gulp-tsd');
 
 var root = require('path').normalize(__dirname);
 var paths = {
@@ -69,4 +70,19 @@ gulp.task('nodemon', function() {
     })
 });
 
+gulp.task('tsd:client', function(callback) {
+    tsd({
+        command: 'reinstall',
+        config: './tsd.client.json'
+    }, callback);
+});
+
+gulp.task('tsd:server', function(callback) {
+    tsd({
+        command: 'reinstall',
+        config: './tsd.server.json'
+    }, callback);
+});
+
 gulp.task('default', ['watch', 'nodemon']);
+gulp.task('postinstall', ['tsd:client', 'tsd:server']);

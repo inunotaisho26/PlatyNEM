@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Darion Welch",
   "license": "ISC",
+  "scripts": {
+    "postinstall": "gulp postinstall"
+  },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.12.2",
@@ -28,7 +31,7 @@
     "gulp-less": "^3.0.2",
     "gulp-nodemon": "^2.0.2",
     "gulp-tsc": "^0.9.3",
-    "gulp-tsd": "0.0.4",
+    "gulp-tsd": "latest",
     "stringify": "^3.1.0",
     "vinyl-source-stream": "^1.1.0"
   }
