@@ -85,4 +85,4 @@ gulp.task('tsd:server', function(callback) {
 });
 
 gulp.task('default', ['watch', 'nodemon']);
-gulp.task('postinstall', ['tsd:client', 'tsd:server', 'ts:client', 'ts:server']);
+gulp.task('postinstall', ['tsd:client', 'tsd:server', 'ts:client', 'ts:server', 'less']);
