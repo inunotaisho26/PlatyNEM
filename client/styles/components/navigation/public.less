@@ -7,18 +7,16 @@
 
     /// Navbar Constants
     @background-color: @expanse;
-    @font-color: @white;
     
     .navbar {
         .flex-vertical-center();
         .justify-content(space-between);
         .container();
         height: @navbar-height;
-        border-bottom: 1px solid rgba(255,255,255, 0.2);
+        border-bottom: 1px solid rgba(0,0,0, 0.2);
         color: @font-color;
         
         & > .navbar-logo {
-            color: @white;
             font-weight: bold;
             text-transform: uppercase;
         }
@@ -42,7 +40,7 @@
                     color: @font-color;
 
                     &:hover {
-                        background-color: rgba(255,255,255, 0.2);
+                        background-color: rgba(0,0,0, 0.2);
                     }
                 }
             }
