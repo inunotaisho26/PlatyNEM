@@ -1,0 +1,40 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& {
+    #platui > #mixins;
+
+	/// ============ Colpick Constants ==============
+
+	@input-border: lighten(@darkmode-background-offset, 10%);
+	
+	/// ============ Colpick Overrides ==============
+	
+	.colpick {
+		background-color: transparent;
+		border: none;
+	}
+	
+	.colpick_field_letter {
+		width: 18px;
+	}
+	
+	.colpick_color {
+		outline-color: @darkmode-background-offset;
+	}
+	
+	.colpick_hue, .colpick_new_color {
+		border-color: @darkmode-background-offset;
+	}
+	
+	.colpick_field, .colpick_hex_field, .colpick_field_letter {
+		background-color: @darkmode-background-offset;
+		border-color: @input-border;
+		color: @darkmode-text;
+	
+		input {
+			color: @darkmode-text;
+		}
+	}
+}

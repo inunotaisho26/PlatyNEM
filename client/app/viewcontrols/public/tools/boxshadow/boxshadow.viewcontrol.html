@@ -1,0 +1,86 @@
+<div class="workspace">
+	<div class="workspace-left-drawer">
+		<ul class="workspace-options">
+			<li class="workspace-item-inline">
+				<span class="workspace-option workspace-option-name">inset</span>
+				<span class="workspace-option workspace-option-control">
+					<plat-toggle plat-bind="controlPanel.inset" plat-change="setProperty()"></plat-toggle>
+				</span>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">offset X:</div>
+					<div class="workspace-option-value">{{controlPanel.offsetX}}px</div>
+				</div>
+				<div class="workspace-option workspace-option-control">
+					<plat-slider class="slider-primary" plat-bind="controlPanel.offsetX" plat-options="{ min: -50, max: 50 }" plat-react="setProperty()"></plat-slider>
+				</div>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">offset Y:</div>
+					<div class="workspace-option-value">{{controlPanel.offsetY}}px</div>
+				</div>
+				<div class="workspace-option workspace-option-control">
+					<plat-slider class="slider-primary" plat-bind="controlPanel.offsetY" plat-options="{ min: -50, max: 50 }" plat-react="setProperty()"></plat-slider>
+				</div>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">blur radius:</div>
+					<div class="workspace-option-value">{{controlPanel.blurRadius}}px</div>
+				</div>
+				<div class="workspace-option workspace-option-control">
+					<plat-slider class="slider-primary" plat-bind="controlPanel.blurRadius" plat-react="setProperty()"></plat-slider>
+				</div>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">spread radius:</div>
+					<div class="workspace-option-value">{{controlPanel.spreadRadius}}px</div>
+				</div>
+				<div class="workspace-option workspace-option-control">
+					<plat-slider class="slider-primary" plat-bind="controlPanel.spreadRadius" plat-react="setProperty()"></plat-slider>
+				</div>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">transparency:</div>
+					<div class="workspace-option-value">{{controlPanel.rgba.a}}</div>
+				</div>
+				<div class="workspace-option workspace-option-control">
+					<plat-slider class="slider-primary" plat-bind="alphaAlias" plat-react="setAlpha()" plat-options="{ min: 0, max: 100 }"></plat-slider>
+				</div>
+			</li>
+			<li>
+				<div class="workspace-option">
+					<div class="workspace-option-name">color</div>
+				</div>
+				<div class="workspace-option workspace-option-control cf">
+					<div class="workspace-option-colorpicker" data-target="colpick" id="colpick"></div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="workspace-demo">
+		<div class="workspace-tab-menu">
+			<div class="workspace-tabs">
+				<span class="new-tab tab" plat-tap="createEffect()">
+					<i class="fa fa-plus"></i>
+				</span>
+				<ul class="tabs-list" plat-control="plat-foreach" plat-context="effects">
+					<li class="tab tab-existent {{ @index === selectedIndex ? 'tab-selected' : '' }}" plat-tap="selectEffect(@index)">shadow {{@index + 1}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="workspace-demo-shape" plat-name="demoShape"></div>
+	</div>
+	<div class="workspace-bottom-drawer">
+		<div class="workspace-tab-menu">
+			
+		</div>
+		<ul class="workspace-css" plat-control="plat-foreach" plat-context="effects">
+			<li>{{inlineStyle}}</li>
+		</ul>
+	</div>
+</div>

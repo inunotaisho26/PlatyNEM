@@ -1,0 +1,36 @@
+@import '../common/variables';
+@import '../common/mixins';
+@import (reference) '../../../node_modules/platypusui/platypus';
+
+& {
+    #platui > #mixins;
+
+	@unfilled: @darkmode-background-offset;
+	@knob-color: @darkmode-green;
+	@knob-color-offset: darken(@knob-color, 10%);
+	@offset-color: @darkmode-green;
+	
+	/// ====== Plat-Slider Overrides ======
+	
+	.plat-slider {
+		.plat-slider-container {
+			background-color: @unfilled;
+	
+			.plat-slider-offset {
+				.plat-knob {
+					background-color: @knob-color;
+					border-color: @knob-color-offset;
+				}
+			}
+		}
+	}
+	
+	.plat-slider.slider-primary {
+		.plat-slider-container {
+			.plat-slider-offset {
+				background-color: @offset-color;
+				box-shadow: none;
+			}
+		}
+	}
+}

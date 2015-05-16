@@ -6,31 +6,31 @@
   "bundle": "server/typings/tsd.d.ts",
   "installed": {
     "express/express.d.ts": {
-      "commit": "bba34156c1eaad788fa8996f7d30b54c4fce5ffe"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "node/node.d.ts": {
-      "commit": "bba34156c1eaad788fa8996f7d30b54c4fce5ffe"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "mysql/mysql.d.ts": {
-      "commit": "0c2ee8583c9a27873d7c40cc79fdcb79b5868150"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "es6-promise/es6-promise.d.ts": {
-      "commit": "0c2ee8583c9a27873d7c40cc79fdcb79b5868150"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "passport/passport.d.ts": {
-      "commit": "0c2ee8583c9a27873d7c40cc79fdcb79b5868150"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "passport-local/passport-local.d.ts": {
-      "commit": "0c2ee8583c9a27873d7c40cc79fdcb79b5868150"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "body-parser/body-parser.d.ts": {
-      "commit": "be0b6b394f77a59e192ad7cfec18078706e44db5"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "express-session/express-session.d.ts": {
-      "commit": "02a93db66ab297f542db1ec9f91de9935f7ff567"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     },
     "memory-cache/memory-cache.d.ts": {
-      "commit": "68114f9ff37de0f92c94126b6e0164e026a1737a"
+      "commit": "7d2f0aa875cc3bc41f3567e3ff99d344df986155"
     }
   }
 }
