@@ -8,10 +8,7 @@
 	@sidebar-width: 23em;
 	@tabs-margin: 0.2em;
 	@workspace-demo-grey: lighten(@font-color, 15%);
-	@darkmode-border-1: lighten(@darkmode-background, 7%);
-	@darkmode-border-2: darken(@darkmode-background, 6%);
 	@property-color: @darkmode-text;
-	@demo-height: 70%;
 	
 	.workspace {
 		position: relative;
@@ -48,20 +45,33 @@
 					& > .workspace-option {
 						height: 2.4em;
 						line-height: 2.4em;
+						padding: 3px 2px;
 	
 						& > .workspace-option-name {
 							text-align: center;
 							float: left;
-							padding-right: 0.8em;
-							padding-left: 0.8em;
 						}
 	
 						& > .workspace-option-value {
 							float: right;
-							padding-right: 0.8em;
-							padding-left: 0.8em;
 							font-size: 0.9em;
 							font-family: monospace;
+						}
+						
+						label.workspace-option-value {
+							&:after {
+								content: attr(data-suffix);
+							}
+						}
+						
+						input.workspace-option-input {
+							width: 3em;
+							border-radius: 4px;
+							border: 1px solid @darkmode-border-1;
+							background-color: @darkmode-background-offset;
+							color: @property-color;
+							text-align: right;
+							padding: 0.3em;
 						}
 	
 						& > .workspace-option-colorpicker { 
@@ -95,7 +105,7 @@
 			.justify-content(space-between);
 			position: absolute;
 			top: 0;
-			height: @demo-height;
+			height: 100%;
 			right: 0;
 			width: calc(~'100% - @{sidebar-width}');
 			text-align: center;
@@ -106,30 +116,32 @@
 				height: 20em;
 				margin: 0 auto 8em;
 			}
-		}
-	
-		& > .workspace-bottom-drawer {
-			height: 100% - @demo-height;
-			left: @sidebar-width;
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			background-color: @darkmode-background;
-			border-top: 2px solid @darkmode-border-1;
-			overflow-y: scroll;
-	
-			& > ul.workspace-css {
+			
+			& > .workspace-code {
+				.flexbox();
+				padding: 1em;
+				margin: 0 auto 2em;
+				background-color: @off-white;
+				border: 2px solid @light-grey;
+				border-radius: 5px;
+				max-width: 40em;
 				font-family: monospace;
 				font-size: 0.9em;
-				padding: 2em 0.5em;
-				margin: 0 auto;
-				max-width: 40em;
-				list-style: none;
-				color: @property-color;
-	
-				& > li {
-					text-align: center;
+				color: @font-color;
+				
+				& > .workspace-property-name {
+					padding-right: 0.3em;
 				}
+				
+				& > ul.workspace-code-effects {
+					margin: 0;
+					padding: 0;
+					list-style: none;
+		
+					& > li {
+						text-align: center;
+					}
+				}	
 			}
 		}
 	}
@@ -163,14 +175,15 @@
 				.tab-font {
 					font-size: 0.75em;
 					line-height: 0.75em;
-					color: @workspace-demo-grey;
+					color: @light-grey;
 				}
 	
 				.tab-font();
 				padding: 0.7em 1em;
-				border: 1px dashed @workspace-demo-grey;
+				border: 1px dashed @light-grey;
 				border-radius: 4px;
 				text-align: center;
+				cursor: pointer;
 	
 				&.new-tab {
 					& > i.fa {
@@ -185,7 +198,9 @@
 	
 				&.tab-selected {
 					border-color: @blue;
-					color: @blue;
+					background-color: @blue;
+					color: @white;
+					pointer-events: none;
 				}
 	
 				& > i.fa {
