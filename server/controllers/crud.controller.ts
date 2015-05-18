@@ -18,12 +18,37 @@ class Controller<P extends Store, M extends BaseModel<any>> extends BaseControll
         this.model = model;
     }
 
-    all(req: express.Request, res: express.Response): Thenable<void> {
-        return this.handleResponse(this.procedures.all(), res);
+    create(req: express.Request, res: express.Response): Thenable<void> {
+        var obj = req.body;
+        
+        return this.model.validate(obj).then(() => {
+            return this.handleResponse(this.procedures.create(obj), res);
+        }, (errors) => {
+            return this.handleResponse(Promise.reject(errors), res);
+        });
     }
 
     read(req: express.Request, res: express.Response): Thenable<void> {
         return this.handleResponse(this.procedures.read(req.params.id), res);
+    }
+    
+    update(req: express.Request, res: express.Response): Thenable<void> {
+        var obj = req.body;
+        
+        return this.model.validate(obj).then(() => {
+            return this.handleResponse(this.procedures.update(obj), res); 
+        }, (errors) => {
+            return this.handleResponse(Promise.reject(errors), res);
+        });
+    }
+    
+    destroy(req: express.Request, res: express.Response): Thenable<void> {
+        var id = req.body.id;
+        return this.handleResponse(this.procedures.destroy(id), res);
+    }
+
+    all(req: express.Request, res: express.Response): Thenable<void> {
+        return this.handleResponse(this.procedures.all(), res);
     }
 }
 

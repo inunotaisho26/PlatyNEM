@@ -12,7 +12,7 @@ var config = {
         dbName: 'depot',
         connectionLimit: 2
     },
-    port: 8888
+    port: 5000
 };
 
 export = config;

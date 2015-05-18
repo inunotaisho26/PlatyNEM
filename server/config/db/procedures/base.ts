@@ -105,6 +105,12 @@ class Procedures<C, R, U, D> {
             return results[0][0];
         });
     }
+    
+    destroy(id: number): Thenable<D> {
+        return this.callProcedure('Delete' + this.procedure, [id]).then((rows: Array<any>) => {
+            return rows[0]; 
+        });
+    }
 
     protected _read(id: number, ...args: any[]): Thenable<Array<Array<any>>> {
         return this.callProcedure('Get' + this.procedure, [id].concat(args));

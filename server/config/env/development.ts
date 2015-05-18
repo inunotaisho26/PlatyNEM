@@ -13,7 +13,7 @@ var config = {
         connectionLimit: 2
     },
     sessionKey: 'You should change this',
-    port: 8888
+    port: 5000
 };
 
 export = config;
