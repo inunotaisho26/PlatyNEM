@@ -31,6 +31,18 @@
     },
     "memory-cache/memory-cache.d.ts": {
       "commit": "68114f9ff37de0f92c94126b6e0164e026a1737a"
+    },
+    "nodemailer/nodemailer.d.ts": {
+      "commit": "9f9d5710aae1f952652cf4dab1b569b5519d7871"
+    },
+    "nodemailer-direct-transport/nodemailer-direct-transport.d.ts": {
+      "commit": "9f9d5710aae1f952652cf4dab1b569b5519d7871"
+    },
+    "nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts": {
+      "commit": "9f9d5710aae1f952652cf4dab1b569b5519d7871"
+    },
+    "nodemailer/nodemailer-types.d.ts": {
+      "commit": "9f9d5710aae1f952652cf4dab1b569b5519d7871"
     }
   }
 }

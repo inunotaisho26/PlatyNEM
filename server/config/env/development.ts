@@ -12,6 +12,10 @@ var config = {
         dbName: 'depot',
         connectionLimit: 2
     },
+    sendgrid: {
+        username: 'darionwelch',
+        password: 'password123' 
+    },
     sessionKey: 'You should change this',
     port: 5000
 };
