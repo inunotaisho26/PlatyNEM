@@ -5,7 +5,7 @@ import PromiseStatic = require('es6-promise');
 import config = require('../env/all');
 import utils = require('./utils');
 
-var sgTransport = require('nodemail-sendgrid-transport');
+var sgTransport = require('nodemailer-sendgrid-transport');
 var Promise = PromiseStatic.Promise;
 
 export function sendEmail(mailOptions: IMailOptions): Promise<{ success: string }>;
