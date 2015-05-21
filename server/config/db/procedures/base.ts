@@ -117,6 +117,14 @@ class Procedures<C, R, U, D> {
     }
 
     protected _getAllProcedure(procedure: string) {
+        var last = procedure.slice(-2);
+        
+        if (last[1] === 'y') {
+            return procedure.slice(0, -1) + 'ies';
+        } else if (/(?:.[s|z|x]|ch|sh)$/.test(last)) {
+            return procedure + 'es';
+        }
+        
         return procedure + 's';
     }
 }

@@ -35,4 +35,11 @@ export interface IMailOptions {
 	fromname?: string;
 	subject: string;
 	html?: string;
+	attachments?: Array<IAttachment>;
+}
+
+export interface IAttachment {
+	filename?: string;
+	path?: string;
+	content?: any;
 }
