@@ -1,0 +1,20 @@
+@import '../common/variables';
+@import '../common/mixins';
+
+& { 
+    #platui > #mixins;
+
+    /// Public Pages
+    
+    .plat-viewcontrol, [plat-control="plat-viewport"] {
+        .flexbox();
+        .flex-direction(column);
+        .justify-content(flex-start);
+        .align-items(stretch);
+    }
+
+    .plat-viewcontrol {
+        height: auto;
+        .flex(1);
+    }
+}

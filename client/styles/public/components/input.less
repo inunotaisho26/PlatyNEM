@@ -1,6 +1,5 @@
 @import '../common/variables';
 @import '../common/mixins';
-@import (reference) '../../../node_modules/platypusui/platypus';
 
 & {
     #platui > #mixins;
@@ -37,16 +36,6 @@
         input[type="file"] {
             display: none;
         }
-
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100% - @input-padding;
-            height: 1px;
-            background-color: lighten(@accent-color, 10%);
-        }
     }
 
     /// PlatypusUI Overrides
@@ -76,16 +65,6 @@
 
             .plat-input-action {
                 display: none;
-            }
-
-            &:after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                width: 100% - @input-padding;
-                height: 1px;
-                background-color: lighten(@accent-color, 10%);
             }
         }
 

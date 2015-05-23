@@ -5,8 +5,8 @@ import ListPostsViewControl = require('../../../viewcontrols/admin/blog/list/lis
 import ListUsersViewControl = require('../../../viewcontrols/admin/users/list/list.viewcontrol');
 import DashboardViewControl = require('../../../viewcontrols/admin/dashboard/dashboard.viewcontrol');
 
-class Toolbar extends plat.ui.TemplateControl {
-    templateString = require('./toolbar.templatecontrol.html');
+class Sidebar extends plat.ui.TemplateControl {
+    templateString = require('./sidebar.templatecontrol.html');
     hasOwnContext = true;
     context = {
         menuItems: [
@@ -34,8 +34,8 @@ class Toolbar extends plat.ui.TemplateControl {
     // }
 }
 
-plat.register.control('toolbar', Toolbar, [
+plat.register.control('sidebar', Sidebar, [
     plat.async.IPromise
 ], true);
 
-export = Toolbar;
+export = Sidebar;

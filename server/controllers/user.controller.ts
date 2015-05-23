@@ -28,9 +28,6 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         var user = req.body;
         var avatar: any;
         var promise: Thenable<any> = this.Promise.resolve();
-
-        console.log(user);
-
         if (!this.utils.isNull(user.newpassword) && !this.utils.isNull(user.confirmpassword)) {
             if (user.newpassword !== user.confirmpassword) {
                 return this.Promise.reject('Passwords do not match.');
@@ -39,8 +36,6 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             if (!this.utils.isString(user.password) || user.password.length === 0) {
                 return this.Promise.reject('Invalid password.');
             }
-
-            console.log('gets new password');
 
             promise = this.model.authenticate(user, user.password).then((valid: boolean) => {
                 if (valid) {

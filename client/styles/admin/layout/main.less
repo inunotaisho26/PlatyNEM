@@ -1,0 +1,30 @@
+
+& {
+    #platui > #mixins;
+    
+    /// Dashboard Container
+    .dashboard-container {
+        .flexbox();
+        .align-content(stretch);
+        height: 100%;
+        background-color: @off-white;
+    }
+    
+    .sidebar {
+        width: 20em;
+    }
+
+    .dashboard {
+        height: auto;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        .container();
+        padding-top: 1em;
+    }
+ 
+    .dashboard-button-row {
+        margin-bottom: 1em;
+    }
+}
+    

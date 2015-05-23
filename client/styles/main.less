@@ -1,5 +1,5 @@
 /// PlatypusUI
-@import '../../node_modules/platypusui/platypus';
+@import '../../node_modules/platypusui/dist/platypus';
 
 /// jQuery Colorpicker
 @import (inline) '../app/lib/colpick/css/colpick.css';
@@ -16,26 +16,12 @@
 @import '../../node_modules/font-awesome/less/larger';
 @import '../../node_modules/font-awesome/less/icons';
 
-/// Base
-@import './base/main';
-@import './base/layout';
-@import './base/typography';
+/// CMS Styles
+@import './admin/main';
 
-/// Common
-@import './common/animations';
-
-/// Components
-@import './components/alert';
-@import './components/auth';
-@import './components/button';
-@import './components/colpick';
-@import './components/input';
-@import './components/navigation/admin';
-@import './components/navigation/public';
-@import './components/slider';
-@import './components/toggle';
-@import './components/toolbar';
-@import './components/user';
 
 /// Layout
 @import './layout/workspace';
+
+/// Public Website Styles
+@import './public/main';

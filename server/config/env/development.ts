@@ -1,4 +1,8 @@
-var config = {
+/// <reference path="../../references.d.ts" />
+
+import path = require('path');
+
+var config: models.IConfig = {
     app: {
         name: 'BlogStarter',
         url: 'http://localhost',
@@ -12,8 +16,14 @@ var config = {
         dbName: 'depot',
         connectionLimit: 2
     },
+    smtp: {
+        service: 'Gmail',
+        username: 'johndoe@johndoe.com',
+        password: 'password123'
+    },
     sessionKey: 'You should change this',
-    port: 8888
+    port: 5000,
+    root: path.normalize(__dirname + '../../../..')
 };
 
 export = config;

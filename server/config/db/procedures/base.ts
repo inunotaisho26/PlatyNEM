@@ -105,12 +105,26 @@ class Procedures<C, R, U, D> {
             return results[0][0];
         });
     }
+    
+    destroy(id: number): Thenable<D> {
+        return this.callProcedure('Delete' + this.procedure, [id]).then((rows: Array<any>) => {
+            return rows[0]; 
+        });
+    }
 
     protected _read(id: number, ...args: any[]): Thenable<Array<Array<any>>> {
         return this.callProcedure('Get' + this.procedure, [id].concat(args));
     }
 
     protected _getAllProcedure(procedure: string) {
+        var last = procedure.slice(-2);
+        
+        if (last[1] === 'y') {
+            return procedure.slice(0, -1) + 'ies';
+        } else if (/(?:.[s|z|x]|ch|sh)$/.test(last)) {
+            return procedure + 'es';
+        }
+        
         return procedure + 's';
     }
 }
