@@ -24,8 +24,8 @@
     "nodemailer-sendgrid-transport": "^0.1.0",
     "passport": "^0.2.1",
     "passport-local": "^1.0.0",
-    "platypus": "^0.12.9",
-    "platypusui": "^0.2.3"
+    "platypus": "^0.13.5",
+    "platypusui": "^0.4.4"
   },
   "devDependencies": {
     "browserify": "^9.0.3",
