@@ -21,3 +21,4 @@ plat.register.viewControl('tools-vc', ToolsViewControl, [
 ]);
 
 export = ToolsViewControl;
+
