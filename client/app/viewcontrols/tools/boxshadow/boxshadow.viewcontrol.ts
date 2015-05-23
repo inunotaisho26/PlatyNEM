@@ -1,11 +1,11 @@
-/// <reference path="../../../../../references.d.ts" />
-
-declare var $;
+/// <reference path="../../../../references.d.ts" />
 
 import plat = require('platypus');
-import BaseViewControl = require('../../../base.viewcontrol');
+import BaseViewControl = require('../../base.viewcontrol');
 import interface = require('./boxshadow.viewcontrol.d');
-import jQueryInjectable = require('../../../../common/injectables/jQuery.injectable');
+import jQueryInjectable = require('../../../common/injectables/jQuery.injectable');
+
+var defaultInlineString = '5px 5px 4px 3px rgba(100,100,100,1)';
 
 class BoxShadowViewControl extends BaseViewControl {
 	title = 'Tools - Box Shadow Generator';
@@ -32,40 +32,15 @@ class BoxShadowViewControl extends BaseViewControl {
 
 	initialize() {
 		var context = this.context;
-		context.controlPanel = {
-			inset: false,
-			offsetX: 5,
-			offsetY: 5,
-			blurRadius: 4,
-			spreadRadius: 3,
-			rgba: {
-				r: 100,
-				g: 100,
-				b: 100,
-				a: 1
-			}
-		};
+		context.controlPanel = this.utils.clone(defaultEffect, true);
 		context.effects.push({
-			effect:	this.utils.clone({
-				inset: false,
-				offsetX: 5,
-				offsetY: 5,
-				blurRadius: 4,
-				spreadRadius: 3,
-				rgba: {
-					r: 100,
-					g: 100,
-					b: 100,
-					a: 1
-				}
-			}),
+			effect:	this.utils.clone(defaultEffect, true),
 			inlineStyle: ''
 		});
 	}
 
 	loaded() {
 		this.picker = this.$('#colpick');
-		
 		this.picker.colpick({
 			flat: true,
 			layout: 'full',
@@ -76,23 +51,26 @@ class BoxShadowViewControl extends BaseViewControl {
 			}
 		});
 		
+		this.setColpick(defaultEffect.rgba.r, defaultEffect.rgba.g, defaultEffect.rgba.b);
 		this.setProperty();
 	}
 
 	setColor(rgb) {
-		var context = this.context,
-			rgba = this.context.effects[context.selectedEffect].effect.rgba;
+		var context = this.context;
+		var rgba = context.effects[context.selectedEffect].effect.rgba;
 			
 		rgba.r = rgb.r;
 		rgba.g = rgb.g;
 		rgba.b = rgb.b;
+		
+		context.controlPanel.rgba = this.utils.clone(rgba, true);
 	}
 
 	objToInlineStr(effectId?: number) {
-		var context = this.context,
-			effect = context.effects[effectId].effect,
-			color = effect.rgba, 
-			str = effect.inset ? 'inset ' : '';
+		var context = this.context;
+		var	effect = context.effects[effectId].effect;
+		var	color = effect.rgba;
+		var	str = effect.inset ? 'inset ' : '';
 			
 		str += effect.offsetX + 'px ' + effect.offsetY + 'px ';
 		str += effect.blurRadius + 'px ' + effect.spreadRadius + 'px ';
@@ -113,56 +91,32 @@ class BoxShadowViewControl extends BaseViewControl {
 	}
 
 	selectEffect(index: number) {
-		var context = this.context,
-			effect = this.utils.clone(context.effects[index].effect),
-			rgba = effect.rgba;
+		var context = this.context;
+		var	effect = this.utils.clone(context.effects[index].effect, true);
+		var	rgba = effect.rgba;
 
 		this.context.selectedEffect = index;
 		
 		this.setColpick(rgba.r, rgba.g, rgba.b);
-		context.controlPanel = this.utils.clone(effect);
+		context.controlPanel = this.utils.clone(effect, true);
 	}
 
 	setColpick(r: number, g: number, b: number) {
-		this.colpick.colpickSetColor({ r: r, g: g, b: b });
+		this.picker.colpickSetColor({ r: r, g: g, b: b });
 	}
 
 	createEffect() {
-		var context = this.context,
-			selected = context.selectedEffect;
+		var context = this.context;
+		var	selected = context.selectedEffect;
 
 		this.context.selectedEffect = context.effects.length;
 
 		context.effects.push({
-			effect:	this.utils.clone({
-				inset: false,
-				offsetX: 5,
-				offsetY: 5,
-				blurRadius: 4,
-				spreadRadius: 3,
-				rgba: {
-					r: 100,
-					g: 100,
-					b: 100,
-					a: 1
-				}
-			}),
+			effect:	this.utils.clone(defaultEffect, true),
 			inlineStyle: defaultInlineString
 		});
 
-		context.controlPanel = this.utils.clone({
-			inset: false,
-			offsetX: 5,
-			offsetY: 5,
-			blurRadius: 4,
-			spreadRadius: 3,
-			rgba: {
-				r: 100,
-				g: 100,
-				b: 100,
-				a: 1
-			}
-		});
+		context.controlPanel = this.utils.clone(defaultEffect, true);
 	}
 
 	setAlpha() {
@@ -172,10 +126,10 @@ class BoxShadowViewControl extends BaseViewControl {
 	}
 
 	setProperty() {
-		var context = this.context,
-			selected = context.selectedEffect;
-
-		this.context.effects[selected].effect = this.utils.clone(context.controlPanel);
+		var context = this.context;
+		var	selected = context.selectedEffect;
+		
+		this.context.effects[selected].effect = this.utils.clone(context.controlPanel, true);
 		this.objToInlineStr(context.selectedEffect);
 		this.demoShape.element.style.boxShadow = this.concatInlineStrings(context.effects);
 	}
@@ -185,4 +139,16 @@ plat.register.viewControl('boxshadow-vc', BoxShadowViewControl);
 
 export = BoxShadowViewControl;
 
-var defaultInlineString = '5px 5px 4px 3px rgba(100,100,100,1)';
+var defaultEffect = {
+	inset: false,
+	offsetX: 5,
+	offsetY: 5,
+	blurRadius: 4,
+	spreadRadius: 3,
+	rgba: {
+		r: 100,
+		g: 100,
+		b: 100,
+		a: 1
+	}
+};

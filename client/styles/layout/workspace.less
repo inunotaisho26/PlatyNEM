@@ -9,6 +9,7 @@
 	@tabs-margin: 0.2em;
 	@workspace-demo-grey: lighten(@font-color, 15%);
 	@property-color: @darkmode-text;
+	@workspace-item-padding: 1em;
 	
 	.workspace {
 		position: relative;
@@ -22,13 +23,19 @@
 			overflow-y: visible;
 			overflow-x: hidden;
 			left: 0;
-			height: 95vh;
+			height: 100%;
 			width: @sidebar-width;
 			border-right: 2px solid @darkmode-border-1;
 			background-color: @darkmode-background;
+			
+			& > .workspace-title {
+				text-align: center;
+				width: 100%;
+				padding: 1em 0;
+				color: @property-color;
+			}
 	
 			 & > ul.workspace-options {
-				height: 100%;
 				padding: 0;
 				margin: 0;
 				color: @property-color;
@@ -38,20 +45,25 @@
 	
 				& > li {
 					display: block;
-					padding: 0.35em 0.8em;
+					padding: 0.35em 0.3em 0.8em;
 					border-bottom: 1px solid @darkmode-border-1;
 					border-top: 1px solid @darkmode-border-2;
 	
 					& > .workspace-option {
 						height: 2.4em;
 						line-height: 2.4em;
-						padding: 3px 2px;
+						padding: 0.5em 0.8em;
+						
+						&.workspace-option-control {
+							padding: 1em 0;
+						}
 	
 						& > .workspace-option-name {
 							text-align: center;
 							float: left;
+							padding: 0;
 						}
-	
+						
 						& > .workspace-option-value {
 							float: right;
 							font-size: 0.9em;
@@ -77,13 +89,18 @@
 						& > .workspace-option-colorpicker { 
 							display: block;
 							height: auto;
-							margin-bottom: 5em;
+							padding-top: 0;
 						}	
 					}
 	
 					&.workspace-item-inline {
-						padding-right: @container-horizontal;
-						padding-left: @container-horizontal;
+						padding-right: @workspace-item-padding;
+						padding-left: @workspace-item-padding;
+						
+						& > .workspace-option {
+							padding-right: 0;
+							padding-left: 0;
+						}
 						
 						& > .workspace-option-control {
 							float: right;
@@ -164,11 +181,6 @@
 				margin: 0 0 0 @tabs-margin;
 				padding: 0;
 				list-style: none;
-	
-				& > li {
-					float: left;
-					margin: 0 @tabs-margin;
-				}
 			}
 	
 			.tab {
@@ -179,8 +191,10 @@
 				}
 	
 				.tab-font();
-				padding: 0.7em 1em;
-				border: 1px dashed @light-grey;
+				float: left;
+				margin: 0 @tabs-margin;
+				padding: 0.5em 0.65em;
+				border: 2px dashed @light-grey;
 				border-radius: 4px;
 				text-align: center;
 				cursor: pointer;
