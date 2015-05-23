@@ -5,6 +5,7 @@
     /// Dashboard Container
     .dashboard-container {
         .flexbox();
+        .align-content(stretch);
         height: 100%;
         background-color: @off-white;
     }
@@ -15,14 +16,15 @@
 
     .dashboard {
         height: auto;
-        .container();
-        padding-top: 1em;
+        width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
-        
-        .dashboard-button-row {
-            margin-bottom: 1em;
-        }
+        .container();
+        padding-top: 1em;
+    }
+ 
+    .dashboard-button-row {
+        margin-bottom: 1em;
     }
 }
     
