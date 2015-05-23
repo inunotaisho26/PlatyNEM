@@ -34,7 +34,7 @@ class Sidebar extends plat.ui.TemplateControl {
     // }
 }
 
-plat.register.control('sidebare', Sidebar, [
+plat.register.control('sidebar', Sidebar, [
     plat.async.IPromise
 ], true);
 
