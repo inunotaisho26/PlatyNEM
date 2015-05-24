@@ -1,0 +1,101 @@
+& {
+	#platui > #mixins;
+	
+	.workspace-left-drawer {
+		border-right: 2px solid @darkmode-border-1;
+		background-color: @darkmode-background;
+		
+		& > .workspace-title {
+			.flex-vertical-center();
+			.justify-content(center);
+			width: 100%;
+			padding: 1em 0;
+			color: @property-color;
+			
+			& > .workspace-title-name {
+				padding: 0 1em;
+			}
+		}
+	
+		 & > ul.workspace-options {
+			padding: 0;
+			margin: 0;
+			color: @property-color;
+			font-size: 14px;
+			overflow-y: visible;
+			overflow-x: hidden;
+	
+			& > li {
+				display: block;
+				padding: 0.35em 0.3em 0.8em;
+				border-bottom: 1px solid @darkmode-border-1;
+				border-top: 1px solid @darkmode-border-2;
+	
+				& > .workspace-option {
+					height: 2.4em;
+					line-height: 2.4em;
+					padding: 0.5em 0.8em;
+					
+					&.workspace-option-control {
+						padding: 1em 0;
+					}
+	
+					& > .workspace-option-name {
+						text-align: center;
+						float: left;
+						padding: 0;
+					}
+					
+					& > .workspace-option-value {
+						float: right;
+						font-size: 0.9em;
+						font-family: monospace;
+					}
+					
+					label.workspace-option-value {
+						&:after {
+							content: attr(data-suffix);
+						}
+					}
+					
+					input.workspace-option-input {
+						width: 3em;
+						border-radius: 4px;
+						border: 1px solid @darkmode-border-1;
+						background-color: @darkmode-background-offset;
+						color: @property-color;
+						text-align: right;
+						padding: 0.3em;
+					}
+	
+					& > .workspace-option-colorpicker { 
+						display: block;
+						height: auto;
+						padding-top: 0;
+					}	
+				}
+	
+				&.workspace-item-inline {
+					padding-right: @workspace-item-padding;
+					padding-left: @workspace-item-padding;
+					
+					& > .workspace-option {
+						padding-right: 0;
+						padding-left: 0;
+					}
+					
+					& > .workspace-option-control {
+						float: right;
+						.flexbox();
+						.align-items(center);
+					}
+				}
+			}
+	
+			& > li:last-child {
+				border-bottom-width: 0;
+			}
+		}
+	}
+
+}
