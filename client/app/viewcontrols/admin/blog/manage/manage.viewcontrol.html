@@ -1,1 +1,14 @@
-Manage Blog
+<div class="manage-blog-container">
+	<div class="blog-title-row">
+		<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled">
+		<div class="blog-title-controls">
+			<button class="blog-title-control" plat-tap="formatCode">
+				<i class="fa fa-code"></i>
+			</button>
+			<button plat-tap="save" class="blog-title-control">
+				<i class="fa fa-save"></i>
+			</button>
+		</div>
+	</div>
+	<div plat-name="quillElement" class="blog-quill-editor" />
+</div>
