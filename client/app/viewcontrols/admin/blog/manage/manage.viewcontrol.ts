@@ -2,6 +2,7 @@
 
 import plat = require('platypus');
 import AdminBaseViewControl = require('../../base.viewcontrol');
+import PostRepository = require('../../../../repositories/post.repository');
 import quill = require('../../../../common/injectables/quill.injectable');
 
 class ViewControl extends AdminBaseViewControl {
@@ -17,7 +18,8 @@ class ViewControl extends AdminBaseViewControl {
         }
     };
     
-    constructor(private quill: any) {
+    constructor(private postRepository: PostRepository,
+        private quill: any) {
         super();
     }
     
@@ -26,14 +28,24 @@ class ViewControl extends AdminBaseViewControl {
     }
     
     save() {
+        var context = this.context;
         
+        this.postRepository.create({
+            title: context.post.title,
+            content: this.quillEditor.getHTML() 
+        });
     }
     
     loaded() {
         this.quillEditor = new this.quill(this.quillElement.element, {
-            formats: ['bold', 'italic', 'color', 'link', 'image', 'bullet', 'list', 'size'],
-            styles: { '.ql-editor': { 'font-size' : '16px' } }
+            styles: { 
+                '.ql-editor': { 'font-size' : '16px' } 
+            }
         });
+        
+        this.quillEditor.addModule('toolbar', {
+            container: '#quill-toolbar'
+        })
     }
     
     navigatedTo(params: any, query: any) {
@@ -43,6 +55,7 @@ class ViewControl extends AdminBaseViewControl {
 }
 
 plat.register.viewControl('managepost-vc', ViewControl, [
+    PostRepository,
     quill.quillFactory
 ]);
 

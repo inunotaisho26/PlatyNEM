@@ -20,6 +20,7 @@ class UserRepository extends BaseRepository<models.UserFactory, UserService, mod
 
     login(user: any): plat.async.IThenable<void> {
         var u = this.Factory.create(user);
+        
         return this.service.login(u, user.password).then((user) => {
             this.__currentUser = this.Factory.create(user);
         });

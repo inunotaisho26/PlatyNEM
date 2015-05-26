@@ -1,10 +1,45 @@
 <div class="manage-blog-container">
 	<div class="blog-title-row">
 		<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled">
-		<div class="blog-title-controls">
-			<button class="blog-title-control" plat-tap="formatCode">
-				<i class="fa fa-code"></i>
-			</button>
+		<div class="blog-title-controls" id="quill-toolbar">
+			
+			<!--Font Style-->
+			<div class="blog-title-control-group">
+				<!--bold-->
+				<button class="blog-title-control ql-bold">
+					<i class="fa fa-bold"></i>
+				</button>
+				<!--italic-->
+				<button class="blog-title-control ql-italic">
+					<i class="fa fa-italic"></i>
+				</button>
+				<!--underline-->
+				<button class="blog-title-control ql-underline">
+					<i class="fa fa-underline"></i>
+				</button>
+			</div>
+			
+			<!--Lists-->
+			<div class="blog-title-control-group">
+				<!--list-->
+				<button class="blog-title-control ql-list">
+					<i class="fa fa-list-ol"></i>
+				</button>
+				<!--bullets-->
+				<button class="blog-title-control ql-bullet">
+					<i class="fa fa-list-ul"></i>
+				</button>
+			</div>
+			
+			<!--Anchor/Code-->
+			<div class="blog-title-control-group">
+				<!--code-->
+				<button class="blog-title-control" plat-tap="formatCode">
+					<i class="fa fa-code"></i>
+				</button>
+			</div>
+			
+			<!--save-->
 			<button plat-tap="save" class="blog-title-control">
 				<i class="fa fa-save"></i>
 			</button>

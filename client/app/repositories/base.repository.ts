@@ -17,6 +17,15 @@ class BaseRepository<F extends baseFactory.BaseFactory<any>,
     protected _utils: plat.Utils;
 
     constructor(public Factory: F, public service: S) { }
+    
+    create(model: any, ...args: any[]): plat.async.IThenable<number> {
+        var m = this.Factory.create(model);
+        
+        return this.service.create.apply(this.service, [m].concat(args)).then((id: number) => {
+            model.id = id;
+            return id;
+        });
+    }
 
     all(...args: any[]): plat.async.IThenable<Array<M>> {
         return this.service.read.apply(this.service, args)
