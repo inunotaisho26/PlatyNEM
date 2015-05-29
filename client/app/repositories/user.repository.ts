@@ -1,11 +1,11 @@
 /// <reference path="../../references.d.ts" />
 
 import plat = require('platypus');
-import models = require('../models/user.model');
+import UserFactory = require('../models/user/user.model');
 import UserService = require('../services/user.service');
 import BaseRepository = require('../repositories/base.repository');
 
-class UserRepository extends BaseRepository<models.UserFactory, UserService, models.IUser> {
+class UserRepository extends BaseRepository<UserFactory, UserService, models.IUser> {
     private __currentUser: models.IUser;
     private __currentUserPromise: plat.async.IThenable<models.IUser>;
     
@@ -57,7 +57,7 @@ class UserRepository extends BaseRepository<models.UserFactory, UserService, mod
 }
 
 plat.register.injectable('usersRepository', UserRepository, [
-    models.UserFactory,
+    UserFactory,
     UserService
 ]);
 

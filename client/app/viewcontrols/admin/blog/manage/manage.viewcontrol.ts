@@ -4,7 +4,6 @@ import plat = require('platypus');
 import AdminBaseViewControl = require('../../base.viewcontrol');
 import PostRepository = require('../../../../repositories/post.repository');
 import UserRepository = require('../../../../repositories/user.repository');
-import postModel = require('../../../../models/post.model');
 import quill = require('../../../../common/injectables/quill.injectable');
 
 class ViewControl extends AdminBaseViewControl {
@@ -16,7 +15,7 @@ class ViewControl extends AdminBaseViewControl {
     initializeEditorPromise: () => plat.async.IThenable<string>;
     
     context = {
-        post: <postModel.IPost>{
+        post: <models.IPost>{
             title: '',
             id: null,
             created: null
@@ -37,7 +36,7 @@ class ViewControl extends AdminBaseViewControl {
     save(publish: boolean) {
         var context = this.context;
         var promise: plat.async.IThenable<void>;
-        var post = <postModel.IPost>this.utils.clone(this.utils.extend({}, context.post, {
+        var post = <models.IPost>this.utils.clone(this.utils.extend({}, context.post, {
             content: this.quillEditor.getHTML(),
             published: publish
         }), true);
@@ -51,7 +50,7 @@ class ViewControl extends AdminBaseViewControl {
             post.created = new Date();
             post.userid = <number>context.user.id;
             post.user = context.user;
-            context.post = <postModel.IPost>this.utils.clone(post, true);
+            context.post = <models.IPost>this.utils.clone(post, true);
             promise = this.postRepository.create(post).then((postId: number) => {
                context.post.id = postId; 
             });

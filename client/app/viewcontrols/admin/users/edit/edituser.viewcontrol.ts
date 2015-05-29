@@ -3,7 +3,6 @@
 import plat = require('platypus');
 import UserRepository = require('../../../../repositories/user.repository');
 import AdminBaseViewControl = require('../../base.viewcontrol');
-import models = require('../../../../models/user.model');
 
 class ViewControl extends AdminBaseViewControl {
     title = 'Edit User';

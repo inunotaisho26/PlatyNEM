@@ -2,7 +2,6 @@
 /// <reference path="../models/server.model.d.ts" />
 
 import plat = require('platypus');
-import models = require('../models/user.model');
 import CrudService = require('./crud.service');
 
 class UserService extends CrudService<server.IUser> {
