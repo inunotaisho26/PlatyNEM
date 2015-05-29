@@ -10,7 +10,7 @@ class Repository extends Base<number, models.IPost, models.IPost, void> {
 	all(published?: boolean, from?: number, count?: number) {
 		var cacheKey = this._cachePrefix + 'all?published=' + published + '&from=' + from + '&count=' + count;
 		var posts = this.cache.get(cacheKey);
-		console.log(posts);
+		
 		if (this.utils.isArray(posts)) {
 			return this.Promise.resolve(posts);
 		}
@@ -25,7 +25,6 @@ class Repository extends Base<number, models.IPost, models.IPost, void> {
 	}
 	
 	create(post: models.IPost) {
-		console.log(post);
 		return this._procedures.create(post).then((id) => {
 			this.store(post);
 			this._clearCaches();
@@ -54,6 +53,7 @@ class Repository extends Base<number, models.IPost, models.IPost, void> {
 		});
 	}
 }
+
 
 var repository = new Repository();
 export = repository;
