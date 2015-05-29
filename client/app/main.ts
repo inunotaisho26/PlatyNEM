@@ -6,6 +6,9 @@ require('platypusui');
 // app
 require('./app/app');
 
+// injectables
+require('./common/injectables/moment.injectable');
+
 // templatecontrols
 require('./common/templatecontrols/alert/alert.templatecontrol');
 require('./common/templatecontrols/navigation/admin/admin.templatecontrol');

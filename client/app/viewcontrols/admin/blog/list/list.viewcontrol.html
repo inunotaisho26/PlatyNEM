@@ -1,3 +1,6 @@
+<plat-resources>
+	<injectable alias="moment">moment</injectable>
+</plat-resources>
 <div class="dashboard-button-row">
     <plat-link class="button button-primary button-small" plat-options="{ view: manageView }">
         <i class="fa fa-lg fa-user-plus"></i>
@@ -9,20 +12,22 @@
 		<tr>
 			<th>Title</th>
 			<th>Author</th>
-			<th>Posted</th>
+			<th>Created On</th>
+			<th>Status</th>
 			<th>Actions</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody plat-control="plat-foreach" plat-context="posts">
 		<tr>
-			<td>title</td>
-			<td>author</td>
-			<td>posted</td>
+			<td>{{title}}</td>
+			<td>{{user.firstname + ' ' + user.lastname}}</td>
+			<td>{{@moment(created).format('M/D/YY')}}</td>
+			<td>{{ !!published ? 'Published' : 'Draft' }}</td>
 			<td>
 				<table class="cell-table">
 					<tr>
 						<td>
-							<plat-link class="button button-small">Edit</plat-link>
+							<plat-link class="button button-small" plat-options="{ view: @rootContext.manageView, parameters: { id: id }}">Edit</plat-link>
 							<plat-button class="button button-small button-danger">Delete</plat-button>
 						</td>
 						<td></td>

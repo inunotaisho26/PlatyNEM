@@ -7,6 +7,12 @@
   "installed": {
     "node/node.d.ts": {
       "commit": "bba34156c1eaad788fa8996f7d30b54c4fce5ffe"
+    },
+    "moment/moment.d.ts": {
+      "commit": "2d4c4679bc2b509f27435a4f9da5e2de11258571"
+    },
+    "moment/moment-node.d.ts": {
+      "commit": "2d4c4679bc2b509f27435a4f9da5e2de11258571"
     }
   }
 }

@@ -16,9 +16,11 @@ class PostFactory extends base.BaseFactory<models.IPost> {
 		}
 		
 		return {
+			id: post.id,
 			title: decodeURI(post.title),
 	        content: decodeURI(post.content),
 	        userid: post.userid,
+			user: this.UserFactory.create(post.user),
 	        created: post.created,
 	        published: post.published
 		}

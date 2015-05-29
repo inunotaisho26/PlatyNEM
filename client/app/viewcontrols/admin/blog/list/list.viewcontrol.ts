@@ -9,7 +9,8 @@ class ListPostsViewControl extends AdminBaseViewControl {
     title = 'List Blog Posts';
     templateString = require('./list.viewcontrol.html');
     context = {
-        manageView: ManagePostViewControl
+        manageView: ManagePostViewControl,
+        posts: <Array<models.IPost>>null
     };
     
     constructor(private postRepository: PostRepository) {
@@ -17,8 +18,8 @@ class ListPostsViewControl extends AdminBaseViewControl {
     }
     
     navigatedTo() {
-        this.postRepository.all().then((posts) => {
-            
+        this.postRepository.all().then((posts: Array<models.IPost>) => {
+            this.context.posts = posts;
         });
     }
 }
