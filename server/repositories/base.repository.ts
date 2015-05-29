@@ -40,7 +40,7 @@ class Repository<C,R,U,D> {
 		return this.__noop;
 	}
 	
-	delete(id: number): Thenable<D> {
+	destroy(id: number): Thenable<D> {
 		return this.__noop;
 	}
 	

@@ -19,7 +19,6 @@ export class PostFactory extends base.BaseFactory<IPost> {
 			title: post.title,
 	        content: post.content,
 	        userid: post.userid,
-	        user: this.UserFactory.create(post.user),
 	        created: post.created,
 	        published: post.published
 		}

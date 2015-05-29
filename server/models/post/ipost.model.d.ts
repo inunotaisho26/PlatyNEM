@@ -8,5 +8,6 @@ declare module models {
 		userid?: number;
 		user?: IUser;
 		created?: Date;
+		published?: boolean;
 	}
 }

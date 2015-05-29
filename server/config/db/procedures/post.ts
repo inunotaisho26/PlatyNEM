@@ -14,10 +14,17 @@ class Procedures extends Base<number, models.IPost, models.IPost, void> {
 		
 		return [
 			post.userid,
-			encodeURI(post.title),
-			encodeURI(post.content),
-			post.created
+			post.title,
+			decodeURI(post.content),
+			post.created,
+			post.published
 		];
+	}
+	
+	create(post: models.IPost) {
+		return super.create(this._formatPostDates(post)).then(() => {
+			return post.id;
+		})
 	}
 	
 	all(published?: boolean, from?: number, count?: number) {
@@ -70,6 +77,13 @@ class Procedures extends Base<number, models.IPost, models.IPost, void> {
 				post.user = user;
 			});
 		});
+	}
+	
+	private _formatPostDates(post: models.IPost): models.IPost {
+		if (this.utils.isString(post.created)) {
+			post.created = new Date(<string><any>post.created);
+		}
+		return post;
 	}
 }
 

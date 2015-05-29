@@ -29,6 +29,10 @@ class UserService extends CrudService<server.IUser> {
     isAdmin() {
         return this._get<boolean>('admin');
     }
+    
+    loggedInUser() {
+        return this._get<server.IUser>('me');
+    }
 };
 
 export = UserService;

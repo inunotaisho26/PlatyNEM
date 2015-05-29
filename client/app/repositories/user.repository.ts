@@ -17,6 +17,24 @@ class UserRepository extends BaseRepository<models.UserFactory, UserService, mod
             return id;
         });
     }
+    
+    current(): plat.async.IThenable<models.IUser> {
+        if (this.__currentUser) {
+            return this.__currentUserPromise = this._Promise.resolve(this._utils.clone(this.__currentUser, true));
+        } else if (this._utils.isPromise(this.__currentUserPromise)) {
+            return this.__currentUserPromise.then((user) => {
+                this.__currentUser = user;
+                this.__currentUserPromise = null;
+                return this._utils.clone(this.__currentUser, true);
+            });
+        }
+        
+        return this.__currentUserPromise = this.service.loggedInUser()
+            .then((user) => {
+               this.__currentUser = user;
+               return this._utils.clone(this.__currentUser, true); 
+            });
+    }
 
     login(user: any): plat.async.IThenable<void> {
         var u = this.Factory.create(user);

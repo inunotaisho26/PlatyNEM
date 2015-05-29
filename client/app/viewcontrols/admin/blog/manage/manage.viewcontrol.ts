@@ -3,6 +3,8 @@
 import plat = require('platypus');
 import AdminBaseViewControl = require('../../base.viewcontrol');
 import PostRepository = require('../../../../repositories/post.repository');
+import UserRepository = require('../../../../repositories/user.repository');
+import postModel = require('../../../../models/post.model');
 import quill = require('../../../../common/injectables/quill.injectable');
 
 class ViewControl extends AdminBaseViewControl {
@@ -13,12 +15,16 @@ class ViewControl extends AdminBaseViewControl {
     quillElement: plat.controls.INamedElement<HTMLDivElement, any>;
     
     context = {
-        post: {
-            title: ''
-        }
+        post: <postModel.IPost>{
+            title: '',
+            id: null,
+            created: null
+        },
+        user: null
     };
     
     constructor(private postRepository: PostRepository,
+        private userRepository: UserRepository,
         private quill: any) {
         super();
     }
@@ -27,12 +33,32 @@ class ViewControl extends AdminBaseViewControl {
         
     }
     
-    save() {
+    save(publish: boolean) {
         var context = this.context;
+        var promise: plat.async.IThenable<void>;
+        var post = <postModel.IPost>this.utils.clone(this.utils.extend({}, context.post, {
+            content: this.quillEditor.getHTML(),
+            published: publish
+        }), true);
         
-        this.postRepository.create({
-            title: context.post.title,
-            content: this.quillEditor.getHTML() 
+        
+        if (this.utils.isNumber(context.post.id)) {
+            promise = this.postRepository.update(post).then(() => {
+                console.log('post created');
+            });
+        } else {
+            post.created = new Date();
+            post.userid = <number>context.user.id;
+            post.user = context.user;
+            context.post = <postModel.IPost>this.utils.clone(post, true);
+            promise = this.postRepository.create(post).then((postId: number) => {
+               context.post.id = postId; 
+            });
+        }
+        
+        return promise.catch((errors: Array<Error>) => {
+           console.log(errors);
+           context.post.published = this.utils.isNumber(context.post.id);
         });
     }
     
@@ -48,14 +74,27 @@ class ViewControl extends AdminBaseViewControl {
         })
     }
     
-    navigatedTo(params: any, query: any) {
-        console.log(params);
-        console.log(query);
+    navigatedTo(params: any) {
+        if (!isNaN(Number(params.id))) {
+            this.postRepository
+                .one(params.id)
+                .then((post) => {
+                    console.log(post);
+                    this.context.post = post;
+                })
+        } else {
+            this.userRepository
+                .current()
+                .then((user) => {
+                    this.context.user = user;
+                });
+        }
     }
 }
 
 plat.register.viewControl('managepost-vc', ViewControl, [
     PostRepository,
+    UserRepository,
     quill.quillFactory
 ]);
 
