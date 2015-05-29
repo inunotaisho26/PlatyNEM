@@ -13,6 +13,7 @@ class Controller extends Crud<typeof repository, typeof model> {
 	initialize(baseRoute: string, router: express.Router) {
 		router
 			.get(baseRoute, this.all.bind(this))
+			.get(baseRoute + '/:id', this.read.bind(this))
 			.post(baseRoute, this.auth.requiresLogin, this.auth.isAdmin, this.create.bind(this));
 	}
 	

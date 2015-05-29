@@ -14,8 +14,8 @@ class Procedures extends Base<number, models.IPost, models.IPost, void> {
 		
 		return [
 			post.userid,
-			post.title,
-			decodeURI(post.content),
+			encodeURI(post.title),
+			encodeURI(post.content),
 			post.created,
 			post.published
 		];
@@ -25,6 +25,15 @@ class Procedures extends Base<number, models.IPost, models.IPost, void> {
 		return super.create(this._formatPostDates(post)).then(() => {
 			return post.id;
 		})
+	}
+	
+	read(id: number) {
+		return this._read(id).then((results) => {
+			var post = results[0][0];
+			post.user = <models.IUser>results[1][0];
+			
+			return post;
+		});
 	}
 	
 	all(published?: boolean, from?: number, count?: number) {

@@ -16,8 +16,8 @@ export class PostFactory extends base.BaseFactory<IPost> {
 		}
 		
 		return {
-			title: post.title,
-	        content: post.content,
+			title: decodeURI(post.title),
+	        content: decodeURI(post.content),
 	        userid: post.userid,
 	        created: post.created,
 	        published: post.published

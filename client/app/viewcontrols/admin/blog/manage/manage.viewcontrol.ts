@@ -13,6 +13,7 @@ class ViewControl extends AdminBaseViewControl {
     
     quillEditor: any;
     quillElement: plat.controls.INamedElement<HTMLDivElement, any>;
+    initializeEditorPromise: () => plat.async.IThenable<string>;
     
     context = {
         post: <postModel.IPost>{
@@ -69,24 +70,35 @@ class ViewControl extends AdminBaseViewControl {
             }
         });
         
+        this.initializeEditorPromise().then((content) => {
+            this.quillEditor.setHTML(content);    
+        });
+        
         this.quillEditor.addModule('toolbar', {
             container: '#quill-toolbar'
-        })
+        });
     }
     
     navigatedTo(params: any) {
+        var context = this.context;
+        
         if (!isNaN(Number(params.id))) {
-            this.postRepository
+            this.initializeEditorPromise = () => {
+                return this.postRepository
                 .one(params.id)
                 .then((post) => {
-                    console.log(post);
-                    this.context.post = post;
-                })
+                    context.post = post;
+                    return post.content;
+                });
+            };
         } else {
+            this.initializeEditorPromise = () => {
+                return this._Promise.resolve('');
+            };
             this.userRepository
                 .current()
                 .then((user) => {
-                    this.context.user = user;
+                    context.user = user;
                 });
         }
     }

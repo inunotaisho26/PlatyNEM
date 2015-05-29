@@ -33,6 +33,19 @@ class Repository extends Base<number, models.IPost, models.IPost, void> {
 		})
 	}
 	
+	read(id: number) {
+		var post = this.cache.get(this._cachePrefix + id);
+		
+		if (this.utils.isObject(post)) {
+			return this.Promise.resolve(post);
+		}
+		
+		return this._procedures.read(id).then((post) => {
+			this.store(post);
+			return post;
+		});
+	}
+	
 	update(post: models.IPost) {
 		return this._procedures.update(post).then((value) => {
 			this.store(post);
