@@ -4,7 +4,7 @@ import path = require('path');
 
 var config: models.IConfig = {
     app: {
-        name: 'BlogStarter',
+        name: 'Capsize',
         url: 'http://localhost',
         dist: './client/dist/',
         uploads: '/assets'
@@ -13,7 +13,7 @@ var config: models.IConfig = {
         host: '127.0.0.1',
         user: '3l33t',
         password: 'uw0tm8',
-        dbName: 'depot',
+        dbName: 'capsize',
         connectionLimit: 2
     },
     smtp: {
