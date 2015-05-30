@@ -5,7 +5,7 @@
         <plat-link plat-options="{ view: view }" plat-visible="{{ !!view }}">{{title}}</plat-link>
         <ul plat-visible="{{ subitems.length > 0 }}" plat-control="plat-foreach" plat-context="subitems" class="navbar-submenu">
             <li>
-                <plat-link plat-options="{ view: view }">{{title}}</plat-link>
+                <plat-link plat-options="{ view: view, isUrl: true }">{{title}}</plat-link>
             </li>
         </ul>
     </li>

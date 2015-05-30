@@ -23,7 +23,8 @@ class PublicNavigation extends plat.ui.TemplateControl {
                 subitems: [
                     {
                         title: 'Box Shadow Generator',
-                        view: BoxShadowViewControl
+                        view: 'tools/boxshadow',
+                        isUrl: true
                     }
                 ]
             }
