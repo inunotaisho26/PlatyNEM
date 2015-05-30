@@ -2,10 +2,11 @@
 
 import express = require('express');
 import BaseProcedures = require('../config/db/procedures/base');
+import BaseRepository = require('../repositories/base.repository');
 import BaseController = require('./base.controller');
 import BaseModel = require('../models/base.model');
 
-type Store = BaseProcedures<any, any, any, any>;
+type Store = BaseProcedures<any, any, any, any> | BaseRepository<any, any, any, any>;
 
 class Controller<P extends Store, M extends BaseModel<any>> extends BaseController {
     procedures: P;

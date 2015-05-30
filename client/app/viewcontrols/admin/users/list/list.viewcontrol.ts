@@ -4,7 +4,6 @@ import plat = require('platypus');
 import AdminBaseViewControl = require('../../base.viewcontrol');
 import EditUserViewControl = require('../edit/edituser.viewcontrol');
 import UserRepository = require('../../../../repositories/user.repository');
-import models = require('../../../../models/user.model');
 
 class ListUsersViewControl extends AdminBaseViewControl {
     title = 'All Users';
@@ -19,7 +18,6 @@ class ListUsersViewControl extends AdminBaseViewControl {
     shownElement: number = null;
 
     constructor(private userRepository: UserRepository,
-        private userFactory: models.UserFactory,
         private animator: plat.ui.animations.Animator) {
         super();
     }
@@ -138,7 +136,6 @@ class ListUsersViewControl extends AdminBaseViewControl {
 
 plat.register.viewControl('listusers-vc', ListUsersViewControl, [
     UserRepository,
-    models.UserFactory,
     plat.ui.animations.Animator
 ]);
 

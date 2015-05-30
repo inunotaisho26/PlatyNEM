@@ -1,9 +1,9 @@
-/// <reference path="../../references.d.ts" />
-/// <reference path="./server.model.d.ts" />
+/// <reference path="../../../references.d.ts" />
+/// <reference path="../server.model.d.ts" />
 
 import plat = require('platypus');
 
-export class BaseFactory<T extends IBaseModel> {
+export class BaseFactory<T extends models.IBaseModel> {
     utils: plat.Utils = plat.acquire(plat.Utils);
 
     constructor(public canUpdate: boolean = false) { }
@@ -32,8 +32,4 @@ export class BaseFactory<T extends IBaseModel> {
             id: data.id
         };
     }
-}
-
-export interface IBaseModel {
-    id?: number;
 }

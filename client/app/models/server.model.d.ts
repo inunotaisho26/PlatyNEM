@@ -16,8 +16,7 @@ declare module server {
         userid?: number;
         user?: IUser;
         created?: Date;
-        published?: number;
-        lastupdated?: Date;
+        published?: boolean;
     }
 
     export module ajax {

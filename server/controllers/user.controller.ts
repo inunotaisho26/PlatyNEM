@@ -21,6 +21,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this));
         router.get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this));
         router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
+        router.get(baseRoute + '/me', this.auth.populateSession, this.current.bind(this));
         router.get(baseRoute + '/:id', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this));
     }
 
@@ -159,6 +160,10 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         }
         
         Crud.sendResponse(res, this.format.response(null, user.role === 'admin'));
+    }
+    
+    current(req: express.Request, res: express.Response) {
+        Crud.sendResponse(res, this.format.response(null, req.user));
     }
 
     private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {

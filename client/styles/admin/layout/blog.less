@@ -1,0 +1,73 @@
+& {
+	#platui > #mixins;
+	
+	[plat-control="managepost-vc"] {
+		background-color: @white;
+	}
+	
+	/// The Title Row contains the toolbar and the title input
+	
+	.blog-title-row {
+		height: 4em;
+		width: 100%;
+		background-color: @white;
+		.flexbox();
+		.justify-content(space-between);
+	}
+	
+	.blog-title-input {
+		height: 100%;
+		font-size: 1.5em;
+		outline: none;
+		border-width: 0;
+	}
+	
+	/// Blog Title Controls - Toolbar for formatting and controlling
+	/// contents in the Quill Editor
+	
+	.blog-title-controls {
+		height: 100%;
+		.flex-vertical-center();
+	}
+	
+	.blog-title-control-group {
+		position: relative;
+		padding: 0 0.6em;
+		
+		&:after {
+			position: absolute;
+			right: 0;
+			content: '';
+			top: 15%;
+			height: 70%;
+			width: 1px;
+			background-color: lighten(@text-control-grey, 15%);
+		}
+	}
+	
+	.blog-title-control {
+		outline: none;
+		border-width: 0;
+		background-color: transparent;
+		
+		& > i.fa {
+			color: @text-control-grey;
+			font-size: 1.6em;
+		}
+	}
+	
+	.manage-blog-container {
+		.flexbox();
+		.flex-direction(column);
+		.align-content(stretch);
+		height: 100%;
+		min-height: 100vh;
+	}
+	
+	// Override custom quill styles
+	.blog-quill-editor {
+		outline: none;	
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+}

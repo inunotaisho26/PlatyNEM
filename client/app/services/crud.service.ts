@@ -17,6 +17,7 @@ class CrudService<T extends server.IBaseModel> extends service.BaseService {
     read(id: number, ...args: Array<any>): plat.async.IThenable<T>;
     read(id?: any, ...args: Array<any>): plat.async.IThenable<any> {
         var params = this._utils.isNull(id) ? [] : [id];
+        
         return this._get.apply(this, params.concat(args));
     }
 

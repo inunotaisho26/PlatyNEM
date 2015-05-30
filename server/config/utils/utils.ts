@@ -196,9 +196,7 @@ export function filter<T>(obj: any, iterator: (value: T, key: any, obj: any) => 
 }
 
 export function where(obj: any, properties: any): Array<any> {
-    return filter(obj, (value)
-        => !some(properties, (property, key)
-            => (<any>value)[key] !== property));
+    return filter(obj, (value) => !some(properties, (property, key) => (<any>value)[key] !== property));
 }
 
 export function forEach<T>(array: Array<T>, iterator: (value: T, index: number, obj: any) => void, context?: any): Array<T>;
@@ -332,8 +330,7 @@ export function camelCase(str: string): string {
     str = str.charAt(0).toLowerCase() + str.substr(1);
 
     return str.replace(camelCaseRegex,
-        (match: string, delimiter?: string, char?: string, index?: number)
-            => index ? char.toUpperCase() : char);
+        (match: string, delimiter?: string, char?: string, index?: number) => index ? char.toUpperCase() : char);
 }
 
 export function isFileExt(path: string): boolean {

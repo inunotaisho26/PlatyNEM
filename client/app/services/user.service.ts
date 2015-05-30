@@ -2,7 +2,6 @@
 /// <reference path="../models/server.model.d.ts" />
 
 import plat = require('platypus');
-import models = require('../models/user.model');
 import CrudService = require('./crud.service');
 
 class UserService extends CrudService<server.IUser> {
@@ -28,6 +27,10 @@ class UserService extends CrudService<server.IUser> {
 
     isAdmin() {
         return this._get<boolean>('admin');
+    }
+    
+    loggedInUser() {
+        return this._get<server.IUser>('me');
     }
 };
 

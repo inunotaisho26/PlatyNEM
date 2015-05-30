@@ -80,6 +80,7 @@ class Procedures<C, R, U, D> {
     }
 
     create(obj: any): Thenable<C> {
+        console.log(obj);
         if (!utils.isObject(obj)) {
             return Promise.resolve(null);
         }

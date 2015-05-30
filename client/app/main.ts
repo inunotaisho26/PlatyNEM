@@ -11,6 +11,7 @@ require('./app/app');
 
 // injectables
 require('./common/injectables/jQuery.injectable');
+require('./common/injectables/moment.injectable');
 
 // templatecontrols
 require('./common/templatecontrols/alert/alert.templatecontrol');
