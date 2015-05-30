@@ -13,6 +13,11 @@ class PublicNavigation extends plat.ui.TemplateControl {
         logoView: HomeViewControl,
         menuItems: [
             {
+                title: 'Blog',
+                view: null,
+                subitems: []
+            },
+            {
                 title: 'Tools',
                 view: null,
                 subitems: [
