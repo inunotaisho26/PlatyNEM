@@ -6,15 +6,21 @@
 
     /// Public Pages
     
-    .plat-viewcontrol, [plat-control="plat-viewport"] {
-        .flexbox();
-        .flex-direction(column);
-        .justify-content(flex-start);
-        .align-items(stretch);
+    .top-viewport {
+        height: 100%;
     }
-
+    
     .plat-viewcontrol {
         height: auto;
-        .flex(1);
+    }
+    
+    .blog-viewport {
+        padding: 1em;
+        background-color: @off-white;
+        
+        & > .plat-viewcontrol {
+            background-color: @white;
+            padding: 1em;
+        }
     }
 }

@@ -1,33 +1,33 @@
 <div class="dashboard-button-row">
-    <plat-button class="button-primary button-small" plat-tap="createUser">
+    <plat-link class="button button-primary button-small" plat-options="{ view: manageView }">
         <i class="fa fa-lg fa-user-plus"></i>
-    </plat-button>
+    </plat-link>
     <span class="button-sidetext">Add New User</span>
 </div>
-<ul class="users" plat-control="plat-foreach" plat-context="users" plat-name="flipper">
-    <li class="flip-container user-container">
-        <div class="flipper user-flipper">
-            <div class="user front">
-                <i class="fa fa-lg fa-bars user-menu" plat-tap="flipUserElement(@index)"></i>
-                <div class="user-avatar" style="background-image: url('{{avatar || '/assets/avatars/no-avatar.gif'}}')"></div>
-                <div class="user-details">
-                    <div class="user-name">{{firstname + ' ' + lastname}}</div>
-                    <span>{{email}}</span>
-                </div>
-            </div>
-            <div class="user back">
-                <i class="fa fa-lg fa-close user-menu" plat-tap="cancelEdit(@index, @context)" ></i>
-                <div class="user-avatar" style="background-image: url('{{@rootContext.editableUser.avatar || '/assets/avatars/no-avatar.gif'}}')">
-                    <label class="change-avatar">
-                        <i class="fa fa-camera"></i>
-                        <input type="file" plat-bind="@rootContext.editableUser.avatar" plat-change="changeAvatar(@index)" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
-                    </label>
-                </div>
-                <div class="user-details">
-                    <plat-button class="button-primary" plat-tap="selectUser(id)">Edit</plat-button>
-                    <plat-button class="button-primary">Delete</plat-button>
-                </div>
-            </div>
-        </div>
-    </li>
-</ul>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody plat-control="plat-foreach" plat-context="users">
+		<tr>
+			<td>{{firstname + ' ' + lastname}}</td>
+			<td>{{email}}</td>
+			<td>{{role}}</td>
+			<td>
+				<table class="cell-table">
+					<tr>
+						<td>
+							<plat-link class="button button-small" plat-options="{ view: @rootContext.manageView, parameters: { id: id }}">Edit</plat-link>
+							<plat-button class="button button-small button-danger">Delete</plat-button>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -6,7 +6,7 @@ import AdminBaseViewControl = require('../../base.viewcontrol');
 
 class ViewControl extends AdminBaseViewControl {
     title = 'Edit User';
-    templateString = require('./edituser.viewcontrol.html');
+    templateString = require('./manage.viewcontrol.html');
     saveButton: plat.controls.INamedElement<HTMLButtonElement, any>;
     context = {
         user: <models.IUser>{},
@@ -38,7 +38,7 @@ class ViewControl extends AdminBaseViewControl {
     }
 }
 
-plat.register.viewControl('edituser-vc', ViewControl, [
+plat.register.viewControl('manageuser-vc', ViewControl, [
     UserRepository
 ]);
 

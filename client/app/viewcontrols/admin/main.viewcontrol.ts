@@ -6,7 +6,7 @@ import DashboardViewControl = require('./dashboard/dashboard.viewcontrol');
 import ListPostsViewControl = require('./blog/list/list.viewcontrol');
 import ManagePostViewControl = require('./blog/manage/manage.viewcontrol');
 import ListUsersViewControl = require('./users/list/list.viewcontrol');
-import EditUsersViewControl = require('./users/edit/edituser.viewcontrol');
+import EditUsersViewControl = require('./users/manage/manage.viewcontrol');
 import LogoutViewControl = require('./logout/logout.viewcontrol');
 
 class AdminViewControl extends BaseViewControl {
