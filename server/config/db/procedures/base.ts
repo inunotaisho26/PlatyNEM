@@ -80,7 +80,6 @@ class Procedures<C, R, U, D> {
     }
 
     create(obj: any): Thenable<C> {
-        console.log(obj);
         if (!utils.isObject(obj)) {
             return Promise.resolve(null);
         }
@@ -95,10 +94,10 @@ class Procedures<C, R, U, D> {
             return Promise.resolve(null);
         }
 
-        return this.callProcedure('Update' + this.procedure, [obj.id].concat(this.getArgs(obj)))
-            .then((values: Array<U>) => {
-                return values[1];
-            })
+        return this.callProcedure('Update' + this.procedure, [obj.id].concat(this.getArgs(obj))).then((results: Array<U>) => {
+            console.log(results[1]);
+            return results[1];
+        });
     }
 
     read(id: number, ...args: any[]): Thenable<R> {

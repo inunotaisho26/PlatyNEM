@@ -54,6 +54,13 @@
 			color: @text-control-grey;
 			font-size: 1.6em;
 		}
+		
+		&.disabled {
+			& > i.fa {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+		}
 	}
 	
 	.manage-blog-container {

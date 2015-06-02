@@ -27,6 +27,10 @@ class Procedures extends Base<number, models.IPost, models.IPost, void> {
 		})
 	}
 	
+	update(post: models.IPost) {
+		return super.update(this._formatPostDates(post));
+	}
+	
 	read(id: number) {
 		return this._read(id).then((results) => {
 			var post = results[0][0];

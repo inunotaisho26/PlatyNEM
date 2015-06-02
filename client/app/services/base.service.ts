@@ -29,6 +29,18 @@ export class BaseService {
     protected _post<T>(options?: any, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T> {
         return this._do<T>('POST', options, urlParams);
     }
+    
+    protected _put<T>(...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _put<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _put<T>(options?: any, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T> {
+        return this._do<T>('PUT', options, urlParams);
+    }
+    
+    protected _delete<T>(...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _delete<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
+    protected _delete<T>(options?: any, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T> {
+        return this._do<T>('DELETE', options, urlParams);
+    }
 
     protected _do<T>(method: string, urlParam?: string, urlParams?: Array<string | number>): plat.async.IAjaxThenable<T>;
     protected _do<T>(method: string, options?: IHttpConfig, urlParams?: Array<string | number>): plat.async.IAjaxThenable<T>;
@@ -45,12 +57,6 @@ export class BaseService {
             url: this._buildUrl.apply(this, urlParams),
             method: method
         }, options));
-    }
-
-    protected _put<T>(...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
-    protected _put<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T>;
-    protected _put<T>(options?: any, ...urlParams: Array<string | number>): plat.async.IAjaxThenable<T> {
-        return this._do<T>('PUT', options, urlParams);
     }
 
     protected _buildUrl(...urlParams) {

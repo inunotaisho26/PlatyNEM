@@ -27,6 +27,10 @@ class CrudService<T extends server.IBaseModel> extends service.BaseService {
             data: data
         }, data.id);
     }
+    
+    destroy(id: number): plat.async.IThenable<void> {
+        return this._delete<void>(id);
+    }
 }
 
 export = CrudService;

@@ -12,6 +12,7 @@ class ViewControl extends AdminBaseViewControl {
     
     quillEditor: any;
     quillElement: plat.controls.INamedElement<HTMLDivElement, any>;
+    savePostButton: plat.controls.INamedElement<HTMLElement, any>;
     initializeEditorPromise: () => plat.async.IThenable<string>;
     
     context = {
@@ -35,30 +36,32 @@ class ViewControl extends AdminBaseViewControl {
     
     save(publish: boolean) {
         var context = this.context;
-        var promise: plat.async.IThenable<void>;
+        var promise: plat.async.IThenable<any>;
         var post = <models.IPost>this.utils.clone(this.utils.extend({}, context.post, {
             content: this.quillEditor.getHTML(),
             published: publish
         }), true);
         
+        this.dom.addClass(this.savePostButton.element, 'disabled');
         
         if (this.utils.isNumber(context.post.id)) {
-            promise = this.postRepository.update(post).then(() => {
-                console.log('post created');
-            });
+            promise = this.postRepository.update(post);
         } else {
             post.created = new Date();
             post.userid = <number>context.user.id;
             post.user = context.user;
             context.post = <models.IPost>this.utils.clone(post, true);
+            
             promise = this.postRepository.create(post).then((postId: number) => {
                context.post.id = postId; 
             });
         }
         
         return promise.catch((errors: Array<Error>) => {
-           console.log(errors);
-           context.post.published = this.utils.isNumber(context.post.id);
+           
+        }).then(() => {
+            context.post.published = this.utils.isNumber(context.post.id);
+            this.dom.removeClass(this.savePostButton.element, 'disabled');
         });
     }
     
