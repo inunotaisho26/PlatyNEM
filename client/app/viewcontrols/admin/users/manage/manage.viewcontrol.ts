@@ -13,7 +13,8 @@ class ViewControl extends AdminBaseViewControl {
         password: <string>null,
         newpassword: <string>null,
         confirmpassword: <string>null,
-        roles: ['admin', 'visitor']
+        roles: ['admin', 'visitor'],
+        editMode: false
     };
 
     constructor(private userRepository: UserRepository) {
@@ -21,16 +22,30 @@ class ViewControl extends AdminBaseViewControl {
     }
 
     navigatedTo(parameters: { id: string }) {
-        this.userRepository.one(parameters.id).then((user: models.IUser) => {
-            console.log(user);
-            this.context.user = user;
-        });
+        var context = this.context;
+        
+        if (!isNaN(Number(parameters.id))) {
+            context.editMode = true;
+            this.userRepository.one(parameters.id).then((user: models.IUser) => {
+                context.user = user;
+            });
+        } else {
+            
+        }
     }
 
     updateUser(user: models.IUser) {
-        this.userRepository.update(user).then((result) => {
-            console.log(result);
-        });
+        var context = this.context;
+        
+        if (context.editMode) {
+            this.userRepository.update(user).then((result) => {
+                console.log(result);
+            });   
+        } else {
+            this.userRepository.create(user, context.password).then((result) => {
+                console.log(result);
+            });
+        }
     }
 
     enableSave() {

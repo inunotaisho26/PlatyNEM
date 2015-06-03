@@ -1,18 +1,23 @@
-<p>User Information</p>
-<div class="input-container">
-    <plat-input type="text" plat-bind="user.firstname" plat-react="enableSave" placeholder="First Name"></plat-input>
-</div>
-<div class="input-container">
-    <plat-input type="text" plat-bind="user.lastname" plat-react="enableSave" placeholder="Last Name"></plat-input>    
-</div>
-<div class="input-container">
-    <plat-input type="text" plat-bind="user.email" plat-react="enableSave" placeholder="Email"></plat-input>
-</div>
-<div class="input-container">
-    <plat-select plat-bind="user.role" plat-react="enableSave" plat-context="roles">
-        <option value="{{@context}}">{{@context}}</option>
-    </plat-select>
-</div>
-<div class="input-container">
-    <plat-button class="button-block button-primary" plat-name="saveButton" disabled plat-tap="updateUser(user)">Save Changes</plat-button>
+<div class="admin-form-container">
+    <p>User Information</p>
+    <div class="input-container">
+        <plat-input type="text" plat-bind="user.firstname" plat-react="enableSave" placeholder="First Name"></plat-input>
+    </div>
+    <div class="input-container">
+        <plat-input type="text" plat-bind="user.lastname" plat-react="enableSave" placeholder="Last Name"></plat-input>    
+    </div>
+    <div class="input-container">
+        <plat-input type="text" plat-bind="user.email" plat-react="enableSave" placeholder="Email"></plat-input>
+    </div>
+    <div class="input-container" plat-visible="!editMode">
+        <plat-input type="password" plat-bind="password" plat-react="enableSave" placeholder="Password"></plat-input>
+    </div>
+    <div class="input-container">
+        <plat-select plat-bind="user.role" plat-react="enableSave" plat-context="roles">
+            <option value="{{@context}}">{{@context}}</option>
+        </plat-select>
+    </div>
+    <div class="input-container">
+        <plat-button class="button-block button-primary" plat-name="saveButton" disabled plat-tap="updateUser(user)">Save Changes</plat-button>
+    </div>
 </div>

@@ -6,6 +6,8 @@ import userProcedures = require('../config/db/procedures/users');
 import userModel = require('../models/user/user.model');
 import Crud = require('./crud.controller');
 import fs = require('fs');
+import path = require('path');
+import config = require('../config/env/all');
 
 var ips: { [key: string]: number; } = {};
 
@@ -23,12 +25,14 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
         router.get(baseRoute + '/me', this.auth.populateSession, this.current.bind(this));
         router.get(baseRoute + '/:id', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this));
+        router.delete(baseRoute + '/:id', this.auth.isAdmin, this.destroy.bind(this));
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
         var user = req.body;
         var avatar: any;
         var promise: Thenable<any> = this.Promise.resolve();
+        
         if (!this.utils.isNull(user.newpassword) && !this.utils.isNull(user.confirmpassword)) {
             if (user.newpassword !== user.confirmpassword) {
                 return this.Promise.reject('Passwords do not match.');
@@ -118,12 +122,22 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         console.log('update');
 
         return this.__createOrUpdate(req, this.procedures.update).then((result) => {
-            console.log(result);
-            return;
+            return Crud.sendResponse(res, this.format.response(null, result));
         }, (err: string) => {
-            console.log(err);
-            return;
+            return Crud.sendResponse(res, this.format.response(err, null));
         });
+    }
+    
+    destroy(req: express.Request, res: express.Response) {
+        var id = req.body.id = req.params.id;
+        return this.handleResponse(this.procedures.read(id)
+            .then((user) => {
+                if (this.utils.isString(user.avatar)) {
+                    return this.file.destroy(path.join(config.app.dist, user.avatar));
+                }
+            }).then(() => {
+                return super.destroy(req, res);
+            }), res);
     }
 
     login(user: models.IUser, req: express.Request) {

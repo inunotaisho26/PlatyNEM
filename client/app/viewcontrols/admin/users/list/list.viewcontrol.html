@@ -23,7 +23,7 @@
 					<tr>
 						<td>
 							<plat-link class="button button-small" plat-options="{ view: @rootContext.manageView, parameters: { id: id }}">Edit</plat-link>
-							<plat-button class="button button-small button-danger">Delete</plat-button>
+							<plat-button class="button button-small button-danger" plat-tap="toggleDeleteModal(id)">Delete</plat-button>
 						</td>
 					</tr>
 				</table>
@@ -31,3 +31,14 @@
 		</tr>
 	</tbody>
 </table>
+<!--Delete User Modal-->
+<plat-modal plat-options="{ transition: 'fade' }" plat-bind="deleteModal" class="modal-prompt">
+	<div class="prompt-title">Delete User</div>
+	<div class="prompt-body">
+		<p>Are you sure you want to delete this user?</p>
+	</div>
+	<div class="prompt-action button-group">
+		<plat-button plat-tap="toggleDeleteModal()">Cancel</plat-button>
+		<plat-button plat-tap="confirmDelete" class="button-suggested">Continue</plat-button>
+	</div>
+</plat-modal>
