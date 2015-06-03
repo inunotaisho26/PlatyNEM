@@ -20,6 +20,10 @@ class UserService extends CrudService<server.IUser> {
             data: this._utils.extend({}, user, { password: password })
         }, 'login');
     }
+    
+    update(user: models.IUser) {
+        return super.update(user, this._http.contentType.MULTIPART_FORM);
+    }
 
     logout() {
         return this._post<boolean>('logout');

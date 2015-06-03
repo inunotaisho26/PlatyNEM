@@ -7,7 +7,9 @@ import UserRepository = require('../../../../repositories/user.repository');
 
 class RegisterViewControl extends BaseViewControl {
     title = 'Register';
+    
     templateString = require('./register.viewcontrol.html');
+    
     context = {
         user: {
             firstname: '',

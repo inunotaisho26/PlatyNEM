@@ -14,7 +14,8 @@ class ViewControl extends AdminBaseViewControl {
         newpassword: <string>null,
         confirmpassword: <string>null,
         roles: ['admin', 'visitor'],
-        editMode: false
+        editMode: false,
+        avatarPrompt: 'Select a new avatar'
     };
 
     constructor(private userRepository: UserRepository) {
@@ -29,8 +30,6 @@ class ViewControl extends AdminBaseViewControl {
             this.userRepository.one(parameters.id).then((user: models.IUser) => {
                 context.user = user;
             });
-        } else {
-            
         }
     }
 
@@ -46,6 +45,11 @@ class ViewControl extends AdminBaseViewControl {
                 console.log(result);
             });
         }
+    }
+    
+    avatarSelected(ev) {
+        this.context.avatarPrompt = ev.target.files[0].name;
+        this.enableSave();
     }
 
     enableSave() {

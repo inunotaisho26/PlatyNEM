@@ -15,7 +15,16 @@
 	</thead>
 	<tbody plat-control="plat-foreach" plat-context="users">
 		<tr>
-			<td>{{firstname + ' ' + lastname}}</td>
+			<td>
+				<table class="cell-table">
+					<tr>
+						<td>
+							<img src="{{avatar}}" alt="" class="avatar-circle">
+						</td>
+						<td>{{firstname + ' ' + lastname}}</td>
+					</tr>
+				</table>
+			</td>
 			<td>{{email}}</td>
 			<td>{{role}}</td>
 			<td>
