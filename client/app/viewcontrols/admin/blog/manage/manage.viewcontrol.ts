@@ -72,6 +72,10 @@ class ViewControl extends AdminBaseViewControl {
             }
         });
         
+        this.quillElement.element.addEventListener('click', () => {
+           this.quillEditor.focus(); 
+        });
+        
         this.initializeEditorPromise().then((content) => {
             this.quillEditor.setHTML(content);    
         });
@@ -79,6 +83,8 @@ class ViewControl extends AdminBaseViewControl {
         this.quillEditor.addModule('toolbar', {
             container: '#quill-toolbar'
         });
+        
+        this.quillEditor.focus();
     }
     
     navigatedTo(params: any) {
