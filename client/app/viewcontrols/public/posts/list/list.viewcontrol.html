@@ -1,1 +1,6 @@
-<h1>Posts!!</h1>
+<ul plat-control="plat-foreach" plat-context="posts">
+	<li>
+		<div class="post-title">{{title}}</div>
+		<htmlify plat-context="content" class="post-content" plat-options="{ maxLength: 20, formatted: false }"></htmlify>
+	</li>
+</ul>

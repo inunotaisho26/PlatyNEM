@@ -4,7 +4,7 @@ import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');
 
 class SinglePostViewControl extends BaseViewControl {
-	templateString = require('./single.viewcontrol');
+	templateString = require('./single.viewcontrol.html');
 	title = 'Single Post';
 	context = {};
 }
