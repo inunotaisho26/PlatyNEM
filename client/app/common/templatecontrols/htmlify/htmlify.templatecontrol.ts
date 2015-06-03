@@ -9,10 +9,10 @@ class Htmlify extends ui.controls.InnerHtml {
 	
 	loaded() {
 		var content = this.context;
-		var options = this.options.value;
+		var options = !!this.options ? this.options.value : {};
 		var maxLen = options.maxLength || this.defaultLength;
 		
-		if (!options.formatted) {
+		if (!this.utils.isNull(options.formatted) && !options.formatted) {
 			content = content.replace(/(<([^>]+)>)/ig, '');
 			
 			// Only abridge content that has been stripped of html tags

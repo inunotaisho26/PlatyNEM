@@ -3,12 +3,14 @@
 import plat = require('platypus')
 import BaseViewControl = require('../../../base.viewcontrol');
 import PostRepository = require('../../../../repositories/post.repository');
+import SingleViewControl = require('../single/single.viewcontrol');
 
 class ListPostsViewControl extends BaseViewControl {
 	templateString = require('./list.viewcontrol.html');
 	title = 'List Posts';
 	context = {
-		posts: <Array<models.IPost>>null
+		posts: <Array<models.IPost>>null,
+		singleView: SingleViewControl
 	};
 	
 	constructor(private postRepository: PostRepository) {
