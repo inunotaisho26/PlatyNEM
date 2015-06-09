@@ -36,6 +36,26 @@ class UserService extends CrudService<server.IUser> {
     loggedInUser() {
         return this._get<server.IUser>('me');
     }
+    
+    createResetToken(email: string) {
+        return this._post<any>({
+            data: {
+                email: email
+            }
+        }, 'forgot');
+    }
+    
+    checkTokenExpiration(token: string) {
+        return this._get<boolean>('reset', token);
+    }
+    
+    resetPassword(token: string, password: string) {
+        return this._post<any>({
+            data: {
+                password: password
+            }
+        }, 'reset', token);
+    }
 };
 
 export = UserService;

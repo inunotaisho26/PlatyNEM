@@ -8,5 +8,7 @@ declare module models {
         password: string;
         salt: string;
         avatar: string;
+        resetPasswordToken?: string;
+        resetPasswordExpires?: Date;
     }
 }

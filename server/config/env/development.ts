@@ -2,10 +2,12 @@
 
 import path = require('path');
 
+var port = 5000;
+
 var config: models.IConfig = {
     app: {
         name: 'BlogStarter',
-        url: 'http://localhost',
+        url: 'http://localhost:' + port,
         dist: './client/dist/',
         uploads: '/assets'
     },
@@ -18,11 +20,11 @@ var config: models.IConfig = {
     },
     smtp: {
         service: 'Gmail',
-        username: 'johndoe@johndoe.com',
-        password: 'password123'
+        username: 'darion.welch@gmail.com',
+        password: 'Darjeeling01'
     },
     sessionKey: 'You should change this',
-    port: 5000,
+    port: port,
     root: path.normalize(__dirname + '../../../..')
 };
 

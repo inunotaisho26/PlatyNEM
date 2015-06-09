@@ -2,7 +2,6 @@
 
 import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');
-import LoginViewControl = require('../login/login.viewcontrol');
 import UserRepository = require('../../../../repositories/user.repository');
 
 class RegisterViewControl extends BaseViewControl {
@@ -17,7 +16,6 @@ class RegisterViewControl extends BaseViewControl {
             email: ''
         },
         password: '',
-        login: LoginViewControl,
         alerts: <server.ajax.IValidationErrors>[],
         avatarPrompt: 'Choose an Avatar'
     };
