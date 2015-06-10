@@ -20,8 +20,8 @@ var config: models.IConfig = {
     },
     smtp: {
         service: 'Gmail',
-        username: 'darion.welch@gmail.com',
-        password: 'Darjeeling01'
+        username: 'example55555@gmail.com',
+        password: 'gmail-password'
     },
     sessionKey: 'You should change this',
     port: port,
