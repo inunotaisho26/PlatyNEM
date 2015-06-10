@@ -54,6 +54,18 @@ class UserRepository extends BaseRepository<UserFactory, UserService, models.IUs
     isAdmin(): plat.async.IThenable<boolean> {
         return this.service.isAdmin();
     }
+    
+    createResetToken(email: string): plat.async.IThenable<void> {
+        return this.service.createResetToken(email);
+    }
+    
+    checkTokenExpiration(token: string) {
+        return this.service.checkTokenExpiration(token);
+    }
+    
+    resetPassword(token: string, password: string) {
+        return this.service.resetPassword(token, password);
+    }
 }
 
 plat.register.injectable('usersRepository', UserRepository, [

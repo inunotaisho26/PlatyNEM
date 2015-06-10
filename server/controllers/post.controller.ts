@@ -14,6 +14,8 @@ class Controller extends Crud<typeof repository, typeof model> {
 		router
 			.get(baseRoute, this.all.bind(this))
 			.get(baseRoute + '/:id', this.read.bind(this))
+			.put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this))
+			.delete(baseRoute + '/:id', this.auth.isAdmin, this.destroy.bind(this))
 			.post(baseRoute, this.auth.requiresLogin, this.auth.isAdmin, this.create.bind(this));
 	}
 	
@@ -29,9 +31,14 @@ class Controller extends Crud<typeof repository, typeof model> {
 	
 	create(req: express.Request, res: express.Response) {
 		var post: models.IPost = req.body;
-		
+		console.log(post);
 		post.created = post.created || new Date();
 		return super.create(req, res);
+	}
+	
+	destroy(req: express.Request, res: express.Response) {
+		req.body.id = req.params.id;
+		return super.destroy(req, res);
 	}
 }
 

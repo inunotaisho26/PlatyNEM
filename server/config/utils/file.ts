@@ -34,16 +34,22 @@ export var ensureDir = (path: string): Thenable<any> => {
     }
 };
 
-export var destroy = (file: any) => {
+export var destroy = (file: any | string) => {
+    var path: string;
+    
     if (utils.isObject(file)) {
-        return fileExists(file.path).then(() => {
-           return unlink(file.path); 
-        }, () => {
-           return Promise.resolve(null);
-        });
+        path = file.path;    
+    } else if (utils.isString(file)) {
+        path = file;
+    } else {
+        return Promise.resolve(null);
     }
     
-    return Promise.resolve(null);
+    return fileExists(path).then(() => {
+       return unlink(path); 
+    }, () => {
+       return Promise.resolve(null);
+    });
 };
 
 export var move = (origin: string, destination: string) => {

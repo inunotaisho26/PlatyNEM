@@ -1,9 +1,9 @@
 /// <reference path="../../references.d.ts" />
 
-import plat = require('platypus');
+import {acquire, async, ui} from 'platypus';
 
-class BaseViewControl extends plat.ui.ViewControl {
-    protected _Promise = plat.acquire(plat.async.IPromise);
+class BaseViewControl extends ui.ViewControl {
+    protected _Promise = acquire(async.IPromise);
 }
 
 export = BaseViewControl;

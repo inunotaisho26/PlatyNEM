@@ -37,7 +37,7 @@ class Controller<P extends Store, M extends BaseModel<any>> extends BaseControll
         var obj = req.body;
         
         return this.model.validate(obj).then(() => {
-            return this.handleResponse(this.procedures.update(obj), res); 
+            return this.handleResponse(this.procedures.update(obj), res);
         }, (errors) => {
             return this.handleResponse(Promise.reject(errors), res);
         });

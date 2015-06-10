@@ -6,6 +6,10 @@ import userProcedures = require('../config/db/procedures/users');
 import userModel = require('../models/user/user.model');
 import Crud = require('./crud.controller');
 import fs = require('fs');
+import path = require('path');
+import crypto = require('crypto');
+import config = require('../config/env/all');
+import mailer = require('../config/utils/mailer');
 
 var ips: { [key: string]: number; } = {};
 
@@ -23,12 +27,17 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this));
         router.get(baseRoute + '/me', this.auth.populateSession, this.current.bind(this));
         router.get(baseRoute + '/:id', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this));
+        router.delete(baseRoute + '/:id', this.auth.isAdmin, this.destroy.bind(this));
+        router.post(baseRoute + '/forgot', this.createResetToken.bind(this));
+        router.get(baseRoute + '/reset/:token', this.checkTokenExpiration.bind(this));
+        router.post(baseRoute + '/reset/:token', this.resetPassword.bind(this))
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
         var user = req.body;
         var avatar: any;
         var promise: Thenable<any> = this.Promise.resolve();
+        
         if (!this.utils.isNull(user.newpassword) && !this.utils.isNull(user.confirmpassword)) {
             if (user.newpassword !== user.confirmpassword) {
                 return this.Promise.reject('Passwords do not match.');
@@ -52,7 +61,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
                 return;
             });
         }
-
+        
         if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
             avatar = req.files.avatar;
         }
@@ -115,15 +124,23 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         var user: models.IUser = req.body;
         var avatar: any;
 
-        console.log('update');
-
         return this.__createOrUpdate(req, this.procedures.update).then((result) => {
-            console.log(result);
-            return;
+            return Crud.sendResponse(res, this.format.response(null, result));
         }, (err: string) => {
-            console.log(err);
-            return;
+            return Crud.sendResponse(res, this.format.response(err, null));
         });
+    }
+    
+    destroy(req: express.Request, res: express.Response) {
+        var id = req.body.id = req.params.id;
+        return this.handleResponse(this.procedures.read(id)
+            .then((user) => {
+                if (this.utils.isString(user.avatar)) {
+                    return this.file.destroy(path.join(config.app.dist, user.avatar));
+                }
+            }).then(() => {
+                return super.destroy(req, res);
+            }), res);
     }
 
     login(user: models.IUser, req: express.Request) {
@@ -168,10 +185,9 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
     private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
         var errors: models.IValidationErrors = [];
-        console.log('upload avi');
+        
         if (avatar.mimetype.indexOf('image') >= 0) {
             return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
-                console.log(url);
                 user.avatar = url;
                 req.body = user;
                 return this.procedures.update.call(this.procedures, user);
@@ -180,7 +196,80 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             });
         }
     }
-
+    
+    createResetToken(req: express.Request, res: express.Response) {
+        var token = crypto.randomBytes(20).toString('hex');
+        var email: string = req.body.email;
+        var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        var fromEmail = config.smtp.username;
+        var emailOptions: mailer.IMailOptions = {
+            to: email,
+            from: fromEmail,
+            fromname: 'Password Resetter',
+            subject: 'Password Reset for ' + config.app.name,
+            html: '<p>You\'ve requested to reset your password at ' + config.app.name + '.</p>' +
+            '<a href="' + config.app.url + '/reset-password/' + token + '">Click the here to reset</a>' +
+            '<p>Ignore this email if you did not request to reset your password.</p>'
+        };
+        var response = {
+            success: 'An email has been sent to the address you provided.'
+        };
+        
+        if (this.utils.isEmpty(email) || !emailRegex.test(email)) {
+            Crud.sendResponse(res, this.format.response([new this.ValidationError('Invalid email address', 'email')]));
+        }
+        
+        this.procedures.createUserPasswordResetToken(email, token).then((id) => {
+            if (!this.utils.isNumber(id)) {
+                return this.Promise.resolve(response);
+            }
+            
+            return mailer.sendEmail(emailOptions);
+        }).then(() => {
+            return this.format.response(undefined, response);
+        }, (err: any) => {
+            return this.format.response(err);
+        }).then((response) => {
+            Crud.sendResponse(res, response);
+        });
+    }
+    
+    checkTokenExpiration(req: express.Request, res: express.Response) {
+        var token = req.params.token;
+        
+        return this.__checkTokenValidity(token).then(() => {
+            return this.format.response(undefined, true);
+        }, (err: models.IValidationErrors) => {
+            return this.format.response(err);
+        }).then((response) => {
+            Crud.sendResponse(res, response);
+        });
+    }
+    
+    resetPassword(req: express.Request, res: express.Response) {
+        var token = req.params.token;
+        
+        return this.__checkTokenValidity(token).then((user: models.IUser) => {
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            (<any>req).password = req.body.password;
+            req.body = user;
+            return this.__createOrUpdate(req, this.procedures.update);
+        }).then(() => {
+            return this.format.response(null, {
+                success: 'Your password has been updated.'
+            })
+        }, (errors: models.IValidationErrors) => {
+            return this.format.response({ errors: errors });
+        }).then((response) => {
+            Crud.sendResponse(res, response);
+        });
+    }
+    
+    private __checkTokenValidity(token: string) {
+        return this.procedures.findByPasswordResetToken(token);
+    }
+    
     authenticate(req: express.Request, res: express.Response) {
         var ip = req.connection.remoteAddress;
         var cached = ips[ip];

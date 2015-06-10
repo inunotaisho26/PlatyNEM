@@ -3,6 +3,7 @@
 import plat = require('platypus');
 import BaseViewControl = require('../../../base.viewcontrol');
 import RegisterViewControl = require('../register/register.viewcontrol');
+import ForgotPasswordViewControl = require('../forgot/forgot.viewcontrol');
 import UserRepository = require('../../../../repositories/user.repository');
 
 class LoginViewControl extends BaseViewControl {
@@ -13,7 +14,8 @@ class LoginViewControl extends BaseViewControl {
             email: '',
             password: '',
         },
-        register: RegisterViewControl
+        registerView: RegisterViewControl,
+        forgotView: ForgotPasswordViewControl
     };
 
     constructor(private usersRepository: UserRepository) {

@@ -52,6 +52,12 @@ class Repository extends Base<number, models.IPost, models.IPost, void> {
 			return value;
 		});
 	}
+	
+	destroy(id: number) {
+		this.cache.del(this._cachePrefix + id);
+		this._clearCaches();
+		return this._procedures.destroy(id);
+	}
 }
 
 

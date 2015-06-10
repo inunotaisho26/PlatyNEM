@@ -26,6 +26,20 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
             return super.create(user);
         });
     }
+    
+    createUserPasswordResetToken(email: string, token: string): Thenable<number> {
+        return this.findBy(email).then((user) => {
+           if (!this.utils.isNull(user)) {
+               return this.callProcedure('CreateUserPasswordResetToken', [email, token]).then((rows) => {
+                  var result: { userid: number; } = rows[0][0];
+                  
+                  if (this.utils.isObject(result) && this.utils.isNumber(result.userid)) {
+                      return result.userid;
+                  } 
+               });
+           } 
+        });
+    }
 
     isUnique(user: models.IUser): Thenable<{ email: boolean }> {
         if (!this.utils.isObject(user)) {
@@ -55,12 +69,30 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
         ];
     }
 
+    findByPasswordResetToken(token: string): Thenable<models.IUser> {
+        return this.findBy(undefined, token).then((user: models.IUser) => {
+           var errors: models.IValidationErrors = [];
+           
+           if (!this.utils.isObject(user)) {
+               errors.push(new this.ValidationError('Invalid password reset request.'));
+           } else if (user.resetPasswordExpires < (new Date())) {
+               errors.push(new this.ValidationError('Password reset has expired.', 'resetPasswordExpires'));
+           } else {
+               return user;
+           }
+           
+           throw errors;
+        });
+    }
+
     findByEmail(email: string): Thenable<models.IUser> {
         return this.findBy(encodeURI(email));
     }
 
-    findBy(email: string): Thenable<models.IUser> {
-        return this.callProcedure('GetUserBy', [email]).then((rows) => {
+    findBy(email: string): Thenable<models.IUser>;
+    findBy(email: string, resetPasswordToken: string): Thenable<models.IUser>;
+    findBy(email: string, resetPasswordToken?: string): Thenable<models.IUser> {
+        return this.callProcedure('GetUserBy', [email, resetPasswordToken]).then((rows) => {
             return rows[0][0];
         });
     }

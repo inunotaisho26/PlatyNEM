@@ -10,17 +10,17 @@ var Promise = PromiseStatic.Promise;
 
 export function sendEmail(mailOptions: IMailOptions): Promise<{ success: string }>;
 export function sendEmail(mailOptions: any) {
-	var smtpTransport = nodemailer.createTransport(sgTransport({
+	var smtpTransport = nodemailer.createTransport({
+		service: config.smtp.service,
 		auth: {
-			api_user: config.contact.username,
-			api_key: config.contact.password
+			user: config.smtp.username,
+			pass: config.smtp.password
 		}
-	}));
+	});
 	
 	return new Promise<{ success: string }>((resolve, reject) => {
 		smtpTransport.sendMail(mailOptions, (err) => {
 			if (utils.isObject(err)) {
-				console.log(err);
 				return reject(err);
 			}
 			resolve();

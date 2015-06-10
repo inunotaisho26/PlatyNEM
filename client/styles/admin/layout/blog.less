@@ -5,10 +5,13 @@
 		background-color: @white;
 	}
 	
+	/// Blog Constants
+	@blog-title-row-height: 4em;
+	
 	/// The Title Row contains the toolbar and the title input
 	
 	.blog-title-row {
-		height: 4em;
+		height: @blog-title-row-height;
 		width: 100%;
 		background-color: @white;
 		.flexbox();
@@ -20,6 +23,7 @@
 		font-size: 1.5em;
 		outline: none;
 		border-width: 0;
+		min-width: 20em;
 	}
 	
 	/// Blog Title Controls - Toolbar for formatting and controlling
@@ -54,6 +58,13 @@
 			color: @text-control-grey;
 			font-size: 1.6em;
 		}
+		
+		&.disabled {
+			& > i.fa {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+		}
 	}
 	
 	.manage-blog-container {
@@ -66,6 +77,7 @@
 	
 	// Override custom quill styles
 	.blog-quill-editor {
+		min-height: 20em;
 		outline: none;	
 		padding-right: 0 !important;
 		padding-left: 0 !important;

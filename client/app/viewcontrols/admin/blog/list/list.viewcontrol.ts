@@ -10,16 +10,42 @@ class ListPostsViewControl extends AdminBaseViewControl {
     templateString = require('./list.viewcontrol.html');
     context = {
         manageView: ManagePostViewControl,
-        posts: <Array<models.IPost>>null
+        posts: <Array<models.IPost>>null,
+        deleteModal: false
     };
+    
+    toDeleteId: string;
     
     constructor(private postRepository: PostRepository) {
         super();
     }
     
     navigatedTo() {
+        this.refreshPosts();
+    }
+    
+    toggleDeleteModal(id?: string) {
+        var context = this.context;
+        
+        context.deleteModal = !context.deleteModal;
+        
+        if (!this.utils.isNull(id)) {
+            this.toDeleteId = id;
+        }
+    }
+    
+    refreshPosts() {
         this.postRepository.all().then((posts: Array<models.IPost>) => {
+            console.log(posts);
             this.context.posts = posts;
+        });
+    }
+    
+    confirmDelete() {
+        this.postRepository.destroy(this.toDeleteId).then((result) => {
+           this.toDeleteId = null;
+           this.context.deleteModal = false;
+           this.refreshPosts();
         });
     }
 }
