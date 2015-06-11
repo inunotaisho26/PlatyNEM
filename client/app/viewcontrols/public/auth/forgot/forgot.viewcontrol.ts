@@ -18,8 +18,11 @@ class ForgotPasswordViewControl extends BaseViewControl {
 	}
 	
 	submit() {
-		this.userRepository.createResetToken(this.context.email).then((result) => {
-			console.log(result);
+		this.userRepository.createResetToken(this.context.email).then(() => {
+			this._globalAlert.setAlerts('A password recovery email has been sent.', 'success');
+		}, (errors) => {
+			console.log(errors);
+			this._globalAlert.setAlerts(errors, 'fail');
 		});
 	}
 }

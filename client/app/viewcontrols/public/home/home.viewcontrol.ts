@@ -7,10 +7,6 @@ class HomeViewControl extends BaseViewControl {
     title = 'BlogStarter | Just Start Writing';
     templateString = require('./home.viewcontrol.html');
     context = {};
-    
-    initialize() {
-        console.log(this._globalAlert);
-    }
 }
 
 plat.register.viewControl('', HomeViewControl);

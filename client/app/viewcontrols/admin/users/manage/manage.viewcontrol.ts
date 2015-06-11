@@ -35,16 +35,19 @@ class ViewControl extends AdminBaseViewControl {
 
     updateUser(user: models.IUser) {
         var context = this.context;
+        var promise: plat.async.IThenable<any>;
         
         if (context.editMode) {
-            this.userRepository.update(user).then((result) => {
-                console.log(result);
-            });   
+            promise = this.userRepository.update(user);   
         } else {
-            this.userRepository.create(user, context.password).then((result) => {
-                console.log(result);
-            });
+            promise = this.userRepository.create(user, context.password);
         }
+        
+        promise.then(() => {
+            this._globalAlert.setAlerts('User has been saved', 'success');
+        }, (errors) => {
+            this._globalAlert.setAlerts(errors, 'fail');
+        });
     }
     
     avatarSelected(ev) {

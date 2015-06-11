@@ -34,90 +34,62 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
-        var user = req.body;
-        var avatar: any;
-        var promise: Thenable<any> = this.Promise.resolve();
-        
-        if (!this.utils.isNull(user.newpassword) && !this.utils.isNull(user.confirmpassword)) {
-            if (user.newpassword !== user.confirmpassword) {
-                return this.Promise.reject('Passwords do not match.');
-            }
+        var user: models.IUser = req.body,
+            avatar: any,
+            password = (<any>req).password || (<any>user).password,
+            checkPassword = this.utils.isString(password) || password === null;
 
-            if (!this.utils.isString(user.password) || user.password.length === 0) {
-                return this.Promise.reject('Invalid password.');
-            }
-
-            promise = this.model.authenticate(user, user.password).then((valid: boolean) => {
-                if (valid) {
-                    return this.model.generateSalt(user.newpassword)
-                }
-
-                return this.Promise.reject('Password incorrect.');
-            }).then((salt) => {
-                user.salt = salt;
-                return this.model.generateHashedPassword(user, user.newpassword);
-            }).then((hash) => {
-                user.password = hash;
-                return;
-            });
+        if (checkPassword) {
+            user.salt = this.model.generateSalt(password);
+            console.log(user.salt);
+            user.hashedpassword = this.model.generateHashedPassword(user, password);
+            console.log(user.hashedpassword);
         }
-        
+
+        user.role = user.role || 'visitor';
+
         if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
             avatar = req.files.avatar;
         }
 
-        return promise
-            .then(() => {
-                return method.call(this.procedures, user);
-            })
-            .then((id: any) => {
-                if (!user.id) {
-                    user.id = id;
-                }
-
-                if (this.utils.isObject(avatar)) {
-                    return this.__uploadAvatar(avatar, user, req);
-                }
-            })
-            .then(null, (errors) => {
-                throw errors;
-            })
-            .then(() => {
-                return user;
-            });
+        return this.model.validate(user, {
+            checkPassword: checkPassword,
+            remoteip: req.connection.remoteAddress,
+            secure: req.secure
+        })
+        .then(() => {
+            return method.call(this.procedures, user);
+        }).then((id: any) => {
+            if (!user.id) {
+                user.id = id;
+            }
+            if (this.utils.isObject(avatar)) {
+                return this.__uploadAvatar(avatar,user,req);
+            }
+        }).then(null, (errors) => {
+            throw errors;
+        }).then(() => {
+            return user;
+        });
     }
 
     create(req: express.Request, res: express.Response, next?: Function) {
-        var user: models.IUser = req.body;
-        var avatar: any;
-        user.role = 'visitor';
-        
-        if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
-            avatar = req.files.avatar;
-        }
+        (<models.IUser>req.body).role = 'visitor';
 
-        return this.model.generateSalt(user.password)
-            .then((salt) => {
-                user.salt = salt;
-                return this.model.generateHashedPassword(user, user.password);
-            })
-            .then((hash) => {
-                user.password = hash;
-                return this.procedures.create(user);
-            })
-            .then((id: any) => {
-                if (!user.id) {
-                    user.id = id;
-                }
-                if (this.utils.isObject(avatar)) {
-                    return this.__uploadAvatar(avatar, user, req);
-                }
-            })
-            .then((response) => {
-                this.sendResponse(res, this.format.response(response));
-            }, (err: models.IValidationErrors) => {
-                this.sendResponse(res, this.format.response(err));
+        return this.__createOrUpdate(req, this.procedures.create).then((user) => {
+            var response = this.format.response(null, user.id);
+            if (this.utils.isObject(req.user)) {
+                return response;
+            }
+            return <any>this.login(user, req).then(() => {
+                return response;
             });
+        }).then(null,(err: models.IValidationErrors) => {
+            console.log('err', err);
+            return this.format.response(err);
+        }).then((response: models.IFormattedResponse) => {
+            Crud.sendResponse(res, response);
+        });
     }
 
     update(req: express.Request, res: express.Response) {
@@ -307,6 +279,10 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             })(req, res, null);
         }).then((user: models.IUser) => {
             return this.login(user, req);
+        }).then((response) => {
+            return this.format.response(undefined, response);
+        }, (response) => {
+            return this.Promise.resolve(response);
         }).then((response) => {
             Crud.sendResponse(res, response);
         });
