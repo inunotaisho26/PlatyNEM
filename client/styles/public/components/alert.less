@@ -4,21 +4,57 @@
 & {
     #platui > #mixins;
 
+    [plat-control="global-alert"] {
+        .justify-content(center);
+        position: absolute;
+        top: 0.6em;
+        width: 100%;
+        z-index: 999999;
+        pointer-events: none;
+        display: none;
+        
+        &.alert-visible {
+            .flexbox();
+        }
+    }
+
     .alert {
         .flex-vertical-center();
         .justify-content(space-between);
-        min-height: 3em;
-        width: 100%;
-        padding: 0 @container-horizontal;
+        padding: 0.5em 1em;
         color: #ffffff;
-
+        z-index: 5;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 1px;
+        pointer-events: auto;
+        
         &.alert-danger {
-            .backgroundHexToRGBA(@red, 0.4);
+            .backgroundHexToRGBA(@red, 0.3);
+            border-color: @red;
+            color: @red;
         }
-
-        & > ul.alert-messages {
-            margin: 0;
-            padding: 1em @container-horizontal;
+        
+        &.alert-success {
+            .backgroundHexToRGBA(@sea-green, 0.3);
+            border-color: @sea-green;
+            color: @sea-green;
+        }
+        
+        &.alert-neutral {
+            background-color: darken(@off-white, 5%);
+            border-color: darken(@light-grey, 17%);
+            color: darken(@light-grey, 17%);
+        }
+    }
+    
+    ul.alert-messages {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+         
+        & > li {
+            font-size: 0.9em; 
         }
     }
 }

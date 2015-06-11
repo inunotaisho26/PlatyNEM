@@ -2,8 +2,8 @@
 
 import plat = require('platypus');
 
-class Alert extends plat.ui.TemplateControl {
-    templateString = require('./alert.templatecontrol.html');
+class LocalAlert extends plat.ui.TemplateControl {
+    templateString = require('./localalert.templatecontrol.html');
     context = {
         alerts: []
     };
@@ -13,4 +13,4 @@ class Alert extends plat.ui.TemplateControl {
     }
 }
 
-plat.register.control('alert', Alert);
+plat.register.control('local-alert', LocalAlert);

@@ -296,7 +296,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             if (cached <= 0) {
                 delete ips[ip];
             }
-        }, 3600000);
+        }, 5);
 
         return new this.Promise((resolve, reject) => {
             passport.authenticate('local', (err: Error, user: models.IUser, info: any) => {

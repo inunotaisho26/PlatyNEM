@@ -26,7 +26,6 @@ class ListPostsViewControl extends AdminBaseViewControl {
     
     toggleDeleteModal(id?: string) {
         var context = this.context;
-        
         context.deleteModal = !context.deleteModal;
         
         if (!this.utils.isNull(id)) {
@@ -36,7 +35,6 @@ class ListPostsViewControl extends AdminBaseViewControl {
     
     refreshPosts() {
         this.postRepository.all().then((posts: Array<models.IPost>) => {
-            console.log(posts);
             this.context.posts = posts;
         });
     }
@@ -45,6 +43,7 @@ class ListPostsViewControl extends AdminBaseViewControl {
         this.postRepository.destroy(this.toDeleteId).then((result) => {
            this.toDeleteId = null;
            this.context.deleteModal = false;
+           this._globalAlert.setAlerts('Post has been deleted', 'success');
            this.refreshPosts();
         });
     }
