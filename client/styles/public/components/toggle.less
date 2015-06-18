@@ -4,30 +4,26 @@
 & {
     #platui > #mixins;
 
-	@unchecked-background: @darkmode-background-offset;
-	@toggle-border: lighten(@darkmode-background-offset, 10%);
-	@knob-color: @darkmode-green;
-	@knob-color-off: lighten(@darkmode-background-offset, 20%);
-	@knob-color-offset: darken(@knob-color, 10%);
-	
 	.plat-toggle {
 		.plat-toggle-container {
-			box-sizing: content-box;
-			background-color: @unchecked-background;
-			border-color: @toggle-border;
+			background-color: @white;
+			border-color: @black;
+			border-width: 2px;
 	
 			.plat-knob {
-				background-color: @knob-color-off;
+				position: relative;
+				background-color: @white;
+				border: 2px solid @black;
 				box-shadow: none;
 			}
 	
 			&.plat-slide {
-				border-color: @knob-color-off;
-				background-color: lighten(desaturate(@knob-color, 25%), 20%);
+				border-color: @black;
+				background-color: lighten(desaturate(@black, 25%), 20%);
 	
 				.plat-knob {
-					background-color: @knob-color;
-					border-color: @knob-color-offset;
+					background-color: @white;
+					border-color: @black;
 					box-shadow: none;
 				}
 			}	

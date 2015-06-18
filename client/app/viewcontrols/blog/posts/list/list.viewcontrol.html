@@ -1,0 +1,8 @@
+<ul plat-control="plat-foreach" plat-context="posts" class="post-list">
+	<li>
+		<plat-link plat-options="{ view: @rootContext.singleView, parameters: { id: id }}">
+			<h3 class="post-title">{{title}}</h3>
+		</plat-link>
+		<htmlify plat-context="content" class="post-content" plat-options="{ maxLength: 200, formatted: false }"></htmlify>
+	</li>
+</ul>

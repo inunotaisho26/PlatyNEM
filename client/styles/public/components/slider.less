@@ -5,10 +5,8 @@
     #platui > #mixins;
 
 	@primary: @darkmode-blue;
-	@unfilled: @darkmode-background-offset;
-	@knob-color: @primary;
-	@knob-color-offset: darken(@knob-color, 10%);
-	@offset-color: @primary;
+	@unfilled: @white;
+	@knob-color: @black;
 	
 	/// ====== Plat-Slider Overrides ======
 	
@@ -17,14 +15,18 @@
 	.plat-slider {
 		.plat-slider-container {
 			background-color: @unfilled;
-			height: 0.3em!important;
+			border: 2px solid @black;
+			height: 0.6em!important;
+			box-shadow: none;
 	
 			.plat-slider-track {
 				.plat-knob {
+					top: 1px;
 					height: @knob-diameter;
 					width: @knob-diameter;
-					background-color: @knob-color;
-					border-color: @knob-color-offset;
+					background-color: @white;
+					border-width: 2px;
+					border-color: @knob-color;
 				}
 			}
 		}
@@ -41,7 +43,7 @@
 	.plat-slider.slider-primary {
 		.plat-slider-container {
 			.plat-slider-track {
-				background-color: @offset-color;
+				background-color: @black;
 				box-shadow: none;
 			}
 		}

@@ -5,7 +5,7 @@ import BaseViewControl = require('../base.viewcontrol');
 import BoxShadowViewControl = require('./boxshadow/boxshadow.viewcontrol');
 
 class ToolsViewControl extends BaseViewControl {
-	templateString = '<plat-viewport></plat-viewport>';
+	templateString = require('./main.viewcontrol.html');
 	context = {};
 	constructor(router: plat.routing.Router) {
 		super();

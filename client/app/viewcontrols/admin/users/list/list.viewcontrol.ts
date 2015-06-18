@@ -47,6 +47,7 @@ class ListUsersViewControl extends AdminBaseViewControl {
         this.userRepository.destroy(this.toDeleteId).then((result) => {
            this.toDeleteId = null;
            this.context.deleteModal = false;
+           this._globalAlert.setAlerts('User has been deleted', 'success');
            this.refreshUsers();
         });
     }

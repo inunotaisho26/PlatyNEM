@@ -3,10 +3,6 @@
 
 & {
     #platui > #mixins;
-
-	/// ============ Colpick Constants ==============
-
-	@input-border: lighten(@darkmode-background-offset, 10%);
 	
 	/// ============ Colpick Overrides ==============
 	
@@ -28,12 +24,11 @@
 	}
 	
 	.colpick_field, .colpick_hex_field, .colpick_field_letter {
-		background-color: @darkmode-background-offset;
-		border-color: @input-border;
-		color: @darkmode-text;
+		border-color: @black;
+		background-color: @white;
 	
 		input {
-			color: @darkmode-text;
+			color: @black;
 		}
 	}
 }

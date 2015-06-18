@@ -4,19 +4,14 @@ import plat = require('platypus');
 import BoxShadowViewControl = require('../../../../viewcontrols/tools/boxshadow/boxshadow.viewcontrol');
 import LoginViewControl = require('../../../../viewcontrols/blog/auth/login/login.viewcontrol');
 import RegisterViewControl = require('../../../../viewcontrols/blog/auth/register/register.viewcontrol');
-import HomeViewControl = require('../../../../viewcontrols/blog/home/home.viewcontrol');
+import ListPostsViewControl = require('../../../../viewcontrols/blog/posts/list/list.viewcontrol');
 
 class PublicNavigation extends plat.ui.TemplateControl {
     templateString = require('./public.templatecontrol.html');
     hasOwnContext = true;
     context = {
-        logoView: HomeViewControl,
+        logoView: ListPostsViewControl,
         menuItems: [
-            {
-                title: 'Blog',
-                view: null,
-                subitems: []
-            },
             {
                 title: 'Tools',
                 view: null,

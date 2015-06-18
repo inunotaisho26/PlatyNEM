@@ -32,5 +32,10 @@ declare module server {
             data?: any;
             message?: string;
         }
+        
+        export interface IFormattedResponse {
+            status: number;
+            body: IResponseBody;
+        } 
     }
 }

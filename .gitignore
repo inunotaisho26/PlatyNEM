@@ -165,7 +165,6 @@ node_modules/
 client/lib
 client/typings/
 client/dist/avatars/
-!client/dist/avatars/no-avatar.gif
 server/typings/
 .idea/
 *.js
