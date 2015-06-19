@@ -10,7 +10,7 @@ class PublicNavigation extends plat.ui.TemplateControl {
     templateString = require('./public.templatecontrol.html');
     hasOwnContext = true;
     context = {
-        logoView: ListPostsViewControl,
+        logoView: '',
         menuItems: [
             {
                 title: 'Tools',
