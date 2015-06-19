@@ -162,9 +162,9 @@ $RECYCLE.BIN/
 .nodemonignore
 .sass-cache
 node_modules/
-client/lib
 client/typings/
 client/dist/avatars/
+client/lib
 server/typings/
 .idea/
 *.js
@@ -176,3 +176,6 @@ server/typings/
 *.min.css
 !gulpfile.js
 /.tscache
+!client/lib/colpick/css/colpick.css
+!client/lib/colpick/js/colpick.js
+!client/lib/jquery/jquery.min.js
