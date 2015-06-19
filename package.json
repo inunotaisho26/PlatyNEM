@@ -33,7 +33,6 @@
     "platypus": "^0.13.6",
     "platypusui": "^0.4.6",
     "quill": "^0.19.12",
-    // adding devDependencies here for heroku
     "browserify": "^9.0.3",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
