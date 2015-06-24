@@ -1,6 +1,12 @@
-<plat-link plat-options="{ view: logoView, isUrl: false }" class="navbar-logo">BlogStarter</plat-link>
+<plat-link plat-options="{ view: logoView, isUrl: true }" class="navbar-logo">UI Lab</plat-link>
 <ul class="navbar-menu" plat-control="plat-foreach" plat-context="menuItems">
     <li>
-        <plat-link plat-options="{ view: view }">{{title}}</plat-link>
+        <span class="menu-item" plat-visible="{{ !view }}">{{title}}</span>
+        <plat-link plat-options="{ view: view }" plat-visible="{{ !!view }}">{{title}}</plat-link>
+        <ul plat-visible="{{ subitems.length > 0 }}" plat-control="plat-foreach" plat-context="subitems" class="navbar-submenu">
+            <li>
+                <plat-link plat-options="{ view: view, isUrl: true }">{{title}}</plat-link>
+            </li>
+        </ul>
     </li>
 </ul>

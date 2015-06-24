@@ -2,9 +2,9 @@
 
 import plat = require('platypus');
 import BaseViewControl = require('../base.viewcontrol');
-import HomeViewControl = require('./home/home.viewcontrol');
 import LoginViewControl = require('./auth/login/login.viewcontrol');
 import RegisterViewControl = require('./auth/register/register.viewcontrol');
+import ListToolsViewControl = require('./toolkit/toolkit.viewcontrol');
 import ListPostsViewControl = require('./posts/list/list.viewcontrol');
 import SinglePostViewControl = require('./posts/single/single.viewcontrol');
 import ForgotPasswordViewControl = require('./auth/forgot/forgot.viewcontrol');
@@ -17,10 +17,10 @@ class PublicViewControl extends BaseViewControl {
         super();
 
         router.configure([
-            { pattern: '', view: HomeViewControl },
+            { pattern: '', view: ListPostsViewControl },
             { pattern: 'login', view: LoginViewControl },
             { pattern: 'register', view: RegisterViewControl },
-            { pattern: 'posts', view: ListPostsViewControl },
+            { pattern: 'toolkit', view: ListToolsViewControl },
             { pattern: 'posts/:id', view: SinglePostViewControl },
             { pattern: 'forgot-password', view: ForgotPasswordViewControl },
             { pattern: 'reset-password/:token', view: ResetPasswordViewControl }

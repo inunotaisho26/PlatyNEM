@@ -6,7 +6,7 @@ var port = 5000;
 
 var config: models.IConfig = {
     app: {
-        name: 'BlogStarter',
+        name: 'Capsize',
         url: 'http://localhost:' + port,
         dist: './client/dist/',
         uploads: '/assets'
@@ -15,13 +15,13 @@ var config: models.IConfig = {
         host: '127.0.0.1',
         user: '3l33t',
         password: 'uw0tm8',
-        dbName: 'depot',
+        dbName: 'capsize',
         connectionLimit: 2
     },
     smtp: {
         service: 'Gmail',
-        username: 'example55555@gmail.com',
-        password: 'gmail-password'
+        username: 'darion.welch@gmail.com',
+        password: 'Darjeeling01'
     },
     sessionKey: 'You should change this',
     port: process.env.PORT || port,

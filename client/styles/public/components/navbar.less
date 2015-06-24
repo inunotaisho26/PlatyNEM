@@ -9,40 +9,85 @@
     
     .navbar {
         .flex-vertical-center();
-        .justify-content(space-between);
-        .container();
+        .justify-content(flex-start);
+        padding-right: @container-horizontal;
         height: @navbar-height;
-        border-bottom: 1px solid rgba(0,0,0, 0.2);
+        background-color: @off-white;
         color: @font-color;
-        
-        & > .navbar-logo {
-            font-weight: bold;
-            text-transform: uppercase;
-        }
+        border-bottom: 1px solid @accent;
+    }
+    
+    .navbar-logo {
+        .flex-vertical-center();
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 0 @container-horizontal * 2;
+        border-right: 1px solid @accent;
+        height: 100%;
+        color: @black;
+        font-size: 120%;
+        cursor: pointer;
+    }
+    
+    ul.navbar-menu {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        list-style: none;
 
-        & > ul.navbar-menu {
+        li {
+            position: relative;
+            display: inline-block;
             height: 100%;
-            margin: 0;
-            padding: 0;
-            list-style: none;
 
-            & > li {
-                display: inline-block;
-                margin-left: 0.2em;
+            & > a, .menu-item {
+                .flex-vertical-center();
+                padding: 0 2em;
                 height: 100%;
+                cursor: pointer;
+                font-size: 90%;
+                font-weight: bold;
+                text-transform: uppercase;
+                transition: color 300ms;
 
-                & > a {
-                    .flex-vertical-center();
-                    padding: 0 1em;
-                    height: 100%;
-                    cursor: pointer;
-                    color: @font-color;
-
-                    &:hover {
-                        background-color: rgba(0,0,0, 0.2);
-                    }
+                &:hover {
+                    //color: darken(@black, 10%);
                 }
             }
+            
+            &:hover > ul.navbar-submenu, 
+            &:active > ul.navbar-submenu {
+                display: block;    
+            }
         }
-    }   
+    }
+    
+    ul.navbar-submenu {
+        display: none;
+        position: absolute;
+        left: -1px;
+        margin: 0;
+        padding: 0;
+        z-index: 10;
+        list-style: none;
+        background-color: @off-white;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        
+        & > li {
+            height: @navbar-height;
+            min-width: 18em;
+            
+            & > a {
+                border: 1px solid @accent;
+                color: @black;
+            }
+            
+            &:last-child {
+                border-width: 0;
+                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 4px;
+            }
+        }
+    } 
 }
