@@ -1,0 +1,57 @@
+{
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "node/node.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "moment/moment.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "moment/moment-node.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "express/express.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "mysql/mysql.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "passport/passport.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "passport-local/passport-local.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "body-parser/body-parser.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "express-session/express-session.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "memory-cache/memory-cache.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "nodemailer/nodemailer.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "nodemailer-direct-transport/nodemailer-direct-transport.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "nodemailer/nodemailer-types.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "cryptojs/cryptojs.d.ts": {
+      "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    }
+  }
+}

@@ -5,7 +5,7 @@ declare module models {
         lastname?: string;
         email: string;
         role: string;
-        password: string;
+        hashedpassword: string;
         salt: string;
         avatar: string;
         resetPasswordToken?: string;

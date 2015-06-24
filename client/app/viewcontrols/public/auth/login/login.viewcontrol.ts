@@ -38,8 +38,9 @@ class LoginViewControl extends BaseViewControl {
                     replace: true
                 });
             }
-        }, (err) => {
-            console.log(err);
+        }, (errors) => {
+            console.log(errors);
+            this._globalAlert.setAlerts(errors, 'fail');
         });
     }
 }

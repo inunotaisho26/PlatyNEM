@@ -53,15 +53,16 @@ class ViewControl extends AdminBaseViewControl {
             context.post = <models.IPost>this.utils.clone(post, true);
             
             promise = this.postRepository.create(post).then((postId: number) => {
-               context.post.id = postId; 
+               context.post.id = postId;
             });
         }
         
         return promise.catch((errors: Array<Error>) => {
-           
+           this._globalAlert.setAlerts(errors, 'fail');
         }).then(() => {
             context.post.published = this.utils.isNumber(context.post.id);
             this.dom.removeClass(this.savePostButton.element, 'disabled');
+            this._globalAlert.setAlerts('Post has been saved', 'success');
         });
     }
     

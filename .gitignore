@@ -163,10 +163,8 @@ $RECYCLE.BIN/
 .sass-cache
 node_modules/
 client/lib
-client/typings/
 client/dist/avatars/
-!client/dist/avatars/no-avatar.gif
-server/typings/
+/typings
 .idea/
 *.js
 *.js.map

@@ -3,40 +3,25 @@
 import Base = require('../base.model');
 var bcrypt: any = require('bcrypt-nodejs');
 
+import crypto = require('crypto');
 var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 var salt_work_factor = 10;
 
 class Model extends Base<models.IUser> {
-    generateHashedPassword(user, password): Thenable<string> {
-        return new this.Promise((resolve, reject) => {
-            if (!this.utils.isString(password) || password.length === 0 || !this.utils.isString(user.salt)) {
-                reject();
-            }
+    generateHashedPassword(user, password): string {
+        if (!this.utils.isString(password) || password.length === 0 || !this.utils.isString(user.salt)) {
+            return '';
+        }
 
-            bcrypt.hash(password, user.salt, null, (err, hash) => {
-                if (err) {
-                    reject(err);
-                }
-                resolve(hash);
-            });
-        });
+        return crypto.createHmac('sha1', user.salt).update(password).digest('hex');
     }
 
-    generateSalt(password): Thenable<string> {
-        return new this.Promise((resolve, reject) => {
-            bcrypt.genSalt(salt_work_factor, (err, salt) => {
-                if (err) {
-                    reject(err);
-                }
-                resolve(salt);
-            })
-        });
+    generateSalt(password): string {
+        return Math.round((new Date().valueOf() * Math.random())) + '';
     }
 
-    authenticate(user: models.IUser, password: string): Thenable<boolean> {
-        return this.generateHashedPassword(user, password).then((hash) => {
-            return hash === user.password;
-        });
+    authenticate(user: models.IUser, password: string): boolean {
+        return this.generateHashedPassword(user, password) === user.hashedpassword;
     }
 
     validateProperties(user: models.IUser, options?: { checkPassword: boolean }): models.IValidationErrors {
@@ -47,7 +32,7 @@ class Model extends Base<models.IUser> {
         ];
 
         if (this.utils.isObject(options) && options.checkPassword) {
-            validations.push(this.validatePassword(user.password));
+            validations.push(this.validatePassword(user.hashedpassword));
         }
 
         return validations;
