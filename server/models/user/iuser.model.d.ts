@@ -1,8 +1,8 @@
-declare module models {
+declare module models.server {
     interface IUser {
         id?: number;
-        firstname?: string;
-        lastname?: string;
+        firstname: string;
+        lastname: string;
         email: string;
         role: string;
         hashedpassword: string;

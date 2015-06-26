@@ -34,7 +34,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
-        var user: models.IUser = req.body,
+        var user: models.server.IUser = req.body,
             avatar: any,
             password = (<any>req).password || (<any>user).password,
             checkPassword = this.utils.isString(password) || password === null;
@@ -221,7 +221,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
     resetPassword(req: express.Request, res: express.Response) {
         var token = req.params.token;
         
-        return this.__checkTokenValidity(token).then((user: models.IUser) => {
+        return this.__checkTokenValidity(token).then((user: models.server.IUser) => {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             (<any>req).password = req.body.password;

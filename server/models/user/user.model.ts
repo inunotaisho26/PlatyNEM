@@ -20,11 +20,11 @@ class Model extends Base<models.IUser> {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     }
 
-    authenticate(user: models.IUser, password: string): boolean {
+    authenticate(user: models.server.IUser, password: string): boolean {
         return this.generateHashedPassword(user, password) === user.hashedpassword;
     }
 
-    validateProperties(user: models.IUser, options?: { checkPassword: boolean }): models.IValidationErrors {
+    validateProperties(user: models.server.IUser, options?: { checkPassword: boolean }): models.IValidationErrors {
         var validations: models.IValidationErrors = [
             this.validateFirstName(user.firstname),
             this.validateLastName(user.lastname),

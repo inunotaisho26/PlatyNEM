@@ -1,6 +1,6 @@
 /// <reference path="../../references.d.ts" />
 
-declare module models {
+declare module models.server {
 	interface IPost {
 		id?: number;
 		title?: string;

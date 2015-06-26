@@ -4,7 +4,7 @@ import plat = require('platypus');
 import AdminBaseViewControl = require('../base.viewcontrol');
 
 class DashboardViewControl extends AdminBaseViewControl {
-    title = 'Innovation Depot Dashboard';
+    title = 'Dashboard';
     templateString = require('./dashboard.viewcontrol.html');
     context = {};
 

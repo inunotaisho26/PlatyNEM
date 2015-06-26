@@ -1,7 +1,7 @@
 {
-  "name": "depot",
+  "name": "blogstarter",
   "version": "1.0.0",
-  "description": "Innovation Depot website",
+  "description": "Starting point for blog and user management websites.",
   "main": "index.js",
   "author": "Darion Welch",
   "license": "ISC",

@@ -29,8 +29,8 @@ var passportConfig = (passport: passport.Passport) => {
     passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
-    }, (email: string, password: string, done: (err: any, user?: models.IUser, response ?: any) => void) => {
-        userProcedures.findByEmail(email).then((user: models.IUser) => {
+    }, (email: string, password: string, done: (err: any, user?: models.server.IUser, response ?: any) => void) => {
+        userProcedures.findByEmail(email).then((user: models.server.IUser) => {
             if (!utils.isObject(user)) {
                 return done(null, <any>false, {
                     message: 'User not recognized'

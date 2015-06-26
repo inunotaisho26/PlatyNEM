@@ -52,6 +52,12 @@
     },
     "cryptojs/cryptojs.d.ts": {
       "commit": "6387999eb899d0ba02d37dd8697647718caca230"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
+    },
+    "mime/mime.d.ts": {
+      "commit": "448c3509f1ae76930ebd2d79df23e288172f5a0a"
     }
   }
 }

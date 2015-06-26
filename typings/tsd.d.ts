@@ -16,3 +16,5 @@
 /// <reference path="nodemailer/nodemailer.d.ts" />
 /// <reference path="passport-local/passport-local.d.ts" />
 /// <reference path="passport/passport.d.ts" />
+/// <reference path="serve-static/serve-static.d.ts" />
+/// <reference path="mime/mime.d.ts" />

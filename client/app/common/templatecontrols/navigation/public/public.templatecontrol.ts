@@ -1,10 +1,9 @@
 /// <reference path="../../../../../references.d.ts" />
 
 import plat = require('platypus');
-import BoxShadowViewControl = require('../../../../viewcontrols/tools/boxshadow/boxshadow.viewcontrol');
-import LoginViewControl = require('../../../../viewcontrols/blog/auth/login/login.viewcontrol');
-import RegisterViewControl = require('../../../../viewcontrols/blog/auth/register/register.viewcontrol');
-import ListPostsViewControl = require('../../../../viewcontrols/blog/posts/list/list.viewcontrol');
+import LoginViewControl = require('../../../../viewcontrols/public/auth/login/login.viewcontrol');
+import RegisterViewControl = require('../../../../viewcontrols/public/auth/register/register.viewcontrol');
+import ListPostsViewControl = require('../../../../viewcontrols/public/posts/list/list.viewcontrol');
 
 class PublicNavigation extends plat.ui.TemplateControl {
     templateString = require('./public.templatecontrol.html');
@@ -13,19 +12,21 @@ class PublicNavigation extends plat.ui.TemplateControl {
         logoView: '',
         menuItems: [
             {
-                title: 'Tools',
-                view: null,
-                subitems: [
-                    {
-                        title: 'Box Shadow Generator',
-                        view: 'tools/boxshadow',
-                        isUrl: true
-                    }
-                ]
+                title: 'Login',
+                view: LoginViewControl,
+            },
+            {
+                title: 'Register',
+                view: RegisterViewControl,
+            },
+            {
+                title: 'Blog',
+                view: ListPostsViewControl,
             }
         ]
     };
 }
+
 
 plat.register.control('public-navigation', PublicNavigation);
 

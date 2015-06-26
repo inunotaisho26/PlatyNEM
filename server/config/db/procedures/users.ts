@@ -53,7 +53,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
         });
     }
 
-    getArgs(user: models.IUser): Array<any> {
+    getArgs(user: models.server.IUser): Array<any> {
         if (!this.utils.isObject(user)) {
             return [];
         }
@@ -70,7 +70,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
     }
 
     findByPasswordResetToken(token: string): Thenable<models.IUser> {
-        return this.findBy(undefined, token).then((user: models.IUser) => {
+        return this.findBy(undefined, token).then((user: models.server.IUser) => {
            var errors: models.IValidationErrors = [];
            
            if (!this.utils.isObject(user)) {

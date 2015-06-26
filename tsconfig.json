@@ -184,7 +184,6 @@
         "client/app/viewcontrols/public/auth/register/register.viewcontrol.ts",
         "client/app/viewcontrols/public/auth/reset/reset.viewcontrol.ts",
         "client/app/common/injectables/moment.injectable.ts",
-        "client/app/viewcontrols/public/main.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/list/list.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/single/single.viewcontrol.ts",
         "server/config/db/pool.ts",
@@ -221,6 +220,6 @@
         "client/app/common/injectables/quill.injectable.ts",
         "server/repositories/base.repository.ts",
         "server/repositories/post.repository.ts",
-        "client/app/viewcontrols/public/home/home.viewcontrol.ts"
+        "client/app/viewcontrols/public/main.viewcontrol.ts"
     ]
 }
