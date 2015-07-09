@@ -48,8 +48,8 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
         user.role = user.role || 'visitor';
 
-        if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
-            avatar = req.files.avatar;
+        if (this.utils.isObject(req.files) && this.utils.isObject((<any>req.files).avatar)) {
+            avatar = (<any>req.files).avatar;
         }
 
         return this.model.validate(user, {
@@ -102,7 +102,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return Crud.sendResponse(res, this.format.response(err, null));
         });
     }
-    
+
     destroy(req: express.Request, res: express.Response) {
         var id = req.body.id = req.params.id;
         return this.handleResponse(this.procedures.read(id)
@@ -131,7 +131,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
                 resolve(this.format.response(err, req.user));
             });
-        }); 
+        });
     }
 
     logout(req: express.Request, res: express.Response) {
@@ -143,21 +143,21 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
     isAdmin(req: express.Request, res: express.Response) {
         var user: models.IUser = req.user;
-        
+
         if (!this.utils.isObject(user)) {
             return Crud.sendResponse(res, this.format.response(null, false));
         }
-        
+
         Crud.sendResponse(res, this.format.response(null, user.role === 'admin'));
     }
-    
+
     current(req: express.Request, res: express.Response) {
         Crud.sendResponse(res, this.format.response(null, req.user));
     }
 
     private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
         var errors: models.IValidationErrors = [];
-        
+
         if (avatar.mimetype.indexOf('image') >= 0) {
             return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
                 user.avatar = url;
@@ -168,7 +168,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             });
         }
     }
-    
+
     createResetToken(req: express.Request, res: express.Response) {
         var token = crypto.randomBytes(20).toString('hex');
         var email: string = req.body.email;
@@ -186,16 +186,16 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         var response = {
             success: 'An email has been sent to the address you provided.'
         };
-        
+
         if (this.utils.isEmpty(email) || !emailRegex.test(email)) {
             Crud.sendResponse(res, this.format.response([new this.ValidationError('Invalid email address', 'email')]));
         }
-        
+
         this.procedures.createUserPasswordResetToken(email, token).then((id) => {
             if (!this.utils.isNumber(id)) {
                 return this.Promise.resolve(response);
             }
-            
+
             return mailer.sendEmail(emailOptions);
         }).then(() => {
             return this.format.response(undefined, response);
@@ -205,10 +205,10 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     checkTokenExpiration(req: express.Request, res: express.Response) {
         var token = req.params.token;
-        
+
         return this.__checkTokenValidity(token).then(() => {
             return this.format.response(undefined, true);
         }, (err: models.IValidationErrors) => {
@@ -217,10 +217,10 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     resetPassword(req: express.Request, res: express.Response) {
         var token = req.params.token;
-        
+
         return this.__checkTokenValidity(token).then((user: models.server.IUser) => {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
@@ -237,11 +237,11 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     private __checkTokenValidity(token: string) {
         return this.procedures.findByPasswordResetToken(token);
     }
-    
+
     authenticate(req: express.Request, res: express.Response) {
         var ip = req.connection.remoteAddress;
         var cached = ips[ip];
