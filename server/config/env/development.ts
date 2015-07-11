@@ -2,7 +2,7 @@
 
 import path = require('path');
 
-var port = 5000;
+var port = 3000;
 
 var config: models.IConfig = {
     app: {
