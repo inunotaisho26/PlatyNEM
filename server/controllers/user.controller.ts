@@ -41,9 +41,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
         if (checkPassword) {
             user.salt = this.model.generateSalt(password);
-            console.log(user.salt);
             user.hashedpassword = this.model.generateHashedPassword(user, password);
-            console.log(user.hashedpassword);
         }
 
         user.role = user.role || 'visitor';
