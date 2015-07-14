@@ -1,9 +1,6 @@
-@import '../common/variables';
-@import '../common/mixins';
-
 & {
     #platui > #mixins;
-	
+
 	@table-horizontal-padding: 1em;
 
 	.table {
@@ -12,34 +9,34 @@
 		border: 1px solid @light-grey;
 		border-top-width: 0;
 		font-size: 0.9em;
-		
+
 		& > thead {
 			padding: 1em 0;
 			border: 1px solid @light-grey;
 		}
-		
+
 		td, th {
 			padding: 1em @table-horizontal-padding;
 			text-align: left;
 			color: @font-color;
 		}
-		
+
 		td {
 			border-right: 1px solid @light-grey;
-			
+
 			&:last-child {
 				border-right-width: 0;
 			}
 		}
 	}
-	
+
 	.cell-table {
 		th, td {
 			padding: 0 0.5em;
 			border-width: 0;
 		}
 	}
-	
+
 	.table-logo {
 		max-width: 90%;
 	}

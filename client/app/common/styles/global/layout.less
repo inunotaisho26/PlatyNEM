@@ -1,15 +1,34 @@
-
 & {
     #platui > #mixins;
-    
-    /// Dashboard Container
+
+    /// Public Pages
+
+    .top-viewport {
+        height: 100%;
+    }
+
+    .plat-viewcontrol {
+        height: auto;
+    }
+
+    .blog-viewport {
+        padding: 1em;
+
+        & > .plat-viewcontrol {
+            background-color: @white;
+            padding: 1em;
+        }
+    }
+
+    /// CMS Stlyes
+
     .dashboard-container {
         .flexbox();
         .align-content(stretch);
         height: 100%;
         background-color: @off-white;
     }
-    
+
     .sidebar {
         width: 20em;
     }
@@ -19,15 +38,19 @@
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
-        
+
         & > .plat-viewcontrol {
             .container();
             padding: 1em;
         }
     }
- 
+
     .dashboard-button-row {
         margin-bottom: 1em;
     }
+
+    .admin-form-container {
+		width: 30em;
+		max-width: 100%;
+	}
 }
-    

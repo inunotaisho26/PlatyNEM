@@ -1,34 +1,31 @@
-@import '../common/variables';
-@import '../common/mixins';
-
 & {
     #platui > #mixins;
-    
+
 	.sidebar {
 		background-color: @expanse;
 	}
-	
+
 	.sidebar-title {
 		padding: 2em;
 		text-align: center;
 		background-color: @expanse-dark;
-		
+
 		& > .sidebar-title-name {
 			text-transform: uppercase;
 			color: @white;
 			font-weight: bold;
 		}
 	}
-	
+
 	.sidebar-menu {
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		
+
 		& > li {
 			height: 4em;
 			width: 100%;
-			
+
 			& > a {
 				.flex-vertical-center();
 				height: 100%;
@@ -39,4 +36,3 @@
 		}
 	}
 }
-    

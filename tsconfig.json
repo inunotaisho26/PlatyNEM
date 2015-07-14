@@ -145,7 +145,7 @@
         "typings/tsd.d.ts"
     ],
     "files": [
-        "server/config/env/iconfig.d.ts",
+        "typings/tsd.d.ts",
         "server/references.d.ts",
         "client/app/models/base/ibase.model.d.ts",
         "client/app/models/post/ipost.model.d.ts",
@@ -157,7 +157,7 @@
         "server/models/error/ierror.model.d.ts",
         "server/models/post/ipost.model.d.ts",
         "server/models/user/iuser.model.d.ts",
-        "client/app/viewcontrols/public/auth/reset/reset.viewcontrol.ts",
+        "server/config/env/iconfig.d.ts",
         "client/app/common/templatecontrols/globalalert/globalalert.templatecontrol.ts",
         "client/app/models/post/post.model.ts",
         "client/app/common/templatecontrols/htmlify/htmlify.templatecontrol.ts",
@@ -182,8 +182,8 @@
         "client/app/viewcontrols/public/auth/forgot/forgot.viewcontrol.ts",
         "client/app/viewcontrols/public/auth/login/login.viewcontrol.ts",
         "client/app/viewcontrols/public/auth/register/register.viewcontrol.ts",
+        "client/app/viewcontrols/public/auth/reset/reset.viewcontrol.ts",
         "client/app/common/injectables/moment.injectable.ts",
-        "client/app/viewcontrols/public/main.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/list/list.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/single/single.viewcontrol.ts",
         "server/config/db/pool.ts",
@@ -219,6 +219,7 @@
         "server/models/user/user.model.ts",
         "client/app/common/injectables/quill.injectable.ts",
         "server/repositories/base.repository.ts",
-        "server/repositories/post.repository.ts"
+        "server/repositories/post.repository.ts",
+        "client/app/viewcontrols/public/main.viewcontrol.ts"
     ]
 }
