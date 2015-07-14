@@ -84,7 +84,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return <any>this.login(user, req).then(() => {
                 return response;
             });
-        }).then(null,(err: models.IValidationErrors) => {
+        }).then(null,(err: models.server.IValidationErrors) => {
             console.log('err', err);
             return this.format.response(err);
         }).then((response: models.IFormattedResponse) => {
@@ -156,7 +156,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
     }
 
     private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
-        var errors: models.IValidationErrors = [];
+        var errors: models.server.IValidationErrors = [];
 
         if (avatar.mimetype.indexOf('image') >= 0) {
             return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
@@ -211,7 +211,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
         return this.__checkTokenValidity(token).then(() => {
             return this.format.response(undefined, true);
-        }, (err: models.IValidationErrors) => {
+        }, (err: models.server.IValidationErrors) => {
             return this.format.response(err);
         }).then((response) => {
             Crud.sendResponse(res, response);
@@ -231,7 +231,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return this.format.response(null, {
                 success: 'Your password has been updated.'
             })
-        }, (errors: models.IValidationErrors) => {
+        }, (errors: models.server.IValidationErrors) => {
             return this.format.response({ errors: errors });
         }).then((response) => {
             Crud.sendResponse(res, response);
