@@ -13,7 +13,7 @@ class ViewControl extends AdminBaseViewControl {
         password: <string>null,
         newpassword: <string>null,
         confirmpassword: <string>null,
-        roles: ['admin', 'visitor'],
+        roles: ['admin', 'contributor', 'visitor'],
         editMode: false,
         avatarPrompt: 'Select a new avatar'
     };
@@ -24,7 +24,7 @@ class ViewControl extends AdminBaseViewControl {
 
     navigatedTo(parameters: { id: string }) {
         var context = this.context;
-        
+
         if (!isNaN(Number(parameters.id))) {
             context.editMode = true;
             this.userRepository.one(parameters.id).then((user: models.IUser) => {
@@ -36,20 +36,20 @@ class ViewControl extends AdminBaseViewControl {
     updateUser(user: models.IUser) {
         var context = this.context;
         var promise: plat.async.IThenable<any>;
-        
+
         if (context.editMode) {
-            promise = this.userRepository.update(user);   
+            promise = this.userRepository.update(user);
         } else {
             promise = this.userRepository.create(user, context.password);
         }
-        
+
         promise.then(() => {
             this._globalAlert.setAlerts('User has been saved', 'success');
         }, (errors) => {
             this._globalAlert.setAlerts(errors, 'fail');
         });
     }
-    
+
     avatarSelected(ev) {
         this.context.avatarPrompt = ev.target.files[0].name;
         this.enableSave();

@@ -46,7 +46,7 @@ export var populateSession = (req: express.Request, res: express.Response, next:
                 if (utils.isObject(err)) {
                     return req.session.destroy(next);
                 }
-                
+
                 next(undefined);
             });
         });
@@ -55,6 +55,14 @@ export var populateSession = (req: express.Request, res: express.Response, next:
 
 export var isAdmin = (req: express.Request, res: express.Response, next: Function) => {
     if (checkUserRole(req, 'admin')) {
+        return next();
+    }
+
+    next(createError());
+};
+
+export var isContributor = (req: express.Request, res: express.Response, next: Function) => {
+    if (checkUserRole(req, 'admin', 'contributor')) {
         return next();
     }
 
