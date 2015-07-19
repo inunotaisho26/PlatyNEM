@@ -61,6 +61,9 @@
     },
     "multer/multer.d.ts": {
       "commit": "f999dcd9543265848a33fa3bb8379bf0393d33c8"
+    },
+    "passport-facebook/passport-facebook.d.ts": {
+      "commit": "c0fdc8f774149840e99e45656be3013143f31309"
     }
   }
 }

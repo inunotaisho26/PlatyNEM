@@ -18,6 +18,17 @@ var config: models.IConfig = {
         dbName: 'blogstarter',
         connectionLimit: 2
     },
+    facebook: {
+        clientID: 'your facebook app id',
+        clientSecret: 'your facebook app secret',
+        callbackURL: 'http://localhost:3000/auth/facebook/callback/',
+        profileFields: [
+            'id',
+            'displayName',
+            'photos',
+            'emails'
+        ]
+    },
     smtp: {
         service: 'Gmail',
         username: 'example@gmail.com',

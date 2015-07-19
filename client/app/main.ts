@@ -15,4 +15,5 @@ require('./common/templatecontrols/globalalert/globalalert.templatecontrol');
 require('./common/templatecontrols/htmlify/htmlify.templatecontrol');
 require('./common/templatecontrols/navigation/admin/admin.templatecontrol');
 require('./common/templatecontrols/navigation/public/public.templatecontrol');
+require('./common/templatecontrols/socialauth/socialauth.templatecontrol');
 require('./common/templatecontrols/sidebar/sidebar.templatecontrol');

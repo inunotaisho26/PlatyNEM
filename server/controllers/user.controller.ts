@@ -31,6 +31,19 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.post(baseRoute + '/forgot', this.createResetToken.bind(this));
         router.get(baseRoute + '/reset/:token', this.checkTokenExpiration.bind(this));
         router.post(baseRoute + '/reset/:token', this.resetPassword.bind(this))
+
+        /// Social Login
+        router.get('/api/auth/facebook', this.auth.populateSession, passport.authenticate('facebook', {
+            scope: ['email', 'user_about_me'],
+            failureRedirect: '/login'
+        }), this.authenticate.bind(this));
+        router.get('/auth/facebook/callback', this.auth.populateSession, passport.authenticate('facebook', {
+            failureRedirect: '/login'
+        }), this.authCallback.bind(this));
+    }
+
+    authCallback(req: express.Request, res: express.Response) {
+        res.redirect('/?login=true');
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
@@ -40,6 +53,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             checkPassword = this.utils.isString(password) || password === null;
 
         if (checkPassword) {
+            user.provider = user.provider || 'local';
             user.salt = this.model.generateSalt(password);
             user.hashedpassword = this.model.generateHashedPassword(user, password);
         }

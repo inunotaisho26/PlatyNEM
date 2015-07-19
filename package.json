@@ -31,6 +31,7 @@
     "nodemailer": "latest",
     "nodemailer-sendgrid-transport": "latest",
     "passport": "latest",
+    "passport-facebook": "^2.0.0",
     "passport-local": "latest",
     "platypus": "latest",
     "platypusui": "latest",

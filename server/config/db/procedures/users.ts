@@ -64,6 +64,9 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
             encodeURI(user.email),
             encodeURI(user.role),
             user.avatar,
+            user.createdFrom,
+            user.provider,
+            user.facebookid,
             user.hashedpassword,
             user.salt
         ];
