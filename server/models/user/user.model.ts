@@ -20,12 +20,12 @@ class Model extends Base<models.IUser> {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     }
 
-    authenticate(user: models.IUser, password: string): boolean {
+    authenticate(user: models.server.IUser, password: string): boolean {
         return this.generateHashedPassword(user, password) === user.hashedpassword;
     }
 
-    validateProperties(user: models.IUser, options?: { checkPassword: boolean }): models.IValidationErrors {
-        var validations: models.IValidationErrors = [
+    validateProperties(user: models.server.IUser, options?: { checkPassword: boolean }): models.server.IValidationErrors {
+        var validations: models.server.IValidationErrors = [
             this.validateFirstName(user.firstname),
             this.validateLastName(user.lastname),
             this.validateEmail(user.email)
@@ -38,23 +38,23 @@ class Model extends Base<models.IUser> {
         return validations;
     }
 
-    validatePassword(password: string): models.IValidationError {
+    validatePassword(password: string): models.server.IValidationError {
         return this.isString(password, 'password', 'Password');
     }
 
-    validateLastName(lastName: string): models.IValidationError {
+    validateLastName(lastName: string): models.server.IValidationError {
         return this.isString(lastName, 'lastname', 'Last Name');
     }
 
-    validateFirstName(firstName: string): models.IValidationError {
+    validateFirstName(firstName: string): models.server.IValidationError {
         return this.isString(firstName, 'firstname', 'First Name');
     }
 
-    validateEmail(email: string): models.IValidationError {
+    validateEmail(email: string): models.server.IValidationError {
         if (!emailRegex.test(email)) {
             return new this.ValidationError('Please provide a valid email address.', 'email');
         }
-        
+
         return this.isString(email, 'email', 'Email');
     }
 }

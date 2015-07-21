@@ -163,9 +163,8 @@ $RECYCLE.BIN/
 .sass-cache
 node_modules/
 client/lib
-client/typings/
 client/dist/avatars/
-server/typings/
+/typings
 .idea/
 *.js
 *.js.map

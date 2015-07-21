@@ -1,0 +1,42 @@
+/// PlatypusUI
+@import '../../node_modules/platypusui/dist/platypus';
+
+// FontAwesome Selected Styles
+@import '../../node_modules/font-awesome/less/variables';
+
+/// Overwrite font directory
+@fa-font-path: '../../../assets/fonts/fontawesome/';
+
+@import '../../node_modules/font-awesome/less/mixins';
+@import '../../node_modules/font-awesome/less/path';
+@import '../../node_modules/font-awesome/less/core';
+@import '../../node_modules/font-awesome/less/larger';
+@import '../../node_modules/font-awesome/less/icons';
+
+/// Variables and Mixins
+@import './common/styles/global/variables';
+@import './common/styles/global/mixins';
+
+/// Global Styles
+@import './common/styles/global/animations';
+@import './common/styles/global/main';
+@import './common/styles/global/typography';
+
+// Global Components
+@import './common/styles/components/button';
+@import './common/styles/components/input';
+@import './common/styles/components/table';
+
+// Template Controls
+@import './common/templatecontrols/globalalert/globalalert.templatecontrol.less';
+@import './common/templatecontrols/navigation/public/public.templatecontrol.less';
+@import './common/templatecontrols/sidebar/sidebar.templatecontrol.less';
+@import './common/templatecontrols/socialauth/socialauth.templatecontrol.less';
+
+// Main View Controls
+@import './viewcontrols/admin/main.viewcontrol.less';
+@import './viewcontrols/public/main.viewcontrol.less';
+
+// View Controls
+@import './viewcontrols/admin/blog/blog.viewcontrol.less';
+@import './viewcontrols/public/auth/auth.viewcontrol.less';

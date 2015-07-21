@@ -1,4 +1,4 @@
-/// <reference path="typings/tsd.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 /// <reference path="config/env/iconfig.d.ts" />
 /// <reference path="config/utils/utils.d.ts" />
 /// <reference path="config/session/session.d.ts" />

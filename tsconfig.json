@@ -1,0 +1,226 @@
+{
+    "lintOptions": {
+        "rules": {
+            "ban": [
+                true,
+                [
+                    "_",
+                    "extend"
+                ],
+                [
+                    "_",
+                    "isNull"
+                ],
+                [
+                    "_",
+                    "isDefined"
+                ]
+            ],
+            "class-name": true,
+            "comment-format": [
+                true,
+                "check-space"
+            ],
+            "curly": true,
+            "eofline": true,
+            "forin": true,
+            "indent": [
+                true,
+                4
+            ],
+            "interface-name": true,
+            "jsdoc-format": true,
+            "label-position": true,
+            "label-undefined": true,
+            "max-line-length": [
+                false,
+                140
+            ],
+            "member-ordering": [
+                true,
+                "public-before-private",
+                "static-before-instance",
+                "variables-before-functions"
+            ],
+            "no-any": false,
+            "no-arg": true,
+            "no-bitwise": false,
+            "no-console": [
+                true,
+                "debug",
+                "info",
+                "time",
+                "timeEnd",
+                "trace"
+            ],
+            "no-consecutive-blank-lines": true,
+            "no-construct": true,
+            "no-constructor-vars": false,
+            "no-debugger": true,
+            "no-duplicate-key": true,
+            "no-duplicate-variable": true,
+            "no-empty": false,
+            "no-eval": true,
+            "no-string-literal": true,
+            "no-trailing-comma": true,
+            "no-trailing-whitespace": true,
+            "no-unreachable": true,
+            "no-unused-expression": true,
+            "no-unused-variable": true,
+            "no-use-before-declare": true,
+            "one-line": [
+                true,
+                "check-open-brace",
+                "check-catch",
+                "check-else",
+                "check-whitespace"
+            ],
+            "quotemark": [
+                true,
+                "single"
+            ],
+            "radix": true,
+            "semicolon": true,
+            "triple-equals": [
+                true,
+                "allow-null-check"
+            ],
+            "typedef": [
+                true,
+                "property-declaration"
+            ],
+            "typedef-whitespace": [
+                true,
+                [
+                    "call-signature",
+                    "nospace"
+                ],
+                [
+                    "catch-clause",
+                    "nospace"
+                ],
+                [
+                    "index-signature",
+                    "space"
+                ],
+                [
+                    "parameter",
+                    "nospace"
+                ],
+                [
+                    "property-declaration",
+                    "nospace"
+                ],
+                [
+                    "variable-declaration",
+                    "nospace"
+                ]
+            ],
+            "use-strict": [
+                true,
+                "check-module"
+            ],
+            "variable-name": false,
+            "whitespace": [
+                false,
+                "check-branch",
+                "check-decl",
+                "check-operator",
+                "check-separator",
+                "check-type"
+            ]
+        }
+    },
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false
+    },
+    "filesGlob": [
+        "client/app/**/*.ts",
+        "server/**/*.ts",
+        "typings/tsd.d.ts"
+    ],
+    "files": [
+        "typings/tsd.d.ts",
+        "server/references.d.ts",
+        "client/app/models/base/ibase.model.d.ts",
+        "client/app/models/post/ipost.model.d.ts",
+        "client/app/models/server.model.d.ts",
+        "client/app/models/user/iuser.model.d.ts",
+        "client/app/models/alert/ialert.model.d.ts",
+        "server/config/session/session.d.ts",
+        "server/config/utils/utils.d.ts",
+        "server/models/error/ierror.model.d.ts",
+        "server/models/post/ipost.model.d.ts",
+        "server/models/user/iuser.model.d.ts",
+        "server/config/env/iconfig.d.ts",
+        "client/app/common/injectables/quill.injectable.ts",
+        "client/app/common/templatecontrols/globalalert/globalalert.templatecontrol.ts",
+        "client/app/models/post/post.model.ts",
+        "client/app/common/templatecontrols/htmlify/htmlify.templatecontrol.ts",
+        "client/app/common/templatecontrols/navigation/admin/admin.templatecontrol.ts",
+        "client/app/models/user/user.model.ts",
+        "client/app/repositories/base.repository.ts",
+        "client/app/repositories/post.repository.ts",
+        "client/app/repositories/user.repository.ts",
+        "client/app/services/base.service.ts",
+        "client/app/services/crud.service.ts",
+        "client/app/services/post.service.ts",
+        "client/app/services/user.service.ts",
+        "client/app/viewcontrols/admin/base.viewcontrol.ts",
+        "client/app/viewcontrols/admin/blog/list/list.viewcontrol.ts",
+        "client/app/viewcontrols/admin/blog/manage/manage.viewcontrol.ts",
+        "client/app/viewcontrols/admin/dashboard/dashboard.viewcontrol.ts",
+        "client/app/viewcontrols/admin/logout/logout.viewcontrol.ts",
+        "client/app/viewcontrols/admin/main.viewcontrol.ts",
+        "client/app/viewcontrols/admin/users/list/list.viewcontrol.ts",
+        "client/app/viewcontrols/admin/users/manage/manage.viewcontrol.ts",
+        "client/app/viewcontrols/base.viewcontrol.ts",
+        "client/app/viewcontrols/public/auth/forgot/forgot.viewcontrol.ts",
+        "client/app/viewcontrols/public/auth/login/login.viewcontrol.ts",
+        "client/app/viewcontrols/public/auth/register/register.viewcontrol.ts",
+        "client/app/common/injectables/moment.injectable.ts",
+        "client/app/viewcontrols/public/main.viewcontrol.ts",
+        "client/app/viewcontrols/public/posts/list/list.viewcontrol.ts",
+        "client/app/viewcontrols/public/posts/single/single.viewcontrol.ts",
+        "server/config/db/pool.ts",
+        "server/config/db/procedures/base.ts",
+        "server/config/db/procedures/post.ts",
+        "server/config/db/procedures/users.ts",
+        "server/config/env/all.ts",
+        "server/config/env/development.ts",
+        "client/app/common/templatecontrols/navigation/public/public.templatecontrol.ts",
+        "server/config/env/production.ts",
+        "server/config/express.ts",
+        "server/config/passport.ts",
+        "server/config/routes.ts",
+        "client/app/common/templatecontrols/sidebar/sidebar.templatecontrol.ts",
+        "server/config/session/session.ts",
+        "server/config/utils/file.ts",
+        "server/config/utils/format.ts",
+        "server/config/utils/mailer.ts",
+        "client/app/common/templatecontrols/socialauth/socialauth.templatecontrol.ts",
+        "server/config/utils/utils.ts",
+        "server/controllers/auth.controller.ts",
+        "server/controllers/base.controller.ts",
+        "server/controllers/crud.controller.ts",
+        "server/controllers/post.controller.ts",
+        "server/controllers/user.controller.ts",
+        "server/index.ts",
+        "server/models/base.model.ts",
+        "server/models/error/error.model.ts",
+        "client/app/main.ts",
+        "client/app/models/alert/alert.model.ts",
+        "server/models/post/post.model.ts",
+        "client/app/app/app.ts",
+        "server/models/user/user.model.ts",
+        "client/app/models/base/base.model.ts",
+        "server/repositories/base.repository.ts",
+        "server/repositories/post.repository.ts",
+        "client/app/viewcontrols/public/auth/reset/reset.viewcontrol.ts"
+    ]
+}

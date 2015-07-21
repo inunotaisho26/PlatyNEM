@@ -3,25 +3,30 @@
 import plat = require('platypus');
 import LoginViewControl = require('../../../../viewcontrols/public/auth/login/login.viewcontrol');
 import RegisterViewControl = require('../../../../viewcontrols/public/auth/register/register.viewcontrol');
-import HomeViewControl = require('../../../../viewcontrols/public/home/home.viewcontrol');
+import ListPostsViewControl = require('../../../../viewcontrols/public/posts/list/list.viewcontrol');
 
 class PublicNavigation extends plat.ui.TemplateControl {
     templateString = require('./public.templatecontrol.html');
     hasOwnContext = true;
     context = {
-        logoView: HomeViewControl,
+        logoView: '',
         menuItems: [
             {
                 title: 'Login',
-                view: LoginViewControl
+                view: LoginViewControl,
             },
             {
                 title: 'Register',
-                view: RegisterViewControl
+                view: RegisterViewControl,
+            },
+            {
+                title: 'Blog',
+                view: ListPostsViewControl,
             }
         ]
     };
 }
+
 
 plat.register.control('public-navigation', PublicNavigation);
 

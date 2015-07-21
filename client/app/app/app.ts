@@ -1,8 +1,8 @@
 /// <reference path="../../references.d.ts" />
 
 import plat = require('platypus');
-import PublicViewControl = require('../viewcontrols/public/main.viewcontrol');
 import AdminViewControl = require('../viewcontrols/admin/main.viewcontrol');
+import PublicViewControl = require('../viewcontrols/public/main.viewcontrol');
 import UserRepository = require('../repositories/user.repository');
 
 export class App extends plat.App {
@@ -13,7 +13,7 @@ export class App extends plat.App {
 
         router.configure([
             { pattern: '', view: PublicViewControl },
-            { pattern: 'admin', view: AdminViewControl }
+            { pattern: 'admin', view: AdminViewControl },
         ]);
 
         config.routingType = config.STATE;

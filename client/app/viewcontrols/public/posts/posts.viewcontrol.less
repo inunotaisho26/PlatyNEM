@@ -1,0 +1,38 @@
+& {
+    #platui > #mixins;
+
+	@blog-container: @container-width * 0.7;
+
+	ul.post-list {
+		margin: 0 auto;
+		padding: 0;
+		width: @blog-container;
+		max-width: 98%;
+		list-style: none;
+
+		.post-title {
+			text-align: left;
+		}
+	}
+
+	.post-container {
+		width: @blog-container;
+		margin: 0 auto;
+	}
+
+	.post-title {
+		text-align: center;
+		color: @black;
+	}
+
+	.post-meta {
+		text-align: center;
+		margin: 0 auto 1em;
+	}
+
+	.post-content {
+		font-family: 'Mora';
+		font-size: 22px;
+		line-height: 1.5;
+	}
+}

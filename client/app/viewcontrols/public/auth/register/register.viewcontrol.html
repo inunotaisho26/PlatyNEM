@@ -6,6 +6,7 @@
                 <plat-link plat-options="{ view: 'login-vc' }">Log In</plat-link>
             </li>
         </ul>
+        <social-auth></social-auth>
         <div class="input-container">
             <plat-input type="text" plat-bind="user.firstname" placeholder="First Name"></plat-input>
             <plat-input type="text" plat-bind="user.lastname" placeholder="Last Name"></plat-input>
@@ -13,7 +14,7 @@
             <label class="avatar-input-label">{{avatarPrompt}}
                 <input type="file" plat-bind="user.avatar" plat-change="avatarSelected()" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
             </label>
-            <plat-input type="password" plat-bind="password" placeholder="Password"></plat-input>
+            <plat-input type="password" plat-bind="password" placeholder="New Password"></plat-input>
         </div>
         <plat-button plat-tap="register(user, password)" class="button-block button-primary">Sign Up</plat-button>
     </div>

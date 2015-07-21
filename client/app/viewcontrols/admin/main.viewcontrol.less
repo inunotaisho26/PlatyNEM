@@ -1,0 +1,35 @@
+& {
+    #platui > #mixins;
+
+    .dashboard-container {
+        .flexbox();
+        .align-content(stretch);
+        height: 100%;
+        background-color: @off-white;
+    }
+
+    .sidebar {
+        width: 20em;
+    }
+
+    .dashboard {
+        height: auto;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        & > .plat-viewcontrol {
+            .container();
+            padding: 1em!important;
+        }
+    }
+
+    .dashboard-button-row {
+        margin-bottom: 1em;
+    }
+
+    .admin-form-container {
+		width: 30em;
+		max-width: 100%;
+	}
+}

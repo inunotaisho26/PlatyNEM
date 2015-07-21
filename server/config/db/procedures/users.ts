@@ -9,7 +9,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
 
     create(user: models.IUser): Thenable<number> {
         return this.isUnique(user).then((row: { email: boolean }) => {
-            var errors: models.IValidationErrors = [];
+            var errors: models.server.IValidationErrors = [];
 
             if (!!row.email) {
                 return this.findByEmail(user.email).then<any>((user) => {
@@ -26,18 +26,18 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
             return super.create(user);
         });
     }
-    
+
     createUserPasswordResetToken(email: string, token: string): Thenable<number> {
         return this.findBy(email).then((user) => {
            if (!this.utils.isNull(user)) {
                return this.callProcedure('CreateUserPasswordResetToken', [email, token]).then((rows) => {
                   var result: { userid: number; } = rows[0][0];
-                  
+
                   if (this.utils.isObject(result) && this.utils.isNumber(result.userid)) {
                       return result.userid;
-                  } 
+                  }
                });
-           } 
+           }
         });
     }
 
@@ -53,7 +53,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
         });
     }
 
-    getArgs(user: models.IUser): Array<any> {
+    getArgs(user: models.server.IUser): Array<any> {
         if (!this.utils.isObject(user)) {
             return [];
         }
@@ -64,15 +64,18 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
             encodeURI(user.email),
             encodeURI(user.role),
             user.avatar,
+            user.createdFrom,
+            user.provider,
+            user.facebookid,
             user.hashedpassword,
             user.salt
         ];
     }
 
     findByPasswordResetToken(token: string): Thenable<models.IUser> {
-        return this.findBy(undefined, token).then((user: models.IUser) => {
-           var errors: models.IValidationErrors = [];
-           
+        return this.findBy(undefined, token).then((user: models.server.IUser) => {
+           var errors: models.server.IValidationErrors = [];
+
            if (!this.utils.isObject(user)) {
                errors.push(new this.ValidationError('Invalid password reset request.'));
            } else if (user.resetPasswordExpires < (new Date())) {
@@ -80,7 +83,7 @@ class UserProcedures extends Base<number, models.IUser, models.IUser, void> {
            } else {
                return user;
            }
-           
+
            throw errors;
         });
     }

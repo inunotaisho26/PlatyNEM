@@ -31,7 +31,7 @@ class Controller extends Crud<typeof repository, typeof model> {
 	
 	create(req: express.Request, res: express.Response) {
 		var post: models.IPost = req.body;
-		console.log(post);
+		
 		post.created = post.created || new Date();
 		return super.create(req, res);
 	}

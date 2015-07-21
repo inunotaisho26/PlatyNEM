@@ -31,25 +31,37 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         router.post(baseRoute + '/forgot', this.createResetToken.bind(this));
         router.get(baseRoute + '/reset/:token', this.checkTokenExpiration.bind(this));
         router.post(baseRoute + '/reset/:token', this.resetPassword.bind(this))
+
+        /// Social Login
+        router.get('/api/auth/facebook', this.auth.populateSession, passport.authenticate('facebook', {
+            scope: ['email', 'user_about_me'],
+            failureRedirect: '/login'
+        }), this.authenticate.bind(this));
+        router.get('/auth/facebook/callback', this.auth.populateSession, passport.authenticate('facebook', {
+            failureRedirect: '/login'
+        }), this.authCallback.bind(this));
+    }
+
+    authCallback(req: express.Request, res: express.Response) {
+        res.redirect('/?login=true');
     }
 
     private __createOrUpdate(req: express.Request, method: (user: models.IUser) => Thenable<any>): Thenable<any> {
-        var user: models.IUser = req.body,
+        var user: models.server.IUser = req.body,
             avatar: any,
             password = (<any>req).password || (<any>user).password,
             checkPassword = this.utils.isString(password) || password === null;
 
         if (checkPassword) {
+            user.provider = user.provider || 'local';
             user.salt = this.model.generateSalt(password);
-            console.log(user.salt);
             user.hashedpassword = this.model.generateHashedPassword(user, password);
-            console.log(user.hashedpassword);
         }
 
         user.role = user.role || 'visitor';
 
-        if (this.utils.isObject(req.files) && this.utils.isObject(req.files.avatar)) {
-            avatar = req.files.avatar;
+        if (this.utils.isObject(req.files) && this.utils.isObject((<any>req.files).avatar)) {
+            avatar = (<any>req.files).avatar;
         }
 
         return this.model.validate(user, {
@@ -84,7 +96,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return <any>this.login(user, req).then(() => {
                 return response;
             });
-        }).then(null,(err: models.IValidationErrors) => {
+        }).then(null,(err: models.server.IValidationErrors) => {
             console.log('err', err);
             return this.format.response(err);
         }).then((response: models.IFormattedResponse) => {
@@ -102,7 +114,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return Crud.sendResponse(res, this.format.response(err, null));
         });
     }
-    
+
     destroy(req: express.Request, res: express.Response) {
         var id = req.body.id = req.params.id;
         return this.handleResponse(this.procedures.read(id)
@@ -131,7 +143,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
                 resolve(this.format.response(err, req.user));
             });
-        }); 
+        });
     }
 
     logout(req: express.Request, res: express.Response) {
@@ -143,21 +155,21 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
 
     isAdmin(req: express.Request, res: express.Response) {
         var user: models.IUser = req.user;
-        
+
         if (!this.utils.isObject(user)) {
             return Crud.sendResponse(res, this.format.response(null, false));
         }
-        
+
         Crud.sendResponse(res, this.format.response(null, user.role === 'admin'));
     }
-    
+
     current(req: express.Request, res: express.Response) {
         Crud.sendResponse(res, this.format.response(null, req.user));
     }
 
     private __uploadAvatar(avatar: any, user: models.IUser, req: express.Request) {
-        var errors: models.IValidationErrors = [];
-        
+        var errors: models.server.IValidationErrors = [];
+
         if (avatar.mimetype.indexOf('image') >= 0) {
             return this.file.upload(avatar.path, user.id.toString()).then((url: string) => {
                 user.avatar = url;
@@ -168,7 +180,7 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             });
         }
     }
-    
+
     createResetToken(req: express.Request, res: express.Response) {
         var token = crypto.randomBytes(20).toString('hex');
         var email: string = req.body.email;
@@ -186,16 +198,16 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
         var response = {
             success: 'An email has been sent to the address you provided.'
         };
-        
+
         if (this.utils.isEmpty(email) || !emailRegex.test(email)) {
             Crud.sendResponse(res, this.format.response([new this.ValidationError('Invalid email address', 'email')]));
         }
-        
+
         this.procedures.createUserPasswordResetToken(email, token).then((id) => {
             if (!this.utils.isNumber(id)) {
                 return this.Promise.resolve(response);
             }
-            
+
             return mailer.sendEmail(emailOptions);
         }).then(() => {
             return this.format.response(undefined, response);
@@ -205,23 +217,23 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     checkTokenExpiration(req: express.Request, res: express.Response) {
         var token = req.params.token;
-        
+
         return this.__checkTokenValidity(token).then(() => {
             return this.format.response(undefined, true);
-        }, (err: models.IValidationErrors) => {
+        }, (err: models.server.IValidationErrors) => {
             return this.format.response(err);
         }).then((response) => {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     resetPassword(req: express.Request, res: express.Response) {
         var token = req.params.token;
-        
-        return this.__checkTokenValidity(token).then((user: models.IUser) => {
+
+        return this.__checkTokenValidity(token).then((user: models.server.IUser) => {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
             (<any>req).password = req.body.password;
@@ -231,17 +243,17 @@ class Controller extends Crud<typeof userProcedures, typeof userModel> {
             return this.format.response(null, {
                 success: 'Your password has been updated.'
             })
-        }, (errors: models.IValidationErrors) => {
+        }, (errors: models.server.IValidationErrors) => {
             return this.format.response({ errors: errors });
         }).then((response) => {
             Crud.sendResponse(res, response);
         });
     }
-    
+
     private __checkTokenValidity(token: string) {
         return this.procedures.findByPasswordResetToken(token);
     }
-    
+
     authenticate(req: express.Request, res: express.Response) {
         var ip = req.connection.remoteAddress;
         var cached = ips[ip];

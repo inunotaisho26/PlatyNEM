@@ -9,11 +9,8 @@
                 status: 500,
                 body: {
                     status: 'error',
-                    body: {
-                        status: 'error',
-                        message: err.message,
-                        data: err
-                    }
+                    message: err.message,
+                    data: err
                 }
             }
         }

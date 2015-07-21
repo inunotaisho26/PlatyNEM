@@ -12,6 +12,8 @@ class ResetPasswordViewControl extends BaseViewControl {
 	context = {
 		password: '',
 		token: '',
+		errors: <Array<string>>null,
+		success: ''
 	};
 	
 	constructor(private userRepository: UserRepository) {
@@ -23,8 +25,10 @@ class ResetPasswordViewControl extends BaseViewControl {
 		var token = context.token = parameters.token;
 		
 		if (this.utils.isString(token)) {
-			this.userRepository.checkTokenExpiration(token).then(null, (errors) => {
-				this._globalAlert.setAlerts(errors, 'fail');
+			this.userRepository.checkTokenExpiration(token).then((result) => {
+				return;
+			}, (errors) => {
+				this.context.errors = errors;
 			});
 		}
 	}
@@ -33,9 +37,9 @@ class ResetPasswordViewControl extends BaseViewControl {
 		var context = this.context;
 		
 		this.userRepository.resetPassword(context.token, context.password).then((result) => {
-			this._globalAlert.setAlerts('Your password has been reset.', 'success');
+			this.context.success = result;
 		}, (errors) => {
-			this._globalAlert.setAlerts(errors, 'fail');
+			this.context.errors = errors;
 		})
 	}
 }

@@ -9,7 +9,8 @@ var pool = mysql.createPool({
     user: config.db.user,
     password: config.db.password,
     database: config.db.dbName,
-    connectionLimit: config.db.connectionLimit
+    connectionLimit: config.db.connectionLimit,
+    timezone: 'utc'
 });
 
 pool.on('connection', (connection: mysql.IConnection) => {
@@ -20,5 +21,22 @@ pool.on('connection', (connection: mysql.IConnection) => {
         }
     });
 });
+
+/// Ping database every 60 seconds
+setInterval(() => {
+    pool.getConnection((err, connection) => {
+        if (utils.isObject(err)) {
+            console.log(err);
+            return;
+        }
+        
+        (<any>connection).ping((err) => {
+            if (utils.isObject(err)) {
+                console.log(err);
+            }
+            connection.release();
+        });
+    });
+}, 60000);
 
 export = pool;

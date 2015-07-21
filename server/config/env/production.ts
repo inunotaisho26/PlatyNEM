@@ -6,7 +6,7 @@ var port = 5000;
 
 var config: models.IConfig = {
     app: {
-        name: 'BlogStarter',
+        name: 'Capsize',
         url: 'http://localhost:' + port,
         dist: './client/dist/',
         uploads: '/assets'
@@ -15,13 +15,24 @@ var config: models.IConfig = {
         host: '127.0.0.1',
         user: '3l33t',
         password: 'uw0tm8',
-        dbName: 'depot',
+        dbName: 'blogstarter',
         connectionLimit: 2
+    },
+    facebook: {
+        clientID: 'your facebook app id',
+        clientSecret: 'your facebook app secret',
+        callbackURL: 'http://localhost:3000/auth/facebook/callback/',
+        profileFields: [
+            'id',
+            'displayName',
+            'photos',
+            'emails'
+        ]
     },
     smtp: {
         service: 'Gmail',
-        username: 'example55555@gmail.com',
-        password: 'gmail-password'
+        username: 'example@gmail.com',
+        password: 'password'
     },
     sessionKey: 'You should change this',
     port: process.env.PORT || port,
