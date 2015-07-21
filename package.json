@@ -26,7 +26,7 @@
     "memory-cache": "latest",
     "minifyify": "latest",
     "moment": "latest",
-    "multer": "latest",
+    "multer": "0.1.8",
     "mysql": "latest",
     "nodemailer": "latest",
     "nodemailer-sendgrid-transport": "latest",

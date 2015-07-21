@@ -9,7 +9,7 @@ import utils = require('./utils/utils');
 
 var multer = require('multer');
 
-var configure = (app: express.Application, config: any) => {
+var configure = (app: express.Application, config: models.IConfig) => {
     app.set('views', path.join(__dirname, '../views'));
     app.set('view engine', 'ejs');
     app.use(bodyparser.json());
@@ -42,7 +42,9 @@ var configure = (app: express.Application, config: any) => {
     app.use(express.static(path.resolve(config.app.dist)));
     app.use(configureRouter('/api', express.Router()));
     app.get('/*', (req: express.Request, res: express.Response) => {
-        res.render('index');
+        res.render('index', {
+            googleAnalyticsID: config.googleAnalyticsID.toString()
+        });
     });
     app.use((err: any, req: express.Request, res: express.Response, next: Function) => {
         if (utils.isObject(err) && utils.isString(err.message)) {

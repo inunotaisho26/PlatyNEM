@@ -29,6 +29,7 @@ var config: models.IConfig = {
             'emails'
         ]
     },
+    googleAnalyticsID: '5555555',
     smtp: {
         service: 'Gmail',
         username: 'example@gmail.com',

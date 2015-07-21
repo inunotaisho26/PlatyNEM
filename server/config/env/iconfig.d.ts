@@ -4,17 +4,18 @@ declare module models {
 		db: IDbConfig;
 		smtp: ISmtpConfig;
 		sessionKey: string;
+		googleAnalyticsID: string;
 		port: number;
 		root: string;
 	}
-	
+
 	interface IAppConfig {
 		name: string;
 		url: string;
 		dist: string;
 		uploads: string;
 	}
-	
+
 	interface IDbConfig {
 		host: string;
 		user: string;
@@ -22,7 +23,7 @@ declare module models {
 		dbName: string;
 		connectionLimit: number;
 	}
-	
+
 	interface ISmtpConfig {
 		service: string;
 		username: string;
