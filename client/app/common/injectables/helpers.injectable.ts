@@ -23,6 +23,7 @@ class Helpers {
 }
 
 plat.register.injectable('helpers', Helpers, [
+	plat.Document,
 	plat.Utils
 ]);
 

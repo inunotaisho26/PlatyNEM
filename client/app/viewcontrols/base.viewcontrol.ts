@@ -9,7 +9,7 @@ class BaseViewControl extends ui.ViewControl {
     protected scrollingContainer = this._document.querySelector('.blog-viewport-container');
 
     setTemplate() {
-        this._scrollToTop.bind(this);
+        this._scrollToTop();
     }
 
     protected _scrollToTop(): void {
