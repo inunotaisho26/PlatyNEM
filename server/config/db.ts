@@ -3,10 +3,11 @@ import * as Pool from 'tedious-connection-pool';
 import {Promise} from 'es6-promise';
 import {isArray, isBoolean, isDate, isNull, isNumber, isObject, isString, extend} from 'lodash';
 import {db} from './global';
-var pool: any = {
+
+export var pool: any = {
     on() {}
 };
-// export var pool = new Pool({
+// new Pool({
 // 	min: db.minConnectionLimit,
 // 	max: db.maxConnectionLimit,
 // 	acquireTimeout: db.connectTimeout
