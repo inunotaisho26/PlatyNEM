@@ -1,19 +1,13 @@
-/// <reference path="../references.d.ts" />
-
 // libs
-require('platypus');
-require('platypusui');
+import 'platypus';
+import 'platypusui';
 
 // app
-require('./app/app');
+import './app/app';
 
 // injectables
-require('./common/injectables/moment.injectable');
+import './injectables/moment.injectable';
 
-// templatecontrols
-require('./common/templatecontrols/globalalert/globalalert.templatecontrol');
-require('./common/templatecontrols/htmlify/htmlify.templatecontrol');
-require('./common/templatecontrols/navigation/admin/admin.templatecontrol');
-require('./common/templatecontrols/navigation/public/public.templatecontrol');
-require('./common/templatecontrols/socialauth/socialauth.templatecontrol');
-require('./common/templatecontrols/sidebar/sidebar.templatecontrol');
+// controls
+import './controls/cms/main.ts';
+import './controls/public/main.ts';

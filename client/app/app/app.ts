@@ -1,23 +1,23 @@
-/// <reference path="../../references.d.ts" />
+import {App, routing, web, Utils, events, register} from 'platypus';
+import AdminViewControl from '../controls/cms/viewcontrols/admin/main/main.viewcontrol';
+import AuthViewControl from '../controls/cms/viewcontrols/auth/main/main.viewcontrol';
+import PublicViewControl from '../controls/public/viewcontrols/main/main.viewcontrol';
+import UserRepository from '../repositories/user.repository';
+import Helpers from '../injectables/helpers.injectable';
 
-import plat = require('platypus');
-import AdminViewControl = require('../viewcontrols/admin/main.viewcontrol');
-import PublicViewControl = require('../viewcontrols/public/main.viewcontrol');
-import UserRepository = require('../repositories/user.repository');
-import Helpers = require('../common/injectables/helpers.injectable');
-
-export class App extends plat.App {
-    constructor(router: plat.routing.Router,
-        config: plat.web.IBrowserConfig,
+export default class Blogstarter extends App {
+    constructor(router: routing.Router,
+        config: web.IBrowserConfig,
         repository: UserRepository,
         private helpers: Helpers,
-        private utils: plat.Utils,
-        private browser: plat.web.Browser) {
+        private utils: Utils,
+        private browser: web.Browser) {
         super();
 
         router.configure([
             { pattern: '', view: PublicViewControl },
             { pattern: 'admin', view: AdminViewControl },
+            { pattern: 'auth', view: AuthViewControl }
         ]);
 
         config.routingType = config.STATE;
@@ -27,10 +27,10 @@ export class App extends plat.App {
         }, AdminViewControl);
     }
 
-    ready(ev: plat.events.LifecycleEvent) {
+    ready(ev: events.LifecycleEvent) {
         var defer = this.utils.defer;
 
-        this.on('urlChanged', (ev: plat.events.DispatchEvent, utils?: plat.web.UrlUtils) => {
+        this.on('urlChanged', (ev: events.DispatchEvent, utils?: web.UrlUtils) => {
             this.clearScripts();
 
             defer(() => {
@@ -47,7 +47,7 @@ export class App extends plat.App {
         }, 2000);
     }
 
-    error(ev: plat.events.ErrorEvent<Error>) {
+    error(ev: events.ErrorEvent<Error>) {
         var stack: string = (<any>ev.error).stack;
 
         if (!stack) {
@@ -89,11 +89,11 @@ export class App extends plat.App {
     }
 }
 
-plat.register.app('depot', App, [
-    plat.routing.Router,
-    plat.web.IBrowserConfig,
+register.app('blogstarter', Blogstarter, [
+    routing.Router,
+    web.IBrowserConfig,
     UserRepository,
     Helpers,
-    plat.Utils,
-    plat.web.Browser
+    Utils,
+    web.Browser
 ]);

@@ -1,5 +1,3 @@
-/// <reference path="../../../references.d.ts" />
-
 declare module models {
     interface IPost extends IBaseModel {
         title?: string;

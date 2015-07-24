@@ -1,0 +1,57 @@
+& {
+    #platui > #mixins;
+
+    [plat-control="login-vc"] {
+        height: 100%;
+    }
+
+    .auth-container {
+        height: 100%;
+        .flex-vertical-center();
+        .justify-content(center);
+        .flex-direction(column);
+        position: relative;
+
+        & > .auth {
+            position: relative;
+            top: -3em;
+            max-width: 100%;
+            width: 30em;
+        }
+    }
+
+    .auth-options-container {
+        padding: 1em 3em 2em;
+        background-color: @off-white;
+        border: 1px solid @light-grey;
+    }
+
+    .auth-alert-container {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    ul.auth-actions {
+        .flex-vertical-center();
+        .justify-content(flex-end);
+        list-style: none;
+        height: 3em;
+        margin: 0;
+        padding: 0 3%;
+
+        & > li {
+            .flex-vertical-center();
+            padding-left: 1em;
+
+            & > a {
+                cursor: pointer;
+            }
+
+            &:first-child {
+                padding: 0;
+            }
+        }
+    }
+}

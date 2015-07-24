@@ -6,64 +6,64 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "moment/moment.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "moment/moment-node.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "express/express.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "mysql/mysql.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "es6-promise/es6-promise.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "passport/passport.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "passport-local/passport-local.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "body-parser/body-parser.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "express-session/express-session.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "memory-cache/memory-cache.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "nodemailer/nodemailer.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "nodemailer-direct-transport/nodemailer-direct-transport.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "nodemailer/nodemailer-types.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "cryptojs/cryptojs.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "mime/mime.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "multer/multer.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "passport-facebook/passport-facebook.d.ts": {
-      "commit": "8f51d25ad3523cd01f2d92e343247852f6b70dff"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     }
   }
 }

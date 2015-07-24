@@ -1,6 +1,6 @@
 import {async, debug, register, Utils} from 'platypus';
 
-export class BaseService {
+export default class BaseService {
     protected static _inject: any = {
         _http: async.Http,
         _utils: Utils,
@@ -93,7 +93,7 @@ export class BaseService {
     }
 }
 
-export interface IHttpConfig {
+interface IHttpConfig {
     url?: string;
     method?: string;
     contentType?: string;

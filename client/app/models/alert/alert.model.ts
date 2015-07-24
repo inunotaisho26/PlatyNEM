@@ -1,10 +1,7 @@
-/// <reference path="../../../references.d.ts" />
-/// <reference path="../server.model.d.ts" />
+import {register} from 'platypus';
+import BaseFactory from '../base/base.model';
 
-import plat = require('platypus');
-import base = require('../base/base.model');
-
-class AlertFactory extends base.BaseFactory<models.IAlert> {
+export default class AlertFactory extends BaseFactory<models.IAlert> {
 	_instantiate(alert: models.IAlert): models.IAlert {
 		return {
 			property: alert.property,
@@ -13,6 +10,4 @@ class AlertFactory extends base.BaseFactory<models.IAlert> {
 	}
 }
 
-export = AlertFactory;
-
-plat.register.injectable('alertFactory', AlertFactory, null, plat.register.injectable.FACTORY);
+register.injectable('alertFactory', AlertFactory, null, register.injectable.FACTORY);
