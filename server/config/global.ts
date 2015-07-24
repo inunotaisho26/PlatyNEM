@@ -14,6 +14,8 @@ export var environment = {
 	dev: env === 'dev',
 	test: env === 'test'
 };
+export var facebook: server.config.IFacebookConfig = cfg.facebook;
+export var googleAnalyticsID: number = cfg.googleAnalyticsID;
 export var port: number = process.env.PORT || 3000;
 export var root: string = resolve(__dirname + '/../..');
 export var secret: string = cfg.secret;

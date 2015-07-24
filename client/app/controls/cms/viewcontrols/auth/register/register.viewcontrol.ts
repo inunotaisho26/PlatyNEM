@@ -30,7 +30,7 @@ export default class RegisterViewControl extends BaseViewControl {
 
         this.userRepository.create(context.user, context.password).then((response) => {
             this._globalAlert.setAlerts('Account has been created', 'success');
-        }, (errors: models.server.IValidationErrors | models.server.IValidationError) => {
+        }, (errors: server.errors.IValidationErrors | server.errors.IValidationError) => {
             console.log(errors);
             this._globalAlert.setAlerts(errors, 'fail');
         });

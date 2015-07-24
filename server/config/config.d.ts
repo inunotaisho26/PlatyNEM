@@ -3,6 +3,8 @@ declare module server.config {
         app: IAppConfig;
         db: IDatabaseConfig;
         environment: IEnvironmentConfig;
+        facebook: IFacebookConfig;
+        googleAnalyticsID: number;
         port: number;
         root: string;
         secret: string;
@@ -26,6 +28,13 @@ declare module server.config {
         minConnectionLimit: number;
         maxConnectionLimit: number;
         encrypt: boolean;
+    }
+
+    interface IFacebookConfig {
+        clientID: string;
+        clientSecret: string;
+        callbackURL: string;
+        profileFields: Array<string>;
     }
 
     interface ISmtpConfig {

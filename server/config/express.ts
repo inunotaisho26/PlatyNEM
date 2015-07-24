@@ -4,11 +4,11 @@ import * as logger from 'morgan';
 import * as serve from 'serve-static';
 import {Application, Errback, Request, Response, Router} from 'express';
 import {json, urlencoded} from 'body-parser';
-import {isNumber, isObject, isString} from 'lodash';
+import {isNumber, isObject, isString, map} from 'lodash';
 import * as auth from '../middleware/auth.mw';
 import configureRouter from './routes';
 import accept from '../middleware/accept.mw';
-import {root} from './global';
+import {root, googleAnalyticsID} from './global';
 import {isFileExt, mkdir} from '../utils/utils';
 
 import multer = require('multer');
@@ -86,9 +86,9 @@ var configure = (app: Application): void => {
             }
             res.render('index');
         })
-        .get('/*', (req: express.Request, res: express.Response) => {
+        .get('/*', (req: Request, res: Response) => {
             res.render('index', {
-                googleAnalyticsID: config.googleAnalyticsID.toString()
+                googleAnalyticsID: googleAnalyticsID.toString()
             });
         });
 

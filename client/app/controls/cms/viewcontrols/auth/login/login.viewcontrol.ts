@@ -38,7 +38,7 @@ export default class LoginViewControl extends BaseViewControl {
                     replace: true
                 });
             }
-        }, (error: models.server.IValidationError) => {
+        }, (error: server.errors.IValidationError) => {
             this._globalAlert.setAlerts(error, 'fail');
         });
     }

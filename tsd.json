@@ -54,34 +54,37 @@
       "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "mime/mime.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "multer/multer.d.ts": {
-      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "lodash/lodash.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "fs-extra/fs-extra.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "serve-favicon/serve-favicon.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "compression/compression.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "morgan/morgan.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "tedious/tedious.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     },
     "tedious-connection-pool/tedious-connection-pool.d.ts": {
-      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+    },
+    "passport-facebook/passport-facebook.d.ts": {
+      "commit": "178dee76b23618d84237e9601cf21772252883cc"
     }
   }
 }

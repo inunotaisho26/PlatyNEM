@@ -1,6 +1,6 @@
 import Base from './crud.proc';
 
-class Procedures extends Base<server.server.models.IPost> {
+class Procedures extends Base<server.models.IPost> {
 	create(post: server.models.IPost) {
 		return super.create(this.formatPostDates(post)).then(() => {
 			return post.id;
@@ -59,7 +59,7 @@ class Procedures extends Base<server.server.models.IPost> {
 		];
 	}
 
-	private merge(posts: Array<server.models.IPost>, users: Array<models.IUser>) {
+	private merge(posts: Array<server.models.IPost>, users: Array<server.models.IUser>) {
 		if (!this.utils.isArray(posts)) {
 			return;
 		}

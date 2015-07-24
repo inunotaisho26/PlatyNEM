@@ -4,7 +4,7 @@ import {Promise} from 'es6-promise';
 import {isArray, isNumber, isObject, isString} from 'lodash';
 import {Strategy as LocalStrategy} from 'passport-local';
 import {Profile, Strategy as FacebookStrategy} from 'passport-facebook';
-import * as config from './globals';
+import {facebook} from './global';
 import procedures from '../procedures/user.proc';
 import Model from '../models/user';
 
@@ -44,7 +44,7 @@ var configure = (passport: Passport): void => {
         });
     }));
 
-    passport.use(new FacebookStrategy(config.facebook, (accessToken: string, refreshToken: string, profile: any, done: Function) => {
+    passport.use(new FacebookStrategy(facebook, (accessToken: string, refreshToken: string, profile: any, done: Function) => {
         if (isObject(profile) && isArray(profile.emails) && profile.emails.length > 0) {
             return procedures.findByEmail(profile.emails[0].value).then((user: server.models.IUser) => {
                 return handleUser(user, profile, 'facebook');
