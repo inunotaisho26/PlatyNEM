@@ -1,5 +1,5 @@
 import {register} from 'platypus';
-import BaseFactory from '../base/base';
+import BaseFactory from './base';
 
 export default class UserFactory extends BaseFactory<models.IUser> {
     _instantiate(user: models.IUser): models.IUser {

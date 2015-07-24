@@ -80,7 +80,6 @@ var configure = (app: Application): void => {
 
     var staticPath: string = path.resolve(root, 'app'),
         fonts = '/fonts',
-        images = '/images',
         dist = '/dist',
         platui = '/node_modules/platypusui/dist/fonts',
         fontAwesome = '/node_modules/font-awesome/fonts';

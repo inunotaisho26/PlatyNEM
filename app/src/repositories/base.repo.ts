@@ -1,5 +1,5 @@
 import {async, Utils, storage} from 'platypus';
-import BaseFactory from '../models/base/base';
+import BaseFactory from '../models/base';
 import CrudService from '../services/crud.svc';
 
 export default class BaseRepository<F extends BaseFactory<any>,

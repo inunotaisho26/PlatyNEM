@@ -1,12 +1,13 @@
-// libs
 import 'platypus';
 import 'platypusui';
+import './cms/main';
 
-// app
 import './app/app';
 
-// injectables
+import './injectables/helpers';
 import './injectables/moment';
+import './injectables/quill';
 
-// controls
-import './cms/main';
+import './templatecontrols/globalalert/globalalert.tc';
+import './templatecontrols/htmlify/htmlify.tc';
+import './templatecontrols/navbar/navbar.tc';

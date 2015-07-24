@@ -1,6 +1,6 @@
 import {register} from 'platypus';
-import BaseFactory from '../base/base';
-import UserFactory from '../user/user';
+import BaseFactory from './base';
+import UserFactory from './user';
 
 export default class PostFactory extends BaseFactory<models.IPost> {
 	constructor(private UserFactory: UserFactory) {

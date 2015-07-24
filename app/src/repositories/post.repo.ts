@@ -1,6 +1,6 @@
 import {async, register, storage} from 'platypus';
 import BaseRepository from '../repositories/base.repo';
-import PostFactory from '../models/post/post';
+import PostFactory from '../models/post';
 import PostService from '../services/post.svc';
 
 export default class PostRepository extends BaseRepository<PostFactory, PostService, models.IPost> {

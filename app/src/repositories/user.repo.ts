@@ -1,5 +1,5 @@
 import {async, register} from 'platypus';
-import UserFactory from '../models/user/user';
+import UserFactory from '../models/user';
 import UserService from '../services/user.svc';
 import BaseRepository from './base.repo';
 
