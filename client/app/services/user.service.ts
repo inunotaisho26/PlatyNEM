@@ -1,15 +1,12 @@
-/// <reference path="../../references.d.ts" />
-/// <reference path="../models/server.model.d.ts" />
+import {async} from 'platypus';
+import CrudService from './crud.service';
 
-import plat = require('platypus');
-import CrudService = require('./crud.service');
-
-class UserService extends CrudService<server.IUser> {
+export default class UserService extends CrudService<server.IUser> {
     constructor() {
         super('users');
     }
 
-    register(user: models.IUser, password: string): plat.async.IAjaxThenable<number> {
+    register(user: models.IUser, password: string): async.IAjaxThenable<number> {
         return super.create(this._utils.extend({}, user, {
             password: password
         }), this._http.contentType.MULTIPART_FORM);
@@ -20,7 +17,7 @@ class UserService extends CrudService<server.IUser> {
             data: this._utils.extend({}, user, { password: password })
         }, 'login');
     }
-    
+
     update(user: models.IUser) {
         return super.update(user, this._http.contentType.MULTIPART_FORM);
     }
@@ -32,11 +29,11 @@ class UserService extends CrudService<server.IUser> {
     isAdmin() {
         return this._get<boolean>('admin');
     }
-    
+
     loggedInUser() {
         return this._get<server.IUser>('me');
     }
-    
+
     createResetToken(email: string) {
         return this._post<any>({
             data: {
@@ -44,11 +41,11 @@ class UserService extends CrudService<server.IUser> {
             }
         }, 'forgot');
     }
-    
+
     checkTokenExpiration(token: string) {
         return this._get<boolean>('reset', token);
     }
-    
+
     resetPassword(token: string, password: string) {
         return this._post<any>({
             data: {
@@ -57,5 +54,3 @@ class UserService extends CrudService<server.IUser> {
         }, 'reset', token);
     }
 };
-
-export = UserService;

@@ -1,10 +1,7 @@
-/// <reference path="../../../references.d.ts" />
-/// <reference path="../server.model.d.ts" />
+import {register} from 'platypus';
+import BaseFactory from '../base/base.model';
 
-import plat = require('platypus');
-import base = require('../base/base.model');
-
-class UserFactory extends base.BaseFactory<models.IUser> {
+export default class UserFactory extends BaseFactory<models.IUser> {
     _instantiate(user: models.IUser): models.IUser {
         return {
             id: user.id,
@@ -17,6 +14,4 @@ class UserFactory extends base.BaseFactory<models.IUser> {
     }
 }
 
-export = UserFactory;
-
-plat.register.injectable('userFactory', UserFactory, null, plat.register.injectable.FACTORY);
+register.injectable('userFactory', UserFactory, null, register.injectable.FACTORY);

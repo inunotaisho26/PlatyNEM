@@ -5,6 +5,9 @@ declare module server.models {
         lastname: string;
         email: string;
         role: string;
+        createdFrom: string;
+        provider: string;
+        facebookid: string;
         hashedpassword: string;
         salt: string;
         avatar: string;

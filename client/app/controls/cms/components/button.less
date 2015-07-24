@@ -1,0 +1,39 @@
+& {
+    #platui > #mixins;
+
+    /// Button Constants
+    @border-radius: 3px;
+
+    .button-block {
+        width: 100%;
+    }
+
+    /// plat-button overrides
+
+    .plat-button, .button {
+        padding: 1em 1.2em;
+    }
+
+    .plat-button.button-primary {
+        background-color: @sea-green;
+        border-radius: @border-radius;
+        border: none;
+        border-bottom: 2px solid darken(@sea-green, 10%);
+
+        &:hover, &:active {
+            background-color: lighten(@sea-green, 2%);
+        }
+
+        &:disabled {
+            background-color: @sea-green;
+        }
+    }
+
+    .button-sidetext {
+        position: relative;
+        top: 2px;
+        left: 3px;
+        font-weight: bold;
+        color: lighten(@font-color, 18%);
+    }
+}

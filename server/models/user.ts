@@ -33,7 +33,6 @@ class Model extends Base<server.models.IUser> {
 
         return validations;
     }
-
     protected validatePassword(password: string): server.errors.IValidationError {
         return this.isString(password, 'password', 'Password');
     }

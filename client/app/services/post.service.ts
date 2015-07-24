@@ -1,13 +1,11 @@
-/// <reference path="../../references.d.ts" />
+import {register, async} from 'platypus';
+import Crud from './crud.service';
 
-import plat = require('platypus');
-import Crud = require('./crud.service');
-
-class PostService extends Crud<server.IPost> {
+export default class PostService extends Crud<server.IPost> {
 	constructor() {
 		super('posts');
 	}
-	
+
 	all(published?: boolean, from?: number): plat.async.IThenable<Array<models.IPost>> {
 		var query = '?published=' + published + '&from=' + from + '&count=10';
 		return this._get(query);
@@ -15,5 +13,3 @@ class PostService extends Crud<server.IPost> {
 }
 
 plat.register.injectable('postService', PostService);
-
-export = PostService;

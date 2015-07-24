@@ -1,10 +1,7 @@
-/// <reference path="../../../references.d.ts" />
-/// <reference path="../server.model.d.ts" />
+import {Utils, acquire} from 'platypus';
 
-import plat = require('platypus');
-
-export class BaseFactory<T extends models.IBaseModel> {
-    utils: plat.Utils = plat.acquire(plat.Utils);
+export default class BaseFactory<T extends models.IBaseModel> {
+    utils: Utils = acquire(Utils);
 
     constructor(public canUpdate: boolean = false) { }
 

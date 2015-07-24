@@ -53,7 +53,6 @@ var configure = (app: Application): void => {
                 }
                 return;
             }
-
             next();
         });
 
@@ -70,10 +69,9 @@ var configure = (app: Application): void => {
 
         auth.populateSession(req, res, <Errback>next);
     });
-
     app.get('/', (req: Request, res: Response, next: Function) => {
-        res.render('index');
-    })
+            res.render('index');
+        })
         .get('/logout', (req: Request, res: Response, next: Function) => {
             req.logout();
             req.session.destroy(() => {
@@ -86,9 +84,14 @@ var configure = (app: Application): void => {
                 next();
                 return;
             }
-
             res.render('index');
+        })
+        .get('/*', (req: express.Request, res: express.Response) => {
+            res.render('index', {
+                googleAnalyticsID: config.googleAnalyticsID.toString()
+            });
         });
+
 
     var staticPath: string = path.resolve(root, 'app');
 
@@ -103,17 +106,17 @@ var configure = (app: Application): void => {
             if (isObject(err) && isString(err.message)) {
                 console.log(err.toString());
                 switch (err.name) {
-                    default:
-                        if (!isNumber(err.status) &&
-                            (<string>err.toString()).toLowerCase().indexOf('not found') > -1) {
-                            err.status = 404;
-                        }
-
-                        res.status(err.status || 500);
-                        res.render('error', {
-                            error: err
-                        });
-                        break;
+                case 'ValidationError':
+                    var query = map(err.errors, (err: Error, key: string) => {
+                        return key + '=' + err.message;
+                    });
+                    res.redirect(200, '/register?' + encodeURI(query.join('&')));
+                    break;
+                default:
+                    if (!isNumber(err.status) &&
+                        (<string>err.toString()).toLowerCase().indexOf('not found') > -1) {
+                        err.status = 404;
+                    }
                 }
             }
         });

@@ -1,0 +1,37 @@
+& {
+	    #platui > #mixins;
+
+	    .top-viewport {
+	        height: 100%;
+	        overflow: hidden;
+	        position: relative;
+	    }
+
+	    .plat-viewcontrol {
+	        height: auto;
+	    }
+
+	    .plat-viewcontrol[plat-control="public-vc"] {
+	        position: static;
+	        padding-top: @navbar-height!important;
+	    }
+
+	    .blog-viewport-container {
+	        height: 100%;
+	        .scroll(y);
+	    }
+
+	    .blog-viewport {
+	        height: auto;
+
+	        & > .plat-viewcontrol {
+	            background-color: @white;
+	        }
+	    }
+
+	    @media screen and (max-width: 700px) {
+	        .hide-for-mobile {
+	            display: none;
+	        }
+	    }
+}

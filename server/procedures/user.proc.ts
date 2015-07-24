@@ -66,6 +66,9 @@ class Procedures extends Base<server.models.IUser> {
             encodeURI(user.email),
             encodeURI(user.role),
             user.avatar,
+            user.createdFrom,
+            user.provider,
+            user.facebookid,
             user.hashedpassword,
             user.salt
         ];
