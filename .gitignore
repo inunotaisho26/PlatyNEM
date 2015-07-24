@@ -175,3 +175,4 @@ client/dist/avatars/
 *.min.css
 !gulpfile.js
 /.tscache
+dist
