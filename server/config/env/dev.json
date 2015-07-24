@@ -1,0 +1,25 @@
+{
+    "app": {
+        "name": "Blogstarter",
+        "url": "http://localhost:3000",
+        "dist": "./app/dist/",
+        "uploads": "/assets"
+    },
+    "db": {
+        "host": "127.0.0.1",
+        "user": "user",
+        "password": "password",
+        "database": "database",
+        "port": 1433,
+        "connectTimeout": 30000,
+        "minConnectionLimit": 1,
+        "maxConnectionLimit": 2,
+        "encrypt": true
+    },
+    "smtp": {
+        "service": "Gmail",
+        "username": "example@gmail.com",
+        "password": "password"
+    },
+    "secret": "CHANGE ME"
+}

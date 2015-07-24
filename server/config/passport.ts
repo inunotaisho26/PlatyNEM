@@ -1,25 +1,20 @@
-/// <reference path="../references.d.ts" />
+import * as passport from 'passport';
+import {Passport} from 'passport';
+import {isObject} from 'lodash';
+import {Strategy as LocalStrategy} from 'passport-local';
+import procedures from '../procedures/user.proc';
+import Model from '../models/user';
 
-import passport = require('passport');
-import Local = require('passport-local');
-import PromiseStatic = require('es6-promise');
-import utils = require('./utils/utils');
-import userProcedures = require('./db/procedures/users');
-import UserModel = require('../models/user/user.model');
-
-var Promise = PromiseStatic.Promise,
-    LocalStrategy = Local.Strategy;
-
-var passportConfig = (passport: passport.Passport) => {
-    passport.serializeUser((user: models.IUser, done: Function) => {
-        if (!utils.isObject(user)) {
+var configure = (passport: Passport): void => {
+    passport.serializeUser((user: server.models.IUser, done: Function) => {
+        if (!isObject(user)) {
             done(false);
         }
         done(null, user.id);
     });
 
     passport.deserializeUser((id: number, done: Function) => {
-        userProcedures.read(id).then((u: models.IUser) => {
+        procedures.read(id).then((u: server.models.IUser) => {
             done(null, u);
         }, (err: Error) => {
             done(err, null);
@@ -29,13 +24,13 @@ var passportConfig = (passport: passport.Passport) => {
     passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'
-    }, (email: string, password: string, done: (err: any, user?: models.server.IUser, response ?: any) => void) => {
-        userProcedures.findByEmail(email).then((user: models.server.IUser) => {
-            if (!utils.isObject(user)) {
+    }, (email: string, password: string, done: (err: any, user?: server.models.IUser, response ?: any) => void) => {
+        procedures.findByEmail(email).then((user: server.models.IUser) => {
+            if (!isObject(user)) {
                 return done(null, <any>false, {
                     message: 'User not recognized'
                 });
-            } else if (!UserModel.authenticate(user, password)) {
+            } else if (!Model.authenticate(user, password)) {
                 return done(null, <any>false, {
                     message: 'Incorrect password'
                 });
@@ -47,4 +42,4 @@ var passportConfig = (passport: passport.Passport) => {
     }));
 };
 
-export = passportConfig;
+export default configure;

@@ -6,7 +6,7 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
     },
     "moment/moment.d.ts": {
       "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
@@ -15,7 +15,7 @@
       "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
     },
     "express/express.d.ts": {
-      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
     },
     "mysql/mysql.d.ts": {
       "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
@@ -54,13 +54,34 @@
       "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
     },
     "mime/mime.d.ts": {
-      "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
     },
     "multer/multer.d.ts": {
       "commit": "be03157bace6e6465e63f13073d7b68e8ea1303c"
+    },
+    "lodash/lodash.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "fs-extra/fs-extra.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "serve-favicon/serve-favicon.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "compression/compression.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "morgan/morgan.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "tedious/tedious.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
+    },
+    "tedious-connection-pool/tedious-connection-pool.d.ts": {
+      "commit": "286c198898978cb6045076c3e47f823a02217b41"
     }
   }
 }

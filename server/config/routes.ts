@@ -1,14 +1,25 @@
-/// <reference path="../references.d.ts" />
+/**
+ * For routes, all POST/PUT/DELETE methods will always have
+ * the session information on them.
+ *
+ * For GET methods you need to manually populate session information
+ * as well as do any sort of authentication if necessary.
+ */
 
-import express = require('express');
-import passport = require('passport');
-import users = require('../controllers/user.controller');
-import posts = require('../controllers/post.controller');
+import {Router} from 'express';
+import * as auth from '../middleware/auth.mw';
+import user from '../controllers/user.ctrl';
+import post from '../controllers/post.ctrl';
 
-var configure = (baseRoute: string, router: express.Router) => {
-    users.initialize(baseRoute + '/users', router);
-    posts.initialize(baseRoute + '/posts', router);
+var configure = (baseRoute: string, router: Router): Router => {
+    router .route(baseRoute + '/*')
+        .put(auth.requiresLogin)
+        .delete(auth.requiresLogin, auth.isAdmin);
+
+    user.initialize(baseRoute + '/users', router);
+    post.initialize(baseRoute + '/posts', router);
+
     return router;
-}
+};
 
-export = configure;
+export default configure;

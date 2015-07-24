@@ -1,136 +1,4 @@
 {
-    "lintOptions": {
-        "rules": {
-            "ban": [
-                true,
-                [
-                    "_",
-                    "extend"
-                ],
-                [
-                    "_",
-                    "isNull"
-                ],
-                [
-                    "_",
-                    "isDefined"
-                ]
-            ],
-            "class-name": true,
-            "comment-format": [
-                true,
-                "check-space"
-            ],
-            "curly": true,
-            "eofline": true,
-            "forin": true,
-            "indent": [
-                true,
-                4
-            ],
-            "interface-name": true,
-            "jsdoc-format": true,
-            "label-position": true,
-            "label-undefined": true,
-            "max-line-length": [
-                false,
-                140
-            ],
-            "member-ordering": [
-                true,
-                "public-before-private",
-                "static-before-instance",
-                "variables-before-functions"
-            ],
-            "no-any": false,
-            "no-arg": true,
-            "no-bitwise": false,
-            "no-console": [
-                true,
-                "debug",
-                "info",
-                "time",
-                "timeEnd",
-                "trace"
-            ],
-            "no-consecutive-blank-lines": true,
-            "no-construct": true,
-            "no-constructor-vars": false,
-            "no-debugger": true,
-            "no-duplicate-key": true,
-            "no-duplicate-variable": true,
-            "no-empty": false,
-            "no-eval": true,
-            "no-string-literal": true,
-            "no-trailing-comma": true,
-            "no-trailing-whitespace": true,
-            "no-unreachable": true,
-            "no-unused-expression": true,
-            "no-unused-variable": true,
-            "no-use-before-declare": true,
-            "one-line": [
-                true,
-                "check-open-brace",
-                "check-catch",
-                "check-else",
-                "check-whitespace"
-            ],
-            "quotemark": [
-                true,
-                "single"
-            ],
-            "radix": true,
-            "semicolon": true,
-            "triple-equals": [
-                true,
-                "allow-null-check"
-            ],
-            "typedef": [
-                true,
-                "property-declaration"
-            ],
-            "typedef-whitespace": [
-                true,
-                [
-                    "call-signature",
-                    "nospace"
-                ],
-                [
-                    "catch-clause",
-                    "nospace"
-                ],
-                [
-                    "index-signature",
-                    "space"
-                ],
-                [
-                    "parameter",
-                    "nospace"
-                ],
-                [
-                    "property-declaration",
-                    "nospace"
-                ],
-                [
-                    "variable-declaration",
-                    "nospace"
-                ]
-            ],
-            "use-strict": [
-                true,
-                "check-module"
-            ],
-            "variable-name": false,
-            "whitespace": [
-                false,
-                "check-branch",
-                "check-decl",
-                "check-operator",
-                "check-separator",
-                "check-type"
-            ]
-        }
-    },
     "compilerOptions": {
         "module": "commonjs",
         "target": "ES5",
@@ -142,27 +10,28 @@
     "filesGlob": [
         "client/app/**/*.ts",
         "server/**/*.ts",
+        "server2/**/*.ts",
         "typings/tsd.d.ts"
     ],
     "files": [
         "typings/tsd.d.ts",
-        "server/references.d.ts",
+        "server2/utils/utils.d.ts",
         "client/app/models/base/ibase.model.d.ts",
         "client/app/models/post/ipost.model.d.ts",
         "client/app/models/server.model.d.ts",
         "client/app/models/user/iuser.model.d.ts",
-        "client/app/models/alert/ialert.model.d.ts",
-        "server/config/session/session.d.ts",
-        "server/config/utils/utils.d.ts",
-        "server/models/error/ierror.model.d.ts",
-        "server/models/post/ipost.model.d.ts",
-        "server/models/user/iuser.model.d.ts",
         "server/config/env/iconfig.d.ts",
-        "client/app/common/templatecontrols/globalalert/globalalert.templatecontrol.ts",
-        "client/app/models/post/post.model.ts",
-        "client/app/common/templatecontrols/htmlify/htmlify.templatecontrol.ts",
-        "client/app/common/templatecontrols/navigation/admin/admin.templatecontrol.ts",
-        "client/app/models/user/user.model.ts",
+        "server/config/session/session.d.ts",
+        "server/errors/errors.d.ts",
+        "client/app/models/alert/ialert.model.d.ts",
+        "server/references.d.ts",
+        "server/utils/utils.d.ts",
+        "server2/config/config.d.ts",
+        "server2/errors/errors.d.ts",
+        "server2/middleware/middleware.d.ts",
+        "server2/models/models.d.ts",
+        "server2/procedures/procedures.d.ts",
+        "server/models/models.d.ts",
         "client/app/repositories/base.repository.ts",
         "client/app/repositories/post.repository.ts",
         "client/app/repositories/user.repository.ts",
@@ -183,7 +52,7 @@
         "client/app/viewcontrols/public/auth/login/login.viewcontrol.ts",
         "client/app/viewcontrols/public/auth/register/register.viewcontrol.ts",
         "client/app/viewcontrols/public/auth/reset/reset.viewcontrol.ts",
-        "client/app/common/injectables/moment.injectable.ts",
+        "client/app/viewcontrols/public/main.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/list/list.viewcontrol.ts",
         "client/app/viewcontrols/public/posts/single/single.viewcontrol.ts",
         "server/config/db/pool.ts",
@@ -199,27 +68,60 @@
         "server/config/routes.ts",
         "client/app/common/templatecontrols/sidebar/sidebar.templatecontrol.ts",
         "server/config/session/session.ts",
-        "server/config/utils/file.ts",
-        "server/config/utils/format.ts",
-        "server/config/utils/mailer.ts",
+        "client/app/common/injectables/moment.injectable.ts",
+        "server/controllers/base.ctrl.ts",
+        "server/controllers/crud.ctrl.ts",
+        "server/controllers/post.ctrl.ts",
+        "server/controllers/user.ctrl.ts",
         "client/app/main.ts",
-        "server/config/utils/utils.ts",
-        "server/controllers/auth.controller.ts",
-        "server/controllers/base.controller.ts",
-        "server/controllers/crud.controller.ts",
-        "server/controllers/post.controller.ts",
-        "server/controllers/user.controller.ts",
+        "server/errors/validation.err.ts",
         "server/index.ts",
-        "server/models/base.model.ts",
-        "server/models/error/error.model.ts",
+        "server/models/base.ts",
         "client/app/models/alert/alert.model.ts",
+        "server/models/post/post.ts",
+        "server/models/user/user.ts",
         "client/app/app/app.ts",
-        "server/models/post/post.model.ts",
-        "client/app/models/base/base.model.ts",
-        "server/models/user/user.model.ts",
-        "client/app/common/injectables/quill.injectable.ts",
         "server/repositories/base.repository.ts",
         "server/repositories/post.repository.ts",
-        "client/app/viewcontrols/public/main.viewcontrol.ts"
+        "server/utils/file.ts",
+        "server/utils/mailer.ts",
+        "server/utils/response.ts",
+        "client/app/models/base/base.model.ts",
+        "server/utils/utils.ts",
+        "client/app/common/injectables/quill.injectable.ts",
+        "server2/config/db.ts",
+        "server2/config/express.ts",
+        "server2/config/global.ts",
+        "server2/config/passport.ts",
+        "server2/config/routes.ts",
+        "server2/controllers/base.ctrl.ts",
+        "server2/controllers/crud.ctrl.ts",
+        "server2/controllers/post.ctrl.ts",
+        "server2/controllers/user.ctrl.ts",
+        "client/app/common/templatecontrols/globalalert/globalalert.templatecontrol.ts",
+        "server2/errors/validation.err.ts",
+        "server2/index.ts",
+        "server2/middleware/accept.mw.ts",
+        "server2/middleware/auth.mw.ts",
+        "client/app/models/post/post.model.ts",
+        "server2/middleware/session.mw.ts",
+        "server2/models/base.ts",
+        "client/app/common/templatecontrols/htmlify/htmlify.templatecontrol.ts",
+        "server2/models/post.ts",
+        "server2/models/user.ts",
+        "server2/procedures/base.proc.ts",
+        "server2/procedures/crud.proc.ts",
+        "server2/procedures/post.proc.ts",
+        "client/app/common/templatecontrols/navigation/admin/admin.templatecontrol.ts",
+        "server2/procedures/user.proc.ts",
+        "server2/repositories/base.repo.ts",
+        "server2/repositories/crud.repo.ts",
+        "server2/repositories/post.repo.ts",
+        "server2/repositories/user.repo.ts",
+        "server2/utils/mailer.ts",
+        "server2/utils/response.ts",
+        "client/app/models/user/user.model.ts",
+        "server2/utils/utils.ts",
+        "server/controllers/auth.ctrl.ts"
     ]
 }
