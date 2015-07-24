@@ -3,28 +3,30 @@ import * as Pool from 'tedious-connection-pool';
 import {Promise} from 'es6-promise';
 import {isArray, isBoolean, isDate, isNull, isNumber, isObject, isString, extend} from 'lodash';
 import {db} from './global';
+var pool: any = {
+    on() {}
+};
+// export var pool = new Pool({
+// 	min: db.minConnectionLimit,
+// 	max: db.maxConnectionLimit,
+// 	acquireTimeout: db.connectTimeout
+// }, {
+// 	server: db.host,
+// 	userName: db.user,
+// 	password: db.password,
+// 	options: {
+// 		database: db.database,
+// 		port: db.port,
+// 		encrypt: db.encrypt,
+// 		connectTimeout: db.connectTimeout,
 
-export var pool = new Pool({
-	min: db.minConnectionLimit,
-	max: db.maxConnectionLimit,
-	acquireTimeout: db.connectTimeout
-}, {
-	server: db.host,
-	userName: db.user,
-	password: db.password,
-	options: {
-		database: db.database,
-		port: db.port,
-		encrypt: db.encrypt,
-		connectTimeout: db.connectTimeout,
+// 		// will use column names as keys of an Object instead of an Array
+// 		useColumnNames: true,
 
-		// will use column names as keys of an Object instead of an Array
-		useColumnNames: true,
-
-		// will collect rows on done, doneInProc, and doneProc events
-		rowCollectionOnDone: true
-	}
-});
+// 		// will collect rows on done, doneInProc, and doneProc events
+// 		rowCollectionOnDone: true
+// 	}
+// });
 
 function connection(): Thenable<Pool.PooledConnection> {
 	return 	new Promise((resolve, reject) => {
@@ -149,12 +151,14 @@ export var convertReturn = (value: any): any => {
 };
 
 export var query = (sql: string): Thenable<Array<any>> => {
+    return Promise.resolve();
 	return connection().then((connection) => {
 		return queryRequest(sql, connection);
 	});
 };
 
 export var procedure = (procedure: string, args?: any): Thenable<any> => {
+    return Promise.resolve();
 	return connection().then((connection) => {
 		return procRequest(procedure, args, connection);
 	});

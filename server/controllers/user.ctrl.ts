@@ -5,6 +5,7 @@ import {Request, Response, Router} from 'express';
 import Base from './crud.ctrl';
 import repository from '../repositories/user.repo';
 import model from '../models/user';
+import multer from '../middleware/multer.mw';
 import {app, smtp} from '../config/global';
 import {sendEmail} from '../utils/mailer';
 
@@ -12,10 +13,12 @@ var ips: { [key: string]: number; } = {};
 
 class Controller extends Base<typeof repository, typeof model> {
     initialize(baseRoute: string, router: Router) {
-        router.post(baseRoute, this.create.bind(this))
+        var single = multer.single('avatar');
+
+        router.post(baseRoute, single, this.create.bind(this))
             .post(baseRoute + '/login', this.authenticate.bind(this))
             .post(baseRoute + '/logout', this.logout.bind(this))
-            .put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this))
+            .put(baseRoute + '/:id', this.auth.isAdmin, single, this.update.bind(this))
             .get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this))
             .get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this))
             .get(baseRoute + '/me', this.auth.populateSession, this.current.bind(this))
@@ -235,10 +238,7 @@ class Controller extends Base<typeof repository, typeof model> {
         }
 
         user.role = user.role || 'visitor';
-
-        if (this.utils.isObject(req.files) && this.utils.isObject((<any>req.files).avatar)) {
-            avatar = (<any>req.files).avatar;
-        }
+        avatar = (<any>req).file;
 
         return this.model.validate(user, {
             checkPassword: checkPassword,

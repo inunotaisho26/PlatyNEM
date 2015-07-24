@@ -57,7 +57,7 @@ export default class SessionStore implements server.middleware.session.IStore {
             return Promise.resolve<any>();
         }
 
-        return this.callProcedure(this.procedures.read, { sid: sid }).then((result: any) => {
+        return this.callProcedure(this.procedures.read, { sid: sid }).then((result: any = []) => {
             var row = result[0] || {},
                 session = row.session || {},
                 json = (this.secret) ? this.decryptData(session.value) : session.value;

@@ -1,0 +1,35 @@
+/// PlatypusUI
+@import '../../node_modules/platypusui/dist/platypus';
+
+// FontAwesome Selected Styles
+@import '../../node_modules/font-awesome/less/font-awesome';
+
+// Global Default Styles
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+    color: @font-color;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/// CMS Styles
+@import '../src/cms/main.less';
+/// Main LESS Import File for all Public TemplateControls, ViewControls and Styles
+
+/// Common
+@import './mixins.less';
+@import './variables.less';
+
+/// Components - CSS styles not associated with a Control (e.g. a button)
+@import './components/button.less';
+@import './components/input.less';
+
+/// TemplateControls
+@import '../src/templatecontrols/globalalert/globalalert.tc.less';
+@import '../src/templatecontrols/navbar/navbar.tc.less';
+
+/// ViewControls
+@import '../src/viewcontrols/main/main.vc.less';

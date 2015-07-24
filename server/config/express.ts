@@ -11,7 +11,6 @@ import accept from '../middleware/accept.mw';
 import {root, googleAnalyticsID} from './global';
 import {isFileExt, mkdir} from '../utils/utils';
 
-import multer = require('multer');
 import favicon = require('serve-favicon');
 
 var cors = require('cors'),
@@ -27,15 +26,6 @@ var configure = (app: Application): void => {
         .use(json())
         .use(urlencoded({
             extended: true
-        }))
-        .use(multer({
-            dest: images + '/tmp',
-            onError(err?: any, next?: Function): void {
-                try {
-                    console.log(err);
-                    next();
-                } catch (e) { }
-            }
         }))
         .use(cors())
         .use((req: Request, res: Response, next: Function) => {
@@ -62,15 +52,12 @@ var configure = (app: Application): void => {
         .delete(auth.populateSession);
 
     app.get('/*', (req: Request, res: Response, next: Function) => {
-        if (isFileExt(req.url)) {
-            next();
-            return;
-        }
+            if (isFileExt(req.url)) {
+                next();
+                return;
+            }
 
-        auth.populateSession(req, res, <Errback>next);
-    });
-    app.get('/', (req: Request, res: Response, next: Function) => {
-            res.render('index');
+            auth.populateSession(req, res, <Errback>next);
         })
         .get('/logout', (req: Request, res: Response, next: Function) => {
             req.logout();
@@ -84,19 +71,26 @@ var configure = (app: Application): void => {
                 next();
                 return;
             }
-            res.render('index');
-        })
-        .get('/*', (req: Request, res: Response) => {
+
             res.render('index', {
-                googleAnalyticsID: googleAnalyticsID.toString()
+                googleAnalyticsID: googleAnalyticsID
             });
         });
 
 
-    var staticPath: string = path.resolve(root, 'app');
+    var staticPath: string = path.resolve(root, 'app'),
+        fonts = '/fonts',
+        images = '/images',
+        dist = '/dist',
+        platui = '/node_modules/platypusui/dist/fonts',
+        fontAwesome = '/node_modules/font-awesome/fonts';
 
-    app.use(accept(staticPath))
-        .use(serve(staticPath, { index: false }))
+    app .use(images, accept(staticPath + images))
+        .use(fonts, serve(staticPath + fonts, { index: false }))
+        .use(images, serve(staticPath + images, { index: false }))
+        .use(dist, serve(staticPath + dist, { index: false }))
+        .use(platui, serve(root + platui, { index: false }))
+        .use(fontAwesome, serve(root + fontAwesome, { index: false }))
         .use((req: Request, res: Response, next: Function) => {
             var err: Error = new Error('Not Found');
             (<any>err).status = 404;

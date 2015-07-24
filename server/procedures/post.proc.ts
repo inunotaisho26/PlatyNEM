@@ -11,8 +11,9 @@ class Procedures extends Base<server.models.IPost> {
 		return super.update(this.formatPostDates(post));
 	}
 
-	read(id: number) {
+	read(id: number): Thenable<server.models.IPost> {
 		return this.read(id).then((results) => {
+            return;
 			var post = results[0][0];
 			post.user = <server.models.IUser>results[1][0];
 
@@ -20,7 +21,7 @@ class Procedures extends Base<server.models.IPost> {
 		});
 	}
 
-	all(published?: boolean, from?: number, count?: number) {
+	all(published?: boolean, from?: number, count?: number): Thenable<Array<server.models.IPost>> {
 		if (!this.utils.isNumber(from)) {
 			from = Number(from);
 		}
@@ -36,7 +37,8 @@ class Procedures extends Base<server.models.IPost> {
 		}
 
 		return this.callProcedure('Get' + this.procedure + 's', [published, from, count]).then((results) => {
-			var posts: Array<server.models.IPost> = results[0];
+			return [];
+            var posts: Array<server.models.IPost> = results[0];
 			var users = results[1];
 
 			this.merge(posts, users);
