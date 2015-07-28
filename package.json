@@ -49,7 +49,6 @@
     "tedious": "latest",
     "tedious-connection-pool": "latest",
     "tsconfig-glob": "latest",
-    "tsconfig-lint": "latest",
     "tsd": "latest",
     "typescript": "latest",
     "vary": "latest"

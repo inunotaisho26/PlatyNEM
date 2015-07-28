@@ -6,85 +6,85 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "moment/moment.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "moment/moment-node.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "express/express.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "mysql/mysql.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "es6-promise/es6-promise.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "passport/passport.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "passport-local/passport-local.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "body-parser/body-parser.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "express-session/express-session.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "memory-cache/memory-cache.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "nodemailer/nodemailer.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "nodemailer-direct-transport/nodemailer-direct-transport.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "nodemailer-smtp-transport/nodemailer-smtp-transport.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "nodemailer/nodemailer-types.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "cryptojs/cryptojs.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "mime/mime.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "multer/multer.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "lodash/lodash.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "fs-extra/fs-extra.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "serve-favicon/serve-favicon.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "compression/compression.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "morgan/morgan.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "tedious/tedious.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "tedious-connection-pool/tedious-connection-pool.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     },
     "passport-facebook/passport-facebook.d.ts": {
-      "commit": "178dee76b23618d84237e9601cf21772252883cc"
+      "commit": "957f67316813592e870ba5c82e0f1e780826fefc"
     }
   }
 }
