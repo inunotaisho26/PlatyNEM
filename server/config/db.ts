@@ -1,7 +1,7 @@
 import * as tds from 'tedious';
 import * as Pool from 'tedious-connection-pool';
 import {Promise} from 'es6-promise';
-import {isArray, isBoolean, isDate, isNull, isNumber, isObject, isString, extend} from 'lodash';
+import {isArray, isBoolean, isDate, isNull, isNumber, isObject, isString, extend, forEach} from 'lodash';
 import {db} from './global';
 
 export var pool = new Pool({
@@ -71,7 +71,7 @@ function procRequest(proc: string, args: any, connection: Pool.PooledConnection)
                     return;
                 }
 
-                resolve(returnRows);
+                resolve(convertReturn(returnRows));
             });
 
         addArguments(request, args);
@@ -87,6 +87,10 @@ function procRequest(proc: string, args: any, connection: Pool.PooledConnection)
 function addArguments(request: tds.Request, args: any): void {
 	if (!isObject(args)) {
         return;
+    } else if(isArray(args)) {
+        return forEach(args, (value) => {
+            addArguments(request, args);
+        });
     }
 
     var keys = Object.keys(args),

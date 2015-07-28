@@ -12,10 +12,9 @@ class Procedures extends Base<server.models.IPost> {
 	}
 
 	read(slug: string): Thenable<server.models.IPost> {
-		return super.read(undefined, {
+		return this.callProcedure('Get' + this.procedure, [{
             slug: slug
-        }).then((results) => {
-
+        }]).then((results) => {
 			var post = results[0][0];
 			post.user = <server.models.IUser>results[1][0];
 
@@ -23,7 +22,7 @@ class Procedures extends Base<server.models.IPost> {
 		});
 	}
 
-	all(published?: boolean, from?: number, count?: number): Thenable<Array<server.models.IPost>> {
+	all(from?: number, count?: number, published?: boolean): Thenable<Array<server.models.IPost>> {
 		if (!this.utils.isNumber(from)) {
 			from = Number(from);
 		}
@@ -38,11 +37,11 @@ class Procedures extends Base<server.models.IPost> {
 			count = 0;
 		}
 
-		return super.all({
-            published: published,
-            startingrow: from,
-            rowcount: count
-        }).then((results) => {
+		return this.callProcedure(`Get${this.pluralize(this.procedure)}`, [
+            { published: published },
+            { startingrow: from },
+            { rowcount: count }
+        ]).then((results) => {
             var posts: Array<server.models.IPost> = results[0];
 			var users = results[1];
 
@@ -52,19 +51,19 @@ class Procedures extends Base<server.models.IPost> {
 		});
 	}
 
-	protected getArgs(post: server.models.IPost): server.models.IPost {
+	protected getArgs(post: server.models.IPost): Array<{}> {
 		if (!this.utils.isObject(post)) {
-			return {};
+			return [];
 		}
 
-		return {
-            userid: post.userid,
-            title: post.title,
-            content: post.content,
-            slug: post.slug,
-            created: post.created,
-            published: post.published
-        };
+		return [
+            { userid: post.userid },
+            { title: post.title },
+            { content: post.content },
+            { slug: post.slug },
+            { created: post.created },
+            { published: post.published }
+        ];
 	}
 
 	private merge(posts: Array<server.models.IPost>, users: Array<server.models.IUser>): void {

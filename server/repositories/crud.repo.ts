@@ -6,15 +6,15 @@ export default class Repository<R> extends Base {
 		super(procedures);
 	}
 
-	all(options?: server.procedures.IRowFilterOptions): Thenable<Array<R>> {
-		var prefix = this.cachePrefix + '-all-' + this.utils.keys(options).join('-'),
+	all(startingrow?: number, rowcount?: number, args?: any | Array<{}>): Thenable<Array<R>> {
+		var prefix = this.cachePrefix + `-all-startingrow-${startingrow}-rowcount-${rowcount}-args-${this.utils.map(args, (arg, key) => { return key + '-' + arg; })}`,
 			cached = this.fetch(prefix);
 
 		if(this.utils.isObject(cached)) {
 			return this.Promise.resolve(cached);
 		}
 
-		return this.procedures.all(options).then((values) => {
+		return this.procedures.all(startingrow, rowcount, args).then((values) => {
 			this.storeById(values);
 			this.store(prefix, values);
 			return values;
@@ -30,7 +30,7 @@ export default class Repository<R> extends Base {
 		});
 	}
 
-	read(id: number, args?: any): Thenable<R> {
+	read(id: number, args?: any | Array<{}>): Thenable<R> {
 		var cached: R,
 			prefix: string;
 

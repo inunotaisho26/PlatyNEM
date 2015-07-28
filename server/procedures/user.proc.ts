@@ -15,17 +15,19 @@ class Procedures extends Base<server.models.IUser> {
 
     createUserPasswordResetToken(email: string, token: string): Thenable<number> {
         return this.findBy(email).then((user) => {
-           if (!this.utils.isNull(user)) {
-               return this.callProcedure('CreateUserPasswordResetToken', {
-                   email: email,
-                   resetpasswordtoken: token,
-                   days: 3
-               }).then((result: { userid: number; }) => {
-                  if (this.utils.isObject(result) && this.utils.isNumber(result.userid)) {
-                      return result.userid;
-                  }
-               });
-           }
+            if (!this.utils.isNull(user)) {
+                return this.callProcedure('CreateUserPasswordResetToken', [
+                    { email: email },
+                    { resetpasswordtoken: token },
+                    { days: 3 }
+                ]).then((results) => {
+                    var user: { userid: number; } = results[0][0];
+
+                    if (this.utils.isObject(user) && this.utils.isNumber(user.userid)) {
+                        return user.userid;
+                    }
+                });
+            }
         });
     }
 
@@ -47,20 +49,20 @@ class Procedures extends Base<server.models.IUser> {
         return this.findBy(email);
     }
 
-    protected getArgs(user: server.models.IUser): server.models.IUser {
+    protected getArgs(user: server.models.IUser): Array<any> {
         if (!this.utils.isObject(user)) {
-            return <any>{};
+            return [];
         }
 
-        return {
-            firstname: user.firstname,
-            lastname: user.lastname,
-            email: user.email,
-            role: user.role,
-            avatar: user.avatar,
-            hashedpassword: user.hashedpassword,
-            salt: user.salt
-        };
+        return [
+            { firstname: user.firstname },
+            { lastname: user.lastname },
+            { email: user.email },
+            { role: user.role },
+            { avatar: user.avatar },
+            { hashedpassword: user.hashedpassword },
+            { salt: user.salt }
+        ];
     }
 
     private isUnique(user: server.models.IUser): Thenable<void> {
@@ -68,11 +70,11 @@ class Procedures extends Base<server.models.IUser> {
             return this.Promise.reject('User is not valid');
         }
 
-        return this.callProcedure('IsUserUnique', {
-            id: user.id,
-            email: user.email
-        }).then((rows) => {
-            return <{ email: boolean; }>this.convertReturn(rows[0] || {});
+        return this.callProcedure('IsUserUnique', [
+            { email: user.email },
+            { id: user.id }
+        ]).then((rows) => {
+            return <{ email: boolean; }>rows[0][0];
         }).then((row: { email: boolean }) => {
             var errors: server.errors.IValidationErrors = [];
 
@@ -89,11 +91,11 @@ class Procedures extends Base<server.models.IUser> {
     private findBy(email: string): Thenable<server.models.IUser>;
     private findBy(email: string, resetpasswordtoken: string): Thenable<server.models.IUser>;
     private findBy(email: string, resetpasswordtoken?: string): Thenable<server.models.IUser> {
-        return this.callProcedure('GetUserBy', {
-            email: email,
-            resetpasswordtoken: resetpasswordtoken
-        }).then((rows) => {
-            return <server.models.IUser>this.convertReturn(rows[0]);
+        return this.callProcedure('GetUserBy', [
+            { email: email },
+            { resetpasswordtoken: resetpasswordtoken }
+        ]).then((rows) => {
+            return <server.models.IUser>rows[0][0];
         });
     }
 }

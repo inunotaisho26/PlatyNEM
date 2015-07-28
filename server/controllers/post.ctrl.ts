@@ -19,7 +19,7 @@ class Controller extends Base<typeof repository, typeof model> {
 			published = true;
 		}
 
-		return this.handleResponse(this.repository.all(published, req.query.from, req.query.count), res);
+		return this.handleResponse(this.repository.all(req.query.from, req.query.count, published), res);
 	}
 
 	create(req: Request, res: Response): Thenable<void> {

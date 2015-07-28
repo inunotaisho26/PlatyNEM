@@ -5,14 +5,15 @@ export default class Procedures<R> extends Base {
 		super(procedure);
 	}
 
-	all(options: server.procedures.IRowFilterOptions = {}): Thenable<Array<R>> {
-		this.utils.defaults(options, {
-			startingrow: 0,
-			rowcount: 0
-		});
+	all(startingrow: number = 0, rowcount: number = 10, args: any | Array<{}> = []): Thenable<Array<R>> {
+		args.push({
+            startingrow: startingrow
+        }, {
+            rowcount: rowcount
+        });
 
-		return this.callProcedure(`Get${this.pluralize(this.procedure)}`, options).then((result) => {
-			return this.convertReturn(result);
+		return this.callProcedure(`Get${this.pluralize(this.procedure)}`, args).then((result) => {
+			return result[0];
 		});
 	}
 
@@ -22,21 +23,23 @@ export default class Procedures<R> extends Base {
 		}
 
 		return this.callProcedure(`Insert${this.procedure}`, this.getArgs(obj)).then((result) => {
-			var row = result[0] || {},
-				item = this.convertReturn(row);
+			var rows = result[0] || [],
+				item = rows[0] || {};
 
 			return item.id;
 		});
 	}
 
-	read(id: number | string, args: any = {}): Thenable<R> {
-		this.utils.defaults(args, {
-			id: id
-		});
+	read(id: number | string, args: any | Array<{}> = []): Thenable<R> {
+        if(this.utils.isNumber(id) || this.utils.isString(id)) {
+            args.push({
+                id: id
+            });
+        }
 
         return this.callProcedure('Get' + this.procedure, args).then((result) => {
-            var row = result[0] || {};
-            return this.convertReturn(row);
+            var rows = result[0] || [];
+            return rows[0];
         });
     }
 
@@ -47,20 +50,26 @@ export default class Procedures<R> extends Base {
 
 		var args = this.getArgs(obj);
 
-		this.utils.defaults(args, {
-			id: obj.id
-		});
+        if(this.utils.isArray(args)) {
+            args.push({ id: obj.id });
+        } else {
+    		this.utils.defaults(args, {
+    			id: obj.id
+    		});
+        }
 
-        return this.callProcedure('Update' + this.procedure, args);
+        return this.callProcedure('Update' + this.procedure, args).then(this.utils.noop);
     }
 
     destroy(id: number): Thenable<void> {
-        return this.callProcedure('Delete' + this.procedure, { id: id });
+        return this.callProcedure('Delete' + this.procedure, [
+            { id: id }
+        ]).then(this.utils.noop);
     }
 
-	protected getArgs(obj: any): any {
+	protected getArgs(obj: any): Array<{}> {
 		if(this.utils.isObject(obj)) {
-			return obj;
+			return [obj];
 		}
     }
 }
