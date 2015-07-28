@@ -43,7 +43,7 @@ class Procedures extends Base<server.models.IPost> {
             startingrow: from,
             rowcount: count
         }).then((results) => {
-            var posts: Array<server.models.IPost> = results[0];
+            var posts: Array<server.models.IPost> = results[0] || [];
 			var users = results[1];
 
 			this.merge(posts, users);
