@@ -66,7 +66,7 @@ export default class BaseService {
     }
 
     protected trimSlashes(value: string): string {
-        if(value[0] !== '/') {
+        if(value[0] === '/') {
             value = value.slice(1);
         }
 
