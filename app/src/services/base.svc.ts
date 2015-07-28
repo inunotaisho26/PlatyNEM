@@ -43,7 +43,7 @@ export default class BaseService {
 
     protected json<T>(url: number | string, options: async.IHttpConfig = { url: '', method: 'GET' }): async.IAjaxThenable<T> {
         options = this.utils.extend(options, {
-            url: this.baseRoute + this.normalizeUrl(url)
+            url: this.normalizeUrl(url)
         });
 
         return this.http.json<ajax.IResponseBody>(options).then((result) => {
