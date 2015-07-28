@@ -5,6 +5,10 @@ export default class Htmlify extends ui.controls.InnerHtml {
 	defaultLength: number = 150;
 	options: observable.IObservableProperty<{ maxLength?: number; formatted?: boolean }>;
 
+    contextChanged(): void {
+        this.loaded();
+    }
+
 	loaded(): void {
 		var content = this.context;
 		var options = !!this.options ? this.options.value : {};
