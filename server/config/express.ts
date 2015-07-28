@@ -19,10 +19,6 @@ var cors = require('cors'),
 var configure = (app: Application): void => {
     var images = path.resolve(root, 'app/images');
     app.disable('x-powered-by')
-        .use((req: Request, res: Response, next: Function) => {
-          res.removeHeader("Server");
-          next();
-        })
         .set('views', root + '/server/views')
         .set('view engine', 'ejs')
         .use(compress())
