@@ -1,7 +1,6 @@
 <div class="manage-blog-container">
 	<div class="blog-title-row">
 		<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled">
-		<input type="text" class="blog-title-input" plat-bind="post.slug" placeholder="Slug">
 		<div class="blog-title-controls" id="quill-toolbar">
 
 			<!--Font Style-->
@@ -46,5 +45,6 @@
 			</button>
 		</div>
 	</div>
+	<input type="text" class="blog-title-input" plat-bind="post.slug" placeholder="Slug">
 	<div plat-name="quillElement" class="blog-quill-editor" />
 </div>
