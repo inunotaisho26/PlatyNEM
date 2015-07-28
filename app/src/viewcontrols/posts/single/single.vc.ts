@@ -15,7 +15,7 @@ export default class SinglePostViewControl extends BaseViewControl {
 
 	navigatedTo(params: any) {
 		if (!isNaN(Number(params.id))) {
-			this.postRepository.one(params.id).then((post) => {
+			this.postRepository.read(params.id).then((post) => {
 				this.context.post = post;
 			});
 		}

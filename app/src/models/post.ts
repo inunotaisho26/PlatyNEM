@@ -14,8 +14,8 @@ export default class PostFactory extends BaseFactory<models.IPost> {
 
 		return {
 			id: post.id,
-			title: decodeURI(post.title),
-	        content: decodeURI(post.content),
+			title: post.title,
+	        content: post.content,
 	        userid: post.userid,
 			user: this.UserFactory.create(post.user),
 	        created: post.created,

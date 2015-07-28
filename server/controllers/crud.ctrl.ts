@@ -43,7 +43,7 @@ export default class Controller<R extends Repository<any>, M extends Model<any>>
     }
 
     read(req: Request, res: Response): Thenable<void> {
-        return this.handleResponse(this.repository.read(req.params.id), res);
+        return this.handleResponse(this.repository.read(req.params.token), res);
     }
 
     destroy(req: Request, res: Response): Thenable<void> {

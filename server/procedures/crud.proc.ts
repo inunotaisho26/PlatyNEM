@@ -29,7 +29,7 @@ export default class Procedures<R> extends Base {
 		});
 	}
 
-	read(id: number, args: any = {}): Thenable<R> {
+	read(id: number | string, args: any = {}): Thenable<R> {
 		this.utils.defaults(args, {
 			id: id
 		});

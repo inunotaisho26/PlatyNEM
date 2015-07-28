@@ -11,9 +11,11 @@ class Procedures extends Base<server.models.IPost> {
 		return super.update(this.formatPostDates(post));
 	}
 
-	read(id: number): Thenable<server.models.IPost> {
-		return this.read(id).then((results) => {
-            return;
+	read(slug: string): Thenable<server.models.IPost> {
+		return super.read(undefined, {
+            slug: slug
+        }).then((results) => {
+
 			var post = results[0][0];
 			post.user = <server.models.IUser>results[1][0];
 
@@ -36,8 +38,11 @@ class Procedures extends Base<server.models.IPost> {
 			count = 0;
 		}
 
-		return this.callProcedure('Get' + this.procedure + 's', [published, from, count]).then((results) => {
-			return [];
+		return this.callProcedure('Get' + this.procedure + 's', {
+            published: published,
+            startingrow: from,
+            rowcount: count
+        }).then((results) => {
             var posts: Array<server.models.IPost> = results[0];
 			var users = results[1];
 
@@ -47,18 +52,19 @@ class Procedures extends Base<server.models.IPost> {
 		});
 	}
 
-	protected getArgs(post: server.models.IPost): Array<any> {
+	protected getArgs(post: server.models.IPost): server.models.IPost {
 		if (!this.utils.isObject(post)) {
-			return [];
+			return {};
 		}
 
-		return [
-			post.userid,
-			encodeURI(post.title),
-			encodeURI(post.content),
-			post.created,
-			post.published
-		];
+		return {
+            userid: post.userid,
+            title: post.title,
+            content: post.content,
+            slug: post.slug,
+            created: post.created,
+            published: post.published
+        };
 	}
 
 	private merge(posts: Array<server.models.IPost>, users: Array<server.models.IUser>) {

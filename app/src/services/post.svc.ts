@@ -6,10 +6,11 @@ export default class PostService extends Crud<server.models.IPost> {
 		super('posts');
 	}
 
-	all(published?: boolean, from?: number): plat.async.IThenable<Array<models.IPost>> {
-		var query = '?published=' + published + '&from=' + from + '&count=10';
-		return this._get(query);
+	all(options?: services.IPublishedQuery): plat.async.IThenable<Array<models.IPost>> {
+		return super.all(options);
 	}
 }
 
-plat.register.injectable('postService', PostService);
+register.injectable('postService', PostService);
+
+

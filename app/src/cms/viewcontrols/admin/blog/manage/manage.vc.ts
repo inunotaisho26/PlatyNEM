@@ -92,7 +92,7 @@ export default class ViewControl extends CMSBaseViewControl {
         if (!isNaN(Number(params.id))) {
             this.initializeEditorPromise = () => {
                 return this.postRepository
-                .one(params.id)
+                .read(params.id)
                 .then((post) => {
                     context.post = post;
                     return post.content;

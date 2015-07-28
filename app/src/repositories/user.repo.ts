@@ -1,36 +1,36 @@
 import {async, register} from 'platypus';
 import UserFactory from '../models/user';
 import UserService from '../services/user.svc';
-import BaseRepository from './base.repo';
+import BaseRepository from './crud.repo';
 
 export default class UserRepository extends BaseRepository<UserFactory, UserService, models.IUser> {
-    private __currentUser: models.IUser;
-    private __currentUserPromise: async.IThenable<models.IUser>;
+    private currentUser: models.IUser;
+    private currentUserPromise: async.IThenable<models.IUser>;
 
     create(user: any, password: string) {
         var u = this.Factory.create(user);
 
-        return this.service.register(u, password).then((id: number) => {
+        return this.service.create(u, password).then((id: number) => {
             user.id = id;
             return id;
         });
     }
 
     current(): async.IThenable<models.IUser> {
-        if (this.__currentUser) {
-            return this.__currentUserPromise = this._Promise.resolve(this._utils.clone(this.__currentUser, true));
-        } else if (this._utils.isPromise(this.__currentUserPromise)) {
-            return this.__currentUserPromise.then((user) => {
-                this.__currentUser = user;
-                this.__currentUserPromise = null;
-                return this._utils.clone(this.__currentUser, true);
+        if (this.currentUser) {
+            return this.currentUserPromise = this.Promise.resolve(this.utils.clone(this.currentUser, true));
+        } else if (this.utils.isPromise(this.currentUserPromise)) {
+            return this.currentUserPromise.then((user) => {
+                this.currentUser = user;
+                this.currentUserPromise = null;
+                return this.utils.clone(this.currentUser, true);
             });
         }
 
-        return this.__currentUserPromise = this.service.loggedInUser()
+        return this.currentUserPromise = this.service.loggedInUser()
             .then((user) => {
-               this.__currentUser = user;
-               return this._utils.clone(this.__currentUser, true);
+               this.currentUser = user;
+               return this.utils.clone(this.currentUser, true);
             });
     }
 
@@ -38,14 +38,14 @@ export default class UserRepository extends BaseRepository<UserFactory, UserServ
         var u = this.Factory.create(user);
 
         return this.service.login(u, user.password).then((user) => {
-            this.__currentUser = this.Factory.create(user);
+            this.currentUser = this.Factory.create(user);
         });
     }
 
     logout(): async.IThenable<void> {
         return this.service.logout().then(() => {
-            this.__currentUser = null;
-            this.__currentUserPromise = null;
+            this.currentUser = null;
+            this.currentUserPromise = null;
         });
     }
 

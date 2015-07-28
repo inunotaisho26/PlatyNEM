@@ -25,7 +25,7 @@ export default class ViewControl extends AdminBaseViewControl {
 
         if (!isNaN(Number(parameters.id))) {
             context.editMode = true;
-            this.userRepository.one(parameters.id).then((user: models.IUser) => {
+            this.userRepository.read(parameters.id).then((user: models.IUser) => {
                 context.user = user;
             });
         }

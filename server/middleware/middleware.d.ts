@@ -11,6 +11,7 @@ declare module server.middleware {
 	        procedures?: IStoredProcedures;
 	        secret?: string;
 	        algorithm?: string;
+            schema?: string;
 	    }
 
 	    interface IStoredProcedures {

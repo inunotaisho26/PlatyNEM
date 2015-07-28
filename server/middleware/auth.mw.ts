@@ -18,7 +18,8 @@ var sessionMiddleWare = session({
         },
         store: new SessionStore(<any>session, {
             secret: secret,
-            callProcedure: procedure
+            callProcedure: procedure,
+            schema: 'dbo'
         })
     }),
     passportInitialize = passport.initialize(),

@@ -31,17 +31,18 @@ export default class SessionStore implements server.middleware.session.IStore {
             table = this.table,
             base = procedures.base ||
                 table[0].toUpperCase() + table.substring(1, table.length - 1),
-            tableProcedure = table[0].toUpperCase() + table.substr(1);
+            tableProcedure = table[0].toUpperCase() + table.substr(1),
+            schema = options.schema || '';
 
 		this.procedures = procedures;
 
 		this.utils.defaults(this.procedures, {
             base: base,
-            insert: 'Insert' + base,
-            read: 'Get' + base,
-            destroy: 'Delete' + base,
-            clear: 'Clear' + tableProcedure,
-            length: 'Get' + tableProcedure + 'Length'
+            insert: schema + 'Insert' + base,
+            read: schema + 'Get' + base,
+            destroy: schema + 'Delete' + base,
+            clear: schema + 'Clear' + tableProcedure,
+            length: schema + 'Get' + tableProcedure + 'Length'
         });
 
         var Store = session.Store;

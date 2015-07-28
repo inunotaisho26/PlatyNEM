@@ -3,29 +3,34 @@ import BaseService from './base.svc';
 
 export default class CrudService<T extends models.IBaseModel> extends BaseService {
     create(data: any, contentType?: string): plat.async.IAjaxThenable<number> {
-        return this._post<number>({
+        return this.post<number>(undefined, {
             data: data,
             contentType: contentType || this.http.contentType.JSON
         });
     }
 
-    read(): plat.async.IThenable<Array<T>>;
-    read(...args: Array<any>): plat.async.IThenable<T>;
-    read(id: number, ...args: Array<any>): plat.async.IThenable<T>;
-    read(id?: any, ...args: Array<any>): plat.async.IThenable<any> {
-        var params = this.utils.isNull(id) ? [] : [id];
+    all(options: services.IMultipleQuery): plat.async.IThenable<Array<T>> {
+        options = this.utils.extend({
+            from: 0,
+            count: 10
+        }, options);
 
-        return this._get.apply(this, params.concat(args));
+        return this.get(undefined, options);
+    }
+
+
+    read(uid: number | string, query?: plat.IObject<any>): plat.async.IThenable<T> {
+        return this.get(uid, query);
     }
 
     update(data: any, contentType?: string): plat.async.IThenable<T> {
-        return this._put<T>({
+        return this.put<T>(data.id, {
             contentType: contentType || this.http.contentType.JSON,
             data: data
-        }, data.id);
+        });
     }
 
-    destroy(id: number): plat.async.IThenable<void> {
-        return this._delete<void>(id);
+    destroy(id: number | string): plat.async.IThenable<void> {
+        return this.delete<void>(id);
     }
 }

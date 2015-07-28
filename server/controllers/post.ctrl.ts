@@ -6,7 +6,7 @@ import model from '../models/post';
 class Controller extends Base<typeof repository, typeof model> {
 	initialize(baseRoute: string, router: Router) {
 		router.get(baseRoute, this.all.bind(this))
-			.get(baseRoute + '/:id', this.read.bind(this))
+			.get(baseRoute + '/:token', this.read.bind(this))
 			.put(baseRoute + '/:id', this.auth.isAdmin, this.update.bind(this))
 			.delete(baseRoute + '/:id', this.auth.isAdmin, this.destroy.bind(this))
 			.post(baseRoute, this.auth.requiresLogin, this.auth.isAdmin, this.create.bind(this));

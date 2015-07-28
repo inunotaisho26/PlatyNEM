@@ -22,7 +22,7 @@ class Controller extends Base<typeof repository, typeof model> {
             .get(baseRoute, this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.all.bind(this))
             .get(baseRoute + '/admin', this.auth.populateSession, this.isAdmin.bind(this))
             .get(baseRoute + '/me', this.auth.populateSession, this.current.bind(this))
-            .get(baseRoute + '/:id', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this))
+            .get(baseRoute + '/:token', this.auth.populateSession, this.auth.requiresLogin, this.auth.isAdmin, this.read.bind(this))
             .delete(baseRoute + '/:id', this.auth.isAdmin, this.destroy.bind(this))
             .post(baseRoute + '/forgot', this.createResetToken.bind(this))
             .get(baseRoute + '/reset/:token', this.checkTokenExpiration.bind(this))
@@ -164,8 +164,8 @@ class Controller extends Base<typeof repository, typeof model> {
         var token = req.params.token;
 
         return this.checkTokenValidity(token).then((user: server.models.IUser) => {
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
+            user.resetpasswordtoken = undefined;
+            user.resetpasswordexpires = undefined;
             (<any>req).password = req.body.password;
             req.body = user;
             return this.createOrUpdate(req, this.repository.update);

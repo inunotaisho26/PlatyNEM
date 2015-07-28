@@ -2,31 +2,25 @@ import Base from './crud.proc';
 
 class Procedures extends Base<server.models.IUser> {
     create(user: server.models.IUser): Thenable<number> {
-        return this.isUnique(user).then((row: { email: boolean }) => {
-            var errors: server.errors.IValidationErrors = [];
-
-            if (!!row.email) {
-                return this.findByEmail(user.email).then<any>((user) => {
-                    errors.push(new this.ValidationError('Email address has already been registered.'));
-                    console.log(errors);
-                    throw errors;
-                });
-            }
-
-            if (errors.length > 0) {
-                console.log(errors);
-                throw errors;
-            }
+        return this.isUnique(user).then(() => {
             return super.create(user);
+        });
+    }
+
+    update(user: server.models.IUser): Thenable<void> {
+        return this.isUnique(user).then(() => {
+            return super.update(user);
         });
     }
 
     createUserPasswordResetToken(email: string, token: string): Thenable<number> {
         return this.findBy(email).then((user) => {
            if (!this.utils.isNull(user)) {
-               return this.callProcedure('CreateUserPasswordResetToken', [email, token]).then((rows) => {
-                  var result: { userid: number; } = rows[0][0];
-
+               return this.callProcedure('CreateUserPasswordResetToken', {
+                   email: email,
+                   resetpasswordtoken: token,
+                   days: 3
+               }).then((result: { userid: number; }) => {
                   if (this.utils.isObject(result) && this.utils.isNumber(result.userid)) {
                       return result.userid;
                   }
@@ -40,9 +34,7 @@ class Procedures extends Base<server.models.IUser> {
            var errors: server.errors.IValidationErrors = [];
 
            if (!this.utils.isObject(user)) {
-               errors.push(new this.ValidationError('Invalid password reset request.'));
-           } else if (user.resetPasswordExpires < (new Date())) {
-               errors.push(new this.ValidationError('Password reset has expired.', 'resetPasswordExpires'));
+               errors.push(new this.ValidationError('Please request a new password reset.'));
            } else {
                return user;
            }
@@ -52,46 +44,54 @@ class Procedures extends Base<server.models.IUser> {
     }
 
     findByEmail(email: string): Thenable<server.models.IUser> {
-        return this.findBy(encodeURI(email));
+        return this.findBy(email);
     }
 
-    protected getArgs(user: server.models.IUser): Array<any> {
+    protected getArgs(user: server.models.IUser): server.models.IUser {
         if (!this.utils.isObject(user)) {
-            return [];
+            return <any>{};
         }
 
-        return [
-            encodeURI(user.firstname),
-            encodeURI(user.lastname),
-            encodeURI(user.email),
-            encodeURI(user.role),
-            user.avatar,
-            user.createdFrom,
-            user.provider,
-            user.facebookid,
-            user.hashedpassword,
-            user.salt
-        ];
+        return {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            role: user.role,
+            avatar: user.avatar,
+            hashedpassword: user.hashedpassword,
+            salt: user.salt
+        };
     }
 
-    private isUnique(user: server.models.IUser): Thenable<{ email: boolean; }> {
+    private isUnique(user: server.models.IUser): Thenable<void> {
         if (!this.utils.isObject(user)) {
             return this.Promise.reject('User is not valid');
         }
 
-        return this.callProcedure('IsEmailUnique', {
+        return this.callProcedure('IsUserUnique', {
+            id: user.id,
             email: user.email
         }).then((rows) => {
-            return <{ email: boolean; }>this.convertReturn(rows[0]);
+            return <{ email: boolean; }>this.convertReturn(rows[0] || {});
+        }).then((row: { email: boolean }) => {
+            var errors: server.errors.IValidationErrors = [];
+
+            if (!!row.email) {
+                errors.push(new this.ValidationError('Email address has already been registered.'));
+            }
+
+            if (errors.length > 0) {
+                throw errors;
+            }
         });
     }
 
     private findBy(email: string): Thenable<server.models.IUser>;
-    private findBy(email: string, resetPasswordToken: string): Thenable<server.models.IUser>;
-    private findBy(email: string, resetPasswordToken?: string): Thenable<server.models.IUser> {
+    private findBy(email: string, resetpasswordtoken: string): Thenable<server.models.IUser>;
+    private findBy(email: string, resetpasswordtoken?: string): Thenable<server.models.IUser> {
         return this.callProcedure('GetUserBy', {
             email: email,
-            resetPasswordToken: resetPasswordToken
+            resetpasswordtoken: resetpasswordtoken
         }).then((rows) => {
             return <server.models.IUser>this.convertReturn(rows[0]);
         });

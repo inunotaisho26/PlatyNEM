@@ -5,14 +5,11 @@ declare module server.models {
         lastname: string;
         email: string;
         role: string;
-        createdFrom: string;
-        provider: string;
-        facebookid: string;
         hashedpassword: string;
         salt: string;
         avatar: string;
-        resetPasswordToken?: string;
-        resetPasswordExpires?: Date;
+        resetpasswordtoken?: string;
+        resetpasswordexpires?: Date;
     }
 
 	interface IPost {
@@ -20,6 +17,7 @@ declare module server.models {
 		title?: string;
 		content?: string;
 		userid?: number;
+        slug?: string;
 		user?: IUser;
 		created?: Date;
 		published?: boolean;

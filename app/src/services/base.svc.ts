@@ -16,65 +16,70 @@ export default class BaseService {
     baseRoute: string;
 
     constructor(baseRoute: string = '') {
-        this.baseRoute = 'api/' + baseRoute;
+        this.baseRoute = 'api/' + this.trimSlashes(baseRoute);
     }
 
-    protected _get<T>(...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _get<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _get<T>(options?: any, ...urlParams: Array<string | number>): async.IAjaxThenable<T> {
-        return this._do<T>('GET', options, urlParams);
+    protected get<T>(url: number | string, query?: plat.IObject<any>, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+        return this.json(url + this.getQueryString(query), <any>options);
     }
 
-    protected _post<T>(...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _post<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _post<T>(options?: any, ...urlParams: Array<string | number>): async.IAjaxThenable<T> {
-        return this._do<T>('POST', options, urlParams);
+    protected post<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+        return this.json(url, this.utils.extend(options, {
+            method: 'POST'
+        }));
     }
 
-    protected _put<T>(...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _put<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _put<T>(options?: any, ...urlParams: Array<string | number>): async.IAjaxThenable<T> {
-        return this._do<T>('PUT', options, urlParams);
+    protected put<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+        return this.json(url, this.utils.extend(options, {
+            method: 'PUT'
+        }));
     }
 
-    protected _delete<T>(...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _delete<T>(options?: IHttpConfig, ...urlParams: Array<string | number>): async.IAjaxThenable<T>;
-    protected _delete<T>(options?: any, ...urlParams: Array<string | number>): async.IAjaxThenable<T> {
-        return this._do<T>('DELETE', options, urlParams);
+    protected delete<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+        return this.json(url, this.utils.extend(options, {
+            method: 'DELETE'
+        }));
     }
 
-    protected _do<T>(method: string, urlParam?: string, urlParams?: Array<string | number>): async.IAjaxThenable<T>;
-    protected _do<T>(method: string, options?: IHttpConfig, urlParams?: Array<string | number>): async.IAjaxThenable<T>;
-    protected _do<T>(method: string, options?: any, urlParams: Array<string | number> = []): async.IAjaxThenable<T> {
-        if (!this.utils.isObject(options)) {
-            if (!this.utils.isUndefined(options)) {
-                urlParams.unshift(options);
-            }
+    protected json<T>(url: number | string, options: async.IHttpConfig = { url: '', method: 'GET' }): async.IAjaxThenable<T> {
+        options = this.utils.extend(options, {
+            url: this.baseRoute + this.normalizeUrl(url)
+        });
 
-            options = {};
+        return this.http.json<ajax.IResponseBody>(options).then((result) => {
+            return result.response.data;
+        }, (result) => {
+            this.handleError(result.response);
+        });
+    }
+
+    protected normalizeUrl(value: number | string): string {
+        var url = this.baseRoute;
+
+        if(this.utils.isNull(value)) {
+            return url;
         }
 
-        return this._json<T>(this.utils.extend({
-            url: this._buildUrl.apply(this, urlParams),
-            method: method
-        }, options));
+        value = '' + value;
+
+        return url + '/' + this.trimSlashes(<string>value);
     }
 
-    protected _buildUrl(...urlParams) {
-        var url = '/' + this.baseRoute;
+    protected trimSlashes(value: string): string {
+        if(value[0] !== '/') {
+            value = value.slice(1);
+        }
 
-        this.utils.forEach((param) => {
-            if (param[0] === '?' || param[0] === '&') {
-                url += param;
-                return;
-            }
-            url += '/' + param;
-        }, urlParams);
-
-        return url;
+        return value;
     }
 
-    protected _handleError(response: ajax.IResponseBody) {
+    protected getQueryString(query: plat.IObject<any> = {}): string {
+        return '?' + this.utils.map((value, key) => {
+            return `${key}=${value}`;
+        }, query).join('&');
+    }
+
+    protected handleError(response: ajax.IResponseBody): void {
         switch (response.status) {
             case 'fail':
                 throw response.data;
@@ -83,18 +88,4 @@ export default class BaseService {
                 break;
         }
     }
-
-    protected _json<T>(options: async.IHttpConfig): async.IAjaxThenable<T> {
-        return this.http.json<ajax.IResponseBody>(options).then((result) => {
-            return result.response.data;
-        }, (result) => {
-            this._handleError(result.response);
-        });
-    }
-}
-
-interface IHttpConfig {
-    url?: string;
-    method?: string;
-    contentType?: string;
 }

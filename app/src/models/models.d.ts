@@ -13,6 +13,7 @@ declare module models {
         content?: string;
         userid?: number;
         user?: models.IUser;
+        slug?: string;
         created?: Date;
         published?: boolean;
     }
@@ -24,24 +25,4 @@ declare module models {
 	    avatar?: string;
 	    role?: string;
 	}
-}
-
-declare module ajax {
-    export interface IValidationError {
-        message: string;
-        property?: string;
-    }
-
-    export interface IValidationErrors extends Array<IValidationError> { }
-
-    export interface IResponseBody {
-        status: string;
-        data?: any;
-        message?: string;
-    }
-
-    export interface IFormattedResponse {
-        status: number;
-        body: IResponseBody;
-    }
 }
