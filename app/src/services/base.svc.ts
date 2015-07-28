@@ -62,7 +62,13 @@ export default class BaseService {
 
         value = '' + value;
 
-        return url + '/' + this.trimSlashes(<string>value);
+        var trim = this.trimSlashes(<string>value);
+
+        if(!(this.utils.isEmpty(trim) || trim[0] === '?')) {
+            url += '/';
+        }
+
+        return url + trim;
     }
 
     protected trimSlashes(value: string): string {
