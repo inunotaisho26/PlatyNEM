@@ -19,29 +19,29 @@ export default class BaseService {
         this.baseRoute = 'api/' + this.trimSlashes(baseRoute);
     }
 
-    protected get<T>(url: number | string, query?: IObject<any>, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected get<T>(url: number | string = '', query?: IObject<any>, options?: services.IHttpConfig): async.IAjaxThenable<T> {
         return this.json(url + this.getQueryString(query), <any>options);
     }
 
-    protected post<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected post<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'POST'
         }));
     }
 
-    protected put<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected put<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'PUT'
         }));
     }
 
-    protected delete<T>(url: number | string, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected delete<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'DELETE'
         }));
     }
 
-    protected json<T>(url: number | string, options: async.IHttpConfig = { url: '', method: 'GET' }): async.IAjaxThenable<T> {
+    protected json<T>(url: number | string = '', options: async.IHttpConfig = { url: '', method: 'GET' }): async.IAjaxThenable<T> {
         options = this.utils.extend(options, {
             url: this.normalizeUrl(url)
         });
