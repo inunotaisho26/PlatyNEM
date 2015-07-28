@@ -32,7 +32,13 @@ export default class SessionStore implements server.middleware.session.IStore {
             base = procedures.base ||
                 table[0].toUpperCase() + table.substring(1, table.length - 1),
             tableProcedure = table[0].toUpperCase() + table.substr(1),
-            schema = options.schema || '';
+            schema = options.schema;
+
+        if(this.utils.isString(schema) && schema[schema.length - 1] !== '.') {
+            schema += '.';
+        } else {
+            schema = '';
+        }
 
 		this.procedures = procedures;
 
