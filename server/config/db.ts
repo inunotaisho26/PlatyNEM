@@ -60,9 +60,9 @@ function queryRequest(sql: string, connection: Pool.PooledConnection): Thenable<
 	});
 }
 
-function procRequest(proc: string, args: any, connection: Pool.PooledConnection): Thenable<any> {
+function procRequest(proc: string, args: any, connection: Pool.PooledConnection): Thenable<Array<Array<any>>> {
 	return new Promise((resolve, reject) => {
-        var returnRows: Array<any>,
+        var returnRows: Array<Array<any>> = [],
             request = new tds.Request(proc, (error) => {
                 connection.release();
 
@@ -77,7 +77,7 @@ function procRequest(proc: string, args: any, connection: Pool.PooledConnection)
         addArguments(request, args);
 
         request.on('doneInProc', (rowCount: number, more: boolean, rows: Array<any>) => {
-            returnRows = rows;
+            returnRows.push(rows);
         });
 
         connection.callProcedure(request);
@@ -154,7 +154,7 @@ export var query = (sql: string): Thenable<Array<any>> => {
 	});
 };
 
-export var procedure = (procedure: string, args?: any): Thenable<any> => {
+export var procedure = (procedure: string, args?: any): Thenable<Array<Array<any>>> => {
 	return connection().then((connection) => {
 		return procRequest(procedure, args, connection);
 	});

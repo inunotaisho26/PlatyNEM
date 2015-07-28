@@ -13,7 +13,7 @@ export default class Procedures {
 		return query(sql);
 	}
 
-	static procedure(proc: string, args?: any): Thenable<any> {
+	static procedure(proc: string, args?: any): Thenable<Array<Array<any>>> {
 		return procedure(proc, args);
 	}
 
@@ -31,7 +31,7 @@ export default class Procedures {
 		return pluralize(value);
 	}
 
-	protected callProcedure(proc: string, args?: any): Thenable<any> {
+	protected callProcedure(proc: string, args?: any): Thenable<Array<Array<any>>> {
 		return Procedures.procedure(proc, args);
 	}
 
