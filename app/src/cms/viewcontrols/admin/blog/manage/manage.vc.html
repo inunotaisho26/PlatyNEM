@@ -1,8 +1,9 @@
 <div class="manage-blog-container">
 	<div class="blog-title-row">
 		<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled">
+		<input type="text" class="blog-title-input" plat-bind="post.slug" placeholder="Slug">
 		<div class="blog-title-controls" id="quill-toolbar">
-			
+
 			<!--Font Style-->
 			<div class="blog-title-control-group">
 				<!--bold-->
@@ -18,7 +19,7 @@
 					<i class="fa fa-underline"></i>
 				</button>
 			</div>
-			
+
 			<!--Lists-->
 			<div class="blog-title-control-group">
 				<!--list-->
@@ -30,7 +31,7 @@
 					<i class="fa fa-list-ul"></i>
 				</button>
 			</div>
-			
+
 			<!--Anchor/Code-->
 			<div class="blog-title-control-group">
 				<!--code-->
@@ -38,7 +39,7 @@
 					<i class="fa fa-code"></i>
 				</button>
 			</div>
-			
+
 			<!--save-->
 			<button plat-tap="save(true)" class="blog-title-control" plat-name="savePostButton">
 				<i class="fa fa-save"></i>

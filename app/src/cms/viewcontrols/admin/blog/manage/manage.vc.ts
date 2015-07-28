@@ -19,6 +19,7 @@ export default class ViewControl extends CMSBaseViewControl {
     } = {
         post: {
             title: '',
+            slug: '',
             id: null,
             created: null
         },
