@@ -19,7 +19,8 @@ export default class PostFactory extends BaseFactory<models.IPost> {
 	        userid: post.userid,
 			user: this.UserFactory.create(post.user),
 	        created: post.created,
-	        published: post.published
+	        published: post.published,
+            slug: post.slug
 		};
 	}
 }
