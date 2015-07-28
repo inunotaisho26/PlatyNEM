@@ -89,7 +89,7 @@ function addArguments(request: tds.Request, args: any): void {
         return;
     } else if(isArray(args)) {
         return forEach(args, (value) => {
-            addArguments(request, args);
+            addArguments(request, value);
         });
     }
 
