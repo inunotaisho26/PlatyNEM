@@ -1,17 +1,19 @@
 import {ui, register} from 'platypus';
 
 export default class GlobalAlert extends ui.TemplateControl {
-    templateString = require('./globalalert.tc.html');
-    context = {
+    templateString: string = require('./globalalert.tc.html');
+    context: {
+        alerts: Array<string>;
+    } = {
         alerts: null
     };
 
-    setAlerts(alerts: any, type: string) {
+    setAlerts(alerts: any, type: string): void {
         var alertList = alerts;
 
         if (!this.utils.isArray(alerts)) {
             if (this.utils.isString(alerts)) {
-                alertList = [{ message: alerts }]
+                alertList = [{ message: alerts }];
             }
 
             if (this.utils.isObject(alerts)) {
@@ -28,7 +30,7 @@ export default class GlobalAlert extends ui.TemplateControl {
         // }, 5000)
     }
 
-    setAlertType(status: string) {
+    setAlertType(status: string): void {
         var cssClass: string;
 
         switch (status) {
@@ -46,7 +48,7 @@ export default class GlobalAlert extends ui.TemplateControl {
         this.dom.addClass(this.element.firstElementChild, cssClass);
     }
 
-    dismissAlerts() {
+    dismissAlerts(): void {
         this.dom.removeClass(this.element, 'alert-visible');
         this.context.alerts = null;
     }

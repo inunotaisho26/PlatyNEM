@@ -1,4 +1,4 @@
-import {async, Utils, storage} from 'platypus';
+import {async, IObject, Utils, storage} from 'platypus';
 import BaseFactory from '../models/base';
 import CrudService from '../services/crud.svc';
 
@@ -14,7 +14,7 @@ export default class BaseRepository {
     protected cacheFactory: storage.ICacheFactory;
     protected cache: storage.Cache<any>;
 
-    protected getQueryString(query: plat.IObject<any> = {}) {
+    protected getQueryString(query: IObject<any> = {}): string {
         return '?' + this.utils.map((value, key) => {
             return `${key}=${value}`;
         }, query).join('&');

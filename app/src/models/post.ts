@@ -20,7 +20,7 @@ export default class PostFactory extends BaseFactory<models.IPost> {
 			user: this.UserFactory.create(post.user),
 	        created: post.created,
 	        published: post.published
-		}
+		};
 	}
 }
 

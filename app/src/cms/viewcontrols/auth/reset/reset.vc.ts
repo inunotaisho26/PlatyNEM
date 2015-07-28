@@ -3,14 +3,17 @@ import BaseViewControl from '../../base.vc';
 import UserRepository from '../../../../repositories/user.repo';
 
 export default class ResetPasswordViewControl extends BaseViewControl {
-	title = 'Reset Password';
-
-	templateString = require('./reset.vc.html');
-
-	context = {
+	title: string = 'Reset Password';
+	templateString: string = require('./reset.vc.html');
+	context: {
+        password: string;
+        token: string;
+        errors: Array<string>;
+        success: string;
+    } = {
 		password: '',
 		token: '',
-		errors: <Array<string>>null,
+		errors: null,
 		success: ''
 	};
 
@@ -18,7 +21,7 @@ export default class ResetPasswordViewControl extends BaseViewControl {
 		super();
 	}
 
-	navigatedTo(parameters: { token: string }) {
+	navigatedTo(parameters: { token: string }): void {
 		var context = this.context;
 		var token = context.token = parameters.token;
 
@@ -31,14 +34,14 @@ export default class ResetPasswordViewControl extends BaseViewControl {
 		}
 	}
 
-	submit() {
+	submit(): void {
 		var context = this.context;
 
 		this.userRepository.resetPassword(context.token, context.password).then((result) => {
 			this.context.success = result;
 		}, (errors) => {
 			this.context.errors = errors;
-		})
+		});
 	}
 }
 

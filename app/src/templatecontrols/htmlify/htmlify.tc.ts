@@ -2,10 +2,10 @@ import {ui, register, observable} from 'platypus';
 
 export default class Htmlify extends ui.controls.InnerHtml {
 	context: string;
-	defaultLength = 150;
-	options: observable.IObservableProperty<{ maxLength?: number; formatted?: boolean }>
+	defaultLength: number = 150;
+	options: observable.IObservableProperty<{ maxLength?: number; formatted?: boolean }>;
 
-	loaded() {
+	loaded(): void {
 		var content = this.context;
 		var options = !!this.options ? this.options.value : {};
 		var maxLen = options.maxLength || this.defaultLength;
@@ -22,7 +22,7 @@ export default class Htmlify extends ui.controls.InnerHtml {
 		this.dom.setInnerHtml(this.element, content);
 	}
 
-	abridge(str: string, max: number, tail: string = '...') {
+	abridge(str: string, max: number, tail: string = '...'): string {
 		var shortened = str.slice(0, max);
 		return shortened + (shortened.length >= str.length ? '' : tail);
 	}

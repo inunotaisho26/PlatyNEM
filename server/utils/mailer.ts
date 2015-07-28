@@ -5,8 +5,8 @@ import {smtp} from '../config/global';
 
 var sgTransport = require('nodemailer-sendgrid-transport');
 
-export function sendEmail(mailOptions: IMailOptions): Promise<{ success: string }>;
-export function sendEmail(mailOptions: any) {
+export function sendEmail(mailOptions: IMailOptions): Thenable<{ success: string }>;
+export function sendEmail(mailOptions: any): Thenable<{ success: string }> {
 	var smtpTransport = createTransport({
 		service: smtp.service,
 		auth: {

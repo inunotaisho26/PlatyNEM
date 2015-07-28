@@ -4,11 +4,15 @@ import CMSBaseViewControl from '../../../base.vc';
 import ManagePostViewControl from '../manage/manage.vc';
 
 export default class ListPostsViewControl extends CMSBaseViewControl {
-    title = 'List Blog Posts';
-    templateString = require('./list.vc.html');
-    context = {
+    title: string = 'List Blog Posts';
+    templateString: string = require('./list.vc.html');
+    context: {
+        manageView: typeof ManagePostViewControl,
+        posts: Array<models.IPost>;
+        deleteModal: boolean;
+    } = {
         manageView: ManagePostViewControl,
-        posts: <Array<models.IPost>>null,
+        posts: null,
         deleteModal: false
     };
 
@@ -18,11 +22,11 @@ export default class ListPostsViewControl extends CMSBaseViewControl {
         super();
     }
 
-    navigatedTo() {
+    navigatedTo(): void {
         this.refreshPosts();
     }
 
-    toggleDeleteModal(id?: string) {
+    toggleDeleteModal(id?: string): void {
         var context = this.context;
         context.deleteModal = !context.deleteModal;
 
@@ -31,17 +35,17 @@ export default class ListPostsViewControl extends CMSBaseViewControl {
         }
     }
 
-    refreshPosts() {
+    refreshPosts(): void {
         this.postRepository.all().then((posts: Array<models.IPost>) => {
             this.context.posts = posts;
         });
     }
 
-    confirmDelete() {
+    confirmDelete(): void {
         this.postRepository.destroy(this.toDeleteId).then((result) => {
            this.toDeleteId = null;
            this.context.deleteModal = false;
-           this._globalAlert.setAlerts('Post has been deleted', 'success');
+           this.globalAlert.setAlerts('Post has been deleted', 'success');
            this.refreshPosts();
         });
     }

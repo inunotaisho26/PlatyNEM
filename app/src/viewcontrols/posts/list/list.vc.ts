@@ -4,9 +4,12 @@ import PostRepository from '../../../repositories/post.repo';
 import SingleViewControl from '../single/single.vc';
 
 export default class ListPostsViewControl extends BaseViewControl {
-	templateString = require('./list.vc.html');
-	title = 'List Posts';
-	context = {
+	templateString: string = require('./list.vc.html');
+	title: string = 'List Posts';
+	context: {
+        posts: Array<models.IPost>;
+        singleView: typeof SingleViewControl;
+    } = {
 		posts: <Array<models.IPost>>null,
 		singleView: SingleViewControl
 	};
@@ -15,7 +18,7 @@ export default class ListPostsViewControl extends BaseViewControl {
 		super();
 	}
 
-	initialize() {
+	initialize(): void {
 		this.postRepository.all().then((posts: models.IPost[]) => {
 			this.context.posts = posts;
 		});

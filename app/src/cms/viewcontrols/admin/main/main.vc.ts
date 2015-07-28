@@ -8,8 +8,8 @@ import EditUsersViewControl from '../users/manage/manage.vc';
 import LogoutViewControl from '../logout/logout.vc';
 
 export default class AdminViewControl extends BaseViewControl {
-    templateString = require('./main.vc.html');
-    context = {};
+    templateString: string = require('./main.vc.html');
+    context: {} = {};
     constructor(router: routing.Router) {
         super();
 

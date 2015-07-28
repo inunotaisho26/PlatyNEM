@@ -1,20 +1,23 @@
-import {controls, register} from 'platypus';
+import {async, controls, register} from 'platypus';
 import CMSBaseViewControl from '../../../base.vc';
 import PostRepository from '../../../../../repositories/post.repo';
 import UserRepository from '../../../../../repositories/user.repo';
 import quillFactory from '../../../../../injectables/quill';
 
 export default class ViewControl extends CMSBaseViewControl {
-    title = 'Manage Post';
-    templateString = require('./manage.vc.html');
+    title: string = 'Manage Post';
+    templateString: string = require('./manage.vc.html');
 
     quillEditor: any;
-    quillElement: plat.controls.INamedElement<HTMLDivElement, any>;
-    savePostButton: plat.controls.INamedElement<HTMLElement, any>;
-    initializeEditorPromise: () => plat.async.IThenable<string>;
+    quillElement: controls.INamedElement<HTMLDivElement, any>;
+    savePostButton: controls.INamedElement<HTMLElement, any>;
+    initializeEditorPromise: () => async.IThenable<string>;
 
-    context = {
-        post: <models.IPost>{
+    context: {
+        post: models.IPost;
+        user: models.IUser;
+    } = {
+        post: {
             title: '',
             id: null,
             created: null
@@ -28,13 +31,9 @@ export default class ViewControl extends CMSBaseViewControl {
         super();
     }
 
-    formatCode() {
-
-    }
-
-    save(publish: boolean) {
+    save(publish: boolean): async.IThenable<void> {
         var context = this.context;
-        var promise: plat.async.IThenable<any>;
+        var promise: async.IThenable<any>;
         var post = <models.IPost>this.utils.clone(this.utils.extend({}, context.post, {
             content: this.quillEditor.getHTML(),
             published: publish
@@ -56,15 +55,15 @@ export default class ViewControl extends CMSBaseViewControl {
         }
 
         return promise.catch((errors: Array<Error>) => {
-           this._globalAlert.setAlerts(errors, 'fail');
+           this.globalAlert.setAlerts(errors, 'fail');
         }).then(() => {
             context.post.published = this.utils.isNumber(context.post.id);
             this.dom.removeClass(this.savePostButton.element, 'disabled');
-            this._globalAlert.setAlerts('Post has been saved', 'success');
+            this.globalAlert.setAlerts('Post has been saved', 'success');
         });
     }
 
-    loaded() {
+    loaded(): void {
         this.quillEditor = new this.quill(this.quillElement.element, {
             styles: {
                 '.ql-editor': { 'font-size' : '16px' }
@@ -86,7 +85,7 @@ export default class ViewControl extends CMSBaseViewControl {
         this.quillEditor.focus();
     }
 
-    navigatedTo(params: any) {
+    navigatedTo(params: any): void {
         var context = this.context;
 
         if (!isNaN(Number(params.id))) {
@@ -100,7 +99,7 @@ export default class ViewControl extends CMSBaseViewControl {
             };
         } else {
             this.initializeEditorPromise = () => {
-                return this._Promise.resolve('');
+                return this.Promise.resolve('');
             };
             this.userRepository
                 .current()
@@ -111,7 +110,7 @@ export default class ViewControl extends CMSBaseViewControl {
     }
 }
 
-plat.register.viewControl('managepost-vc', ViewControl, [
+register.viewControl('managepost-vc', ViewControl, [
     PostRepository,
     UserRepository,
     quillFactory

@@ -1,7 +1,7 @@
 import {register} from 'platypus';
 var quill = require('quill');
 
-export default function quillFactory() {
+export default function quillFactory(): typeof quill {
 	return quill;
 }
 

@@ -6,8 +6,8 @@ import ResetPasswordViewControl from '../reset/reset.vc';
 import BaseViewControl from '../../base.vc';
 
 export default class AuthViewControl extends BaseViewControl {
-    templateString = require('./main.vc.html');
-    context = {};
+    templateString: string = require('./main.vc.html');
+    context: {} = {};
     constructor(router: routing.Router) {
         super();
 

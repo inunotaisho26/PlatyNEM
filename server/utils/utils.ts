@@ -61,12 +61,12 @@ export function fileExists(path: string): Thenable<any> {
             if (stats.isFile) {
                 resolve();
             }
-        })
-    })
+        });
+    });
 }
 
-export function move(origin: string, destination: string) {
-    return new Promise((resolve, reject) => {
+export function move(origin: string, destination: string): Thenable<void> {
+    return new Promise<void>((resolve, reject) => {
         fs.rename(origin, destination, (err: NodeJS.ErrnoException) => {
             if (err) {
                 return reject(err);
@@ -76,8 +76,8 @@ export function move(origin: string, destination: string) {
     });
 }
 
-export function unlink(path: string): Thenable<any> {
-    return new Promise((resolve, reject) => {
+export function unlink(path: string): Thenable<void> {
+    return new Promise<void>((resolve, reject) => {
         fs.unlink(path, (err: NodeJS.ErrnoException) => {
             if (err) {
                 return reject(err);
@@ -86,7 +86,6 @@ export function unlink(path: string): Thenable<any> {
         });
     });
 }
-
 
 export function pluralize(str: string): string {
     var last = str.slice(-2);

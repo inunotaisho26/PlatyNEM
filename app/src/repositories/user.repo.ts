@@ -7,7 +7,7 @@ export default class UserRepository extends BaseRepository<UserFactory, UserServ
     private currentUser: models.IUser;
     private currentUserPromise: async.IThenable<models.IUser>;
 
-    create(user: any, password: string) {
+    create(user: any, password: string): async.IThenable<number> {
         var u = this.Factory.create(user);
 
         return this.service.create(u, password).then((id: number) => {
@@ -57,11 +57,11 @@ export default class UserRepository extends BaseRepository<UserFactory, UserServ
         return this.service.createResetToken(email);
     }
 
-    checkTokenExpiration(token: string) {
+    checkTokenExpiration(token: string): async.IThenable<boolean> {
         return this.service.checkTokenExpiration(token);
     }
 
-    resetPassword(token: string, password: string) {
+    resetPassword(token: string, password: string): async.IThenable<any> {
         return this.service.resetPassword(token, password);
     }
 }

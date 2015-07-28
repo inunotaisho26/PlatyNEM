@@ -4,9 +4,9 @@ import ListUsersViewControl from '../../viewcontrols/admin/users/list/list.vc';
 import DashboardViewControl from '../../viewcontrols/admin/dashboard/dashboard.vc';
 
 export default class Sidebar extends ui.TemplateControl {
-    templateString = require('./sidebar.tc.html');
-    hasOwnContext = true;
-    context = {
+    templateString: string = require('./sidebar.tc.html');
+    hasOwnContext: boolean = true;
+    context: { menuItems: Array<{ view: Function; title: string; }>; } = {
         menuItems: [
             {
                 view: DashboardViewControl,

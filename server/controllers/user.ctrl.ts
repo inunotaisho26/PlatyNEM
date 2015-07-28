@@ -12,7 +12,7 @@ import {sendEmail} from '../utils/mailer';
 var ips: { [key: string]: number; } = {};
 
 class Controller extends Base<typeof repository, typeof model> {
-    initialize(baseRoute: string, router: Router) {
+    initialize(baseRoute: string, router: Router): void {
         var single = multer.single('avatar');
 
         router.post(baseRoute, single, this.create.bind(this))
@@ -29,7 +29,7 @@ class Controller extends Base<typeof repository, typeof model> {
             .post(baseRoute + '/reset/:token', this.resetPassword.bind(this));
     }
 
-    create(req: Request, res: Response, next?: Function) {
+    create(req: Request, res: Response, next?: Function): Thenable<any> {
         (<server.models.IUser>req.body).role = 'visitor';
 
         return this.createOrUpdate(req, this.repository.create).then((user) => {
@@ -48,7 +48,7 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    update(req: Request, res: Response) {
+    update(req: Request, res: Response): Thenable<any> {
         var user: server.models.IUser = req.body;
         var avatar: any;
 
@@ -59,7 +59,7 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    destroy(req: Request, res: Response) {
+    destroy(req: Request, res: Response): Thenable<void> {
         var id = req.body.id = req.params.id;
         return this.handleResponse(this.repository.read(id)
             .then((user) => {
@@ -71,7 +71,7 @@ class Controller extends Base<typeof repository, typeof model> {
             }), res);
     }
 
-    login(user: server.models.IUser, req: Request) {
+    login(user: server.models.IUser, req: Request): Thenable<server.utils.IFormattedResponse> {
         var ip = req.connection.remoteAddress;
         var cached = ips[ip];
 
@@ -90,14 +90,14 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    logout(req: Request, res: Response) {
+    logout(req: Request, res: Response): void {
         req.logout();
         req.session.destroy(() => {
             Base.sendResponse(res, this.format(null, true));
         });
     }
 
-    isAdmin(req: Request, res: Response) {
+    isAdmin(req: Request, res: Response): void {
         var user: server.models.IUser = req.user;
 
         if (!this.utils.isObject(user)) {
@@ -107,11 +107,11 @@ class Controller extends Base<typeof repository, typeof model> {
         Base.sendResponse(res, this.format(null, user.role === 'admin'));
     }
 
-    current(req: Request, res: Response) {
+    current(req: Request, res: Response): void {
         Base.sendResponse(res, this.format(null, req.user));
     }
 
-    createResetToken(req: Request, res: Response) {
+    createResetToken(req: Request, res: Response): Thenable<void> {
         var token = crypto.randomBytes(20).toString('hex');
         var email: string = req.body.email;
         var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -133,7 +133,7 @@ class Controller extends Base<typeof repository, typeof model> {
             Base.sendResponse(res, this.format([new this.ValidationError('Invalid email address', 'email')]));
         }
 
-        this.repository.createUserPasswordResetToken(email, token).then((id) => {
+        return this.repository.createUserPasswordResetToken(email, token).then((id) => {
             if (!this.utils.isNumber(id)) {
                 return this.Promise.resolve(response);
             }
@@ -148,7 +148,7 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    checkTokenExpiration(req: Request, res: Response) {
+    checkTokenExpiration(req: Request, res: Response): Thenable<void> {
         var token = req.params.token;
 
         return this.checkTokenValidity(token).then(() => {
@@ -160,7 +160,7 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    resetPassword(req: Request, res: Response) {
+    resetPassword(req: Request, res: Response): Thenable<void> {
         var token = req.params.token;
 
         return this.checkTokenValidity(token).then((user: server.models.IUser) => {
@@ -172,7 +172,7 @@ class Controller extends Base<typeof repository, typeof model> {
         }).then(() => {
             return this.format(null, {
                 success: 'Your password has been updated.'
-            })
+            });
         }, (errors: server.errors.IValidationErrors) => {
             return this.format({ errors: errors });
         }).then((response) => {
@@ -180,7 +180,7 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    authenticate(req: Request, res: Response) {
+    authenticate(req: Request, res: Response): Thenable<void> {
         var ip = req.connection.remoteAddress;
         var cached = ips[ip];
 
@@ -261,11 +261,11 @@ class Controller extends Base<typeof repository, typeof model> {
         });
     }
 
-    private checkTokenValidity(token: string) {
+    private checkTokenValidity(token: string): Thenable<server.models.IUser> {
         return this.repository.findByPasswordResetToken(token);
     }
 
-    private uploadAvatar(avatar: any, user: server.models.IUser, req: Request) {
+    private uploadAvatar(avatar: any, user: server.models.IUser, req: Request): Thenable<any> {
         var errors: server.errors.IValidationErrors = [];
 
         if (avatar.mimetype.indexOf('image') >= 0) {

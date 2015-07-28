@@ -12,11 +12,11 @@ class Model extends Base<server.models.IPost> {
 		return validations;
 	}
 
-	private validateTitle(title: string) {
+	private validateTitle(title: string): server.errors.IValidationError {
 		return this.isString(title, 'title', 'Title');
 	}
 
-	private validateSlug(slug: string) {
+	private validateSlug(slug: string): server.errors.IValidationError {
 		return this.isString(slug, 'slug', 'Slug');
 	}
 }

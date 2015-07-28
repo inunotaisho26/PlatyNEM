@@ -10,7 +10,7 @@ export default class UserFactory extends BaseFactory<models.IUser> {
             email: user.email,
             avatar: user.avatar,
             role: user.role
-        }
+        };
     }
 }
 

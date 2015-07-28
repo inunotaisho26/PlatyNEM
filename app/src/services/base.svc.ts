@@ -1,4 +1,4 @@
-import {async, debug, register, Utils} from 'platypus';
+import {async, debug, IObject, register, Utils} from 'platypus';
 
 export default class BaseService {
     protected static _inject: any = {
@@ -10,7 +10,7 @@ export default class BaseService {
 
     protected utils: Utils;
     protected http: async.Http;
-    protected Promise: async.IPromise
+    protected Promise: async.IPromise;
     protected log: debug.Log;
 
     baseRoute: string;
@@ -19,7 +19,7 @@ export default class BaseService {
         this.baseRoute = 'api/' + this.trimSlashes(baseRoute);
     }
 
-    protected get<T>(url: number | string, query?: plat.IObject<any>, options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected get<T>(url: number | string, query?: IObject<any>, options?: services.IHttpConfig): async.IAjaxThenable<T> {
         return this.json(url + this.getQueryString(query), <any>options);
     }
 
@@ -73,7 +73,7 @@ export default class BaseService {
         return value;
     }
 
-    protected getQueryString(query: plat.IObject<any> = {}): string {
+    protected getQueryString(query: IObject<any> = {}): string {
         return '?' + this.utils.map((value, key) => {
             return `${key}=${value}`;
         }, query).join('&');

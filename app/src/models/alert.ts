@@ -6,7 +6,7 @@ export default class AlertFactory extends BaseFactory<models.IAlert> {
 		return {
 			property: alert.property,
 			message: alert.message
-		}
+		};
 	}
 }
 

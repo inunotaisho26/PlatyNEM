@@ -6,11 +6,9 @@ export default class PostService extends Crud<server.models.IPost> {
 		super('posts');
 	}
 
-	all(options?: services.IPublishedQuery): plat.async.IThenable<Array<models.IPost>> {
+	all(options?: services.IPublishedQuery): async.IAjaxThenable<Array<models.IPost>> {
 		return super.all(options);
 	}
 }
 
 register.injectable('postService', PostService);
-
-

@@ -5,7 +5,7 @@ import PublicViewControl from '../viewcontrols/main/main.vc';
 import UserRepository from '../repositories/user.repo';
 import Helpers from '../injectables/helpers';
 
-export default class Blogstarter extends App {
+export default class Platynem extends App {
     constructor(router: routing.Router,
         config: web.IBrowserConfig,
         repository: UserRepository,
@@ -27,7 +27,7 @@ export default class Blogstarter extends App {
         }, AdminViewControl);
     }
 
-    ready(ev: events.LifecycleEvent) {
+    ready(ev: events.LifecycleEvent): void {
         var defer = this.utils.defer;
 
         this.on('urlChanged', (ev: events.DispatchEvent, utils?: web.UrlUtils) => {
@@ -35,7 +35,7 @@ export default class Blogstarter extends App {
 
             defer(() => {
                 this.doTracking(utils.pathname);
-            }, 2000)
+            }, 2000);
         });
 
         this.clearScripts();
@@ -47,7 +47,7 @@ export default class Blogstarter extends App {
         }, 2000);
     }
 
-    error(ev: events.ErrorEvent<Error>) {
+    error(ev: events.ErrorEvent<Error>): void {
         var stack: string = (<any>ev.error).stack;
 
         if (!stack) {
@@ -64,7 +64,7 @@ export default class Blogstarter extends App {
         }
     }
 
-    doTracking(path: string) {
+    doTracking(path: string): void {
         path = this.normalizePath(path);
 
         if (!!(<any>window).ga) {
@@ -74,7 +74,7 @@ export default class Blogstarter extends App {
         }
     }
 
-    normalizePath(path: string) {
+    normalizePath(path: string): string {
         if (path[0] !== '/') {
             path = '/' + path;
         }
@@ -82,14 +82,14 @@ export default class Blogstarter extends App {
         return path;
     }
 
-    clearScripts() {
+    clearScripts(): void {
         var helpers = this.helpers;
 
         helpers.removeScript('www.google-analytics.com');
     }
 }
 
-register.app('blogstarter', Blogstarter, [
+register.app('platynem', Platynem, [
     routing.Router,
     web.IBrowserConfig,
     UserRepository,

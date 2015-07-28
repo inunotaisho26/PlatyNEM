@@ -3,15 +3,15 @@ import UserRepository from '../../../../repositories/user.repo';
 import CMSBaseViewControl from '../../base.vc';
 
 export default class LogOutViewControl extends CMSBaseViewControl {
-    title = 'Platypi | Logout';
+    title: string = 'Platypi | Logout';
 
     constructor(private userRepository: UserRepository) {
         super();
     }
 
-    context = {};
+    context: {} = {};
 
-    navigatedTo() {
+    navigatedTo(): void {
         this.userRepository.logout()
             .catch(this.utils.noop)
             .then(() => {

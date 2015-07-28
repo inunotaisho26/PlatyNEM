@@ -12,29 +12,29 @@ export default class UserService extends CrudService<server.models.IUser> {
         }), this.http.contentType.MULTIPART_FORM);
     }
 
-    login(user: models.IUser, password: string) {
+    login(user: models.IUser, password: string): async.IAjaxThenable<server.models.IUser> {
         return this.post<server.models.IUser>('login', {
             data: this.utils.extend({}, user, { password: password })
         });
     }
 
-    update(user: models.IUser) {
+    update(user: models.IUser): async.IAjaxThenable<void> {
         return super.update(user, this.http.contentType.MULTIPART_FORM);
     }
 
-    logout() {
+    logout(): async.IAjaxThenable<boolean> {
         return this.post<boolean>('logout');
     }
 
-    isAdmin() {
+    isAdmin(): async.IAjaxThenable<boolean> {
         return this.get<boolean>('admin');
     }
 
-    loggedInUser() {
+    loggedInUser(): async.IAjaxThenable<server.models.IUser> {
         return this.get<server.models.IUser>('me');
     }
 
-    createResetToken(email: string) {
+    createResetToken(email: string): async.IAjaxThenable<any> {
         return this.post<any>('forgot', {
             data: {
                 email: email
@@ -42,11 +42,11 @@ export default class UserService extends CrudService<server.models.IUser> {
         });
     }
 
-    checkTokenExpiration(token: string) {
+    checkTokenExpiration(token: string): async.IAjaxThenable<boolean> {
         return this.get<boolean>('reset/' + token);
     }
 
-    resetPassword(token: string, password: string) {
+    resetPassword(token: string, password: string): async.IAjaxThenable<any> {
         return this.post<any>('reset/' + token, {
             data: {
                 password: password

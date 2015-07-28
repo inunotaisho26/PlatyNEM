@@ -4,7 +4,7 @@ import {root} from '../config/global';
 
 var m: any = multer({
     dest: resolve(root, 'app/images/tmp'),
-    onError(err?: any, next?: Function) {
+    onError(err?: any, next?: Function): void {
         console.log(err);
         next();
     }

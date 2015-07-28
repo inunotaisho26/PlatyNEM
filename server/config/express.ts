@@ -77,7 +77,6 @@ var configure = (app: Application): void => {
             });
         });
 
-
     var staticPath: string = path.resolve(root, 'app'),
         fonts = '/fonts',
         dist = '/dist',

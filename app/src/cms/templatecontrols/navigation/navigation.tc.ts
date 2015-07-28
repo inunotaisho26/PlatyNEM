@@ -3,9 +3,12 @@ import DashboardViewControl from '../../viewcontrols/admin/dashboard/dashboard.v
 import LogoutViewControl from '../../viewcontrols/admin/logout/logout.vc';
 
 export default class AdminNavigation extends ui.TemplateControl {
-    templateString = require('./navigation.tc.html');
-    hasOwnContext = true;
-    context = {
+    templateString: string = require('./navigation.tc.html');
+    hasOwnContext: boolean = true;
+    context: {
+        logoView: typeof DashboardViewControl,
+        menuItems: Array<{ title: string; view: Function; }>;
+    } = {
         logoView: DashboardViewControl,
         menuItems: [
             {

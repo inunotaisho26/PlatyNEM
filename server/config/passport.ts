@@ -8,6 +8,61 @@ import {facebook} from './global';
 import procedures from '../procedures/user.proc';
 import Model from '../models/user';
 
+var findAvatar = (json: any, provider: string) => {
+    switch (provider) {
+        case 'facebook':
+            return json.picture.data.url;
+        default:
+            return '';
+    }
+};
+
+var handleUser = (user: server.models.IUser, profile: Profile, provider: string) => {
+    if (!isObject(user)) {
+       var names = profile.displayName.split('');
+       var email = profile.emails[0].value;
+
+       user = <any>{
+           firstname: names.shift(),
+           lastname: names.pop(),
+           username: email,
+           email: email,
+           createdFrom: provider,
+           role: 'visitor',
+           provider: provider,
+           hashedPassword: provider,
+           salt: provider
+       };
+    };
+
+    if (!(isString(user.avatar) && (user.avatar.indexOf('assets/images/') > -1))) {
+        user.avatar = findAvatar((<any>profile)._json, provider);
+    }
+
+    if ((<any>user)[provider + 'id'] !== profile.id) {
+        (<any>user)[provider + 'id'] = profile.id;
+
+        if (isNumber(user.id)) {
+            return procedures.update(user).then(() => {
+               return user;
+            });
+        }
+
+        return procedures.create(user).then((id: number) => {
+           user.id = id;
+           return user;
+        });
+    }
+
+    if (isNumber(user.id)) {
+        return procedures.update(user).then(() => {
+            return user;
+        });
+    }
+
+    return Promise.resolve(user);
+};
+
 var configure = (passport: Passport): void => {
     passport.serializeUser((user: server.models.IUser, done: Function) => {
         if (!isObject(user)) {
@@ -59,61 +114,6 @@ var configure = (passport: Passport): void => {
             message: 'Could not create user from Facebook'
         });
     }));
-};
-
-var findAvatar = (json: any, provider: string) => {
-    switch (provider) {
-        case 'facebook':
-            return json.picture.data.url;
-        default:
-            return '';
-    }
-};
-
-var handleUser = (user: server.models.IUser, profile: Profile, provider: string) => {
-    if (!isObject(user)) {
-       var names = profile.displayName.split('');
-       var email = profile.emails[0].value;
-
-       user = <any>{
-           firstname: names.shift(),
-           lastname: names.pop(),
-           username: email,
-           email: email,
-           createdFrom: provider,
-           role: 'visitor',
-           provider: provider,
-           hashedPassword: provider,
-           salt: provider
-       };
-    };
-
-    if (!(isString(user.avatar) && (user.avatar.indexOf('assets/images/') > -1))) {
-        user.avatar = findAvatar((<any>profile)._json, provider);
-    }
-
-    if ((<any>user)[provider + 'id'] !== profile.id) {
-        (<any>user)[provider + 'id'] = profile.id
-
-        if (isNumber(user.id)) {
-            return procedures.update(user).then(() => {
-               return user;
-            });
-        }
-
-        return procedures.create(user).then((id: number) => {
-           user.id = id;
-           return user;
-        });
-    }
-
-    if (isNumber(user.id)) {
-        return procedures.update(user).then(() => {
-            return user;
-        });
-    }
-
-    return Promise.resolve(user);
 };
 
 export default configure;

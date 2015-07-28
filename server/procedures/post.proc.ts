@@ -1,13 +1,13 @@
 import Base from './crud.proc';
 
 class Procedures extends Base<server.models.IPost> {
-	create(post: server.models.IPost) {
+	create(post: server.models.IPost): Thenable<number> {
 		return super.create(this.formatPostDates(post)).then(() => {
 			return post.id;
-		})
+		});
 	}
 
-	update(post: server.models.IPost) {
+	update(post: server.models.IPost): Thenable<void> {
 		return super.update(this.formatPostDates(post));
 	}
 
@@ -67,7 +67,7 @@ class Procedures extends Base<server.models.IPost> {
         };
 	}
 
-	private merge(posts: Array<server.models.IPost>, users: Array<server.models.IUser>) {
+	private merge(posts: Array<server.models.IPost>, users: Array<server.models.IUser>): void {
 		if (!this.utils.isArray(posts)) {
 			return;
 		}

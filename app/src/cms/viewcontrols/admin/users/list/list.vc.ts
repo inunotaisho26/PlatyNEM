@@ -4,10 +4,14 @@ import ManageUserViewControl from '../manage/manage.vc';
 import UserRepository from '../../../../../repositories/user.repo';
 
 export default class ListUsersViewControl extends CMSBaseViewControl {
-    title = 'All Users';
-    templateString = require('./list.vc.html');
-    context = {
-        users: <Array<models.IUser>>null,
+    title: string = 'All Users';
+    templateString: string = require('./list.vc.html');
+    context: {
+        users: Array<models.IUser>;
+        manageView: typeof ManageUserViewControl;
+        deleteModal: boolean;
+    } = {
+        users: null,
         manageView: ManageUserViewControl,
         deleteModal: false
     };
@@ -19,13 +23,13 @@ export default class ListUsersViewControl extends CMSBaseViewControl {
         super();
     }
 
-    initialize() {
+    initialize(): void {
         var context = this.context;
 
         this.refreshUsers();
     }
 
-    toggleDeleteModal(id?: string) {
+    toggleDeleteModal(id?: string): void {
         var context = this.context;
 
         context.deleteModal = !context.deleteModal;
@@ -35,17 +39,17 @@ export default class ListUsersViewControl extends CMSBaseViewControl {
         }
     }
 
-    refreshUsers() {
+    refreshUsers(): void {
         this.userRepository.all().then((result) => {
             this.context.users = result;
         });
     }
 
-    confirmDelete() {
+    confirmDelete(): void {
         this.userRepository.destroy(this.toDeleteId).then((result) => {
            this.toDeleteId = null;
            this.context.deleteModal = false;
-           this._globalAlert.setAlerts('User has been deleted', 'success');
+           this.globalAlert.setAlerts('User has been deleted', 'success');
            this.refreshUsers();
         });
     }

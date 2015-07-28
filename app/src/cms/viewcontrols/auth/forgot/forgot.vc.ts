@@ -4,9 +4,12 @@ import LoginViewControl from '../login/login.vc';
 import UserRepository from '../../../../repositories/user.repo';
 
 export default class ForgotPasswordViewControl extends CMSBaseViewControl {
-	title = 'Forgot Password';
-	templateString = require('./forgot.vc.html');
-	context = {
+	title: string = 'Forgot Password';
+	templateString: string = require('./forgot.vc.html');
+	context: {
+        email: string;
+        loginView: typeof LoginViewControl;
+    } = {
 		email: '',
 		loginView: LoginViewControl
 	};
@@ -15,7 +18,7 @@ export default class ForgotPasswordViewControl extends CMSBaseViewControl {
 		super();
 	}
 
-	submit() {
+	submit(): void {
 		this.userRepository.createResetToken(this.context.email).then((result) => {
 			console.log(result);
 		});

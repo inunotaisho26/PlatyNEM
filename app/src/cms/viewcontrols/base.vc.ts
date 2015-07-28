@@ -1,7 +1,7 @@
-import {acquire, async, ui, Document} from 'platypus';
+import {acquire, async, ui, Document as _Document} from 'platypus';
 
 export default class CMSBaseViewControl extends ui.ViewControl {
-    protected _Promise = acquire(async.IPromise);
-    protected _document = plat.acquire(Document);
-    protected _globalAlert = acquire('global-alert');
+    protected Promise: async.IPromise = acquire(async.IPromise);
+    protected document: Document = acquire(_Document);
+    protected globalAlert: any = acquire('global-alert');
 }

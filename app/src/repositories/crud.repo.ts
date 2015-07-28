@@ -1,4 +1,4 @@
-import {async, Utils, storage} from 'platypus';
+import {async, IObject, Utils, storage} from 'platypus';
 import BaseFactory from '../models/base';
 import BaseRepository from './base.repo';
 import CrudService from '../services/crud.svc';
@@ -46,7 +46,7 @@ export default class CrudRepository<F extends BaseFactory<any>, S extends CrudSe
             });
     }
 
-    read(uid: number | string, options?: plat.IObject<any>): async.IThenable<M> {
+    read(uid: number | string, options?: IObject<any>): async.IThenable<M> {
         var haveCache = this.utils.isObject(this.cache);
 
         if (haveCache) {
@@ -67,7 +67,7 @@ export default class CrudRepository<F extends BaseFactory<any>, S extends CrudSe
         });
     }
 
-    update(model: any): async.IThenable<M> {
+    update(model: any): async.IThenable<void> {
         if (this.hasCache) {
             this.cache.clear();
         }
@@ -93,7 +93,7 @@ export default class CrudRepository<F extends BaseFactory<any>, S extends CrudSe
 
 	protected store(values: Array<M>): void;
 	protected store(value: M): void;
-	protected store(_values: any) {
+	protected store(_values: any): void {
         if(!this.hasCache) {
             return;
         }

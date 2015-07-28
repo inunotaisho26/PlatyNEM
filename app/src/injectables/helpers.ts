@@ -1,10 +1,10 @@
-import {Utils, register, Document} from 'platypus';
+import {Utils, register, Document as _Document} from 'platypus';
 
 export default class Helpers {
 	constructor(private document: any,
 		private utils: Utils) {}
 
-	removeScript(match: string) {
+	removeScript(match: string): void {
 		var head = this.document.head;
 		var body = this.document.body;
 
@@ -18,11 +18,11 @@ export default class Helpers {
 			if (el.src.indexOf(match) > -1) {
 				body.removeChild(el);
 			}
-		}, Array.prototype.slice.call(body.getElementsByTagName('script')))
+		}, Array.prototype.slice.call(body.getElementsByTagName('script')));
 	}
 }
 
 register.injectable('helpers', Helpers, [
-	Document,
+	_Document,
 	Utils
 ]);

@@ -3,14 +3,22 @@ import UserRepository from '../../../../../repositories/user.repo';
 import AdminBaseViewControl from '../../../base.vc';
 
 export default class ViewControl extends AdminBaseViewControl {
-    title = 'Edit User';
-    templateString = require('./manage.vc.html');
+    title: string = 'Edit User';
+    templateString: string = require('./manage.vc.html');
     saveButton: controls.INamedElement<HTMLButtonElement, any>;
-    context = {
+    context: {
+        user: models.IUser;
+        password: string;
+        newpassword: string;
+        confirmpassword: string;
+        roles: Array<string>;
+        editMode: boolean;
+        avatarPrompt: string;
+    } = {
         user: <models.IUser>{},
-        password: <string>null,
-        newpassword: <string>null,
-        confirmpassword: <string>null,
+        password: null,
+        newpassword: null,
+        confirmpassword: null,
         roles: ['admin', 'contributor', 'visitor'],
         editMode: false,
         avatarPrompt: 'Select a new avatar'
@@ -20,7 +28,7 @@ export default class ViewControl extends AdminBaseViewControl {
         super();
     }
 
-    navigatedTo(parameters: { id: string }) {
+    navigatedTo(parameters: { id: string }): void {
         var context = this.context;
 
         if (!isNaN(Number(parameters.id))) {
@@ -31,7 +39,7 @@ export default class ViewControl extends AdminBaseViewControl {
         }
     }
 
-    updateUser(user: models.IUser) {
+    updateUser(user: models.IUser): void {
         var context = this.context;
         var promise: async.IThenable<any>;
 
@@ -42,18 +50,18 @@ export default class ViewControl extends AdminBaseViewControl {
         }
 
         promise.then(() => {
-            this._globalAlert.setAlerts('User has been saved', 'success');
+            this.globalAlert.setAlerts('User has been saved', 'success');
         }, (errors) => {
-            this._globalAlert.setAlerts(errors, 'fail');
+            this.globalAlert.setAlerts(errors, 'fail');
         });
     }
 
-    avatarSelected(ev) {
+    avatarSelected(ev): void {
         this.context.avatarPrompt = ev.target.files[0].name;
         this.enableSave();
     }
 
-    enableSave() {
+    enableSave(): void {
         this.saveButton.element.removeAttribute('disabled');
     }
 }

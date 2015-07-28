@@ -3,11 +3,13 @@ import BaseViewControl from '../../base.vc';
 import UserRepository from '../../../../repositories/user.repo';
 
 export default class RegisterViewControl extends BaseViewControl {
-    title = 'Register';
-
-    templateString = require('./register.vc.html');
-
-    context = {
+    title: string = 'Register';
+    templateString: string = require('./register.vc.html');
+    context: {
+        user: { firstname: string; lastname: string; email: string; };
+        password: string;
+        avatarPrompt: string;
+    } = {
         user: {
             firstname: '',
             lastname: '',
@@ -21,18 +23,18 @@ export default class RegisterViewControl extends BaseViewControl {
         super();
     }
 
-    avatarSelected(ev) {
+    avatarSelected(ev: any): void {
         this.context.avatarPrompt = ev.target.files[0].name;
     }
 
-    register(user, password) {
+    register(user: string, password: string): void {
         var context = this.context;
 
         this.userRepository.create(context.user, context.password).then((response) => {
-            this._globalAlert.setAlerts('Account has been created', 'success');
+            this.globalAlert.setAlerts('Account has been created', 'success');
         }, (errors: server.errors.IValidationErrors | server.errors.IValidationError) => {
             console.log(errors);
-            this._globalAlert.setAlerts(errors, 'fail');
+            this.globalAlert.setAlerts(errors, 'fail');
         });
     }
 }

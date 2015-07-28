@@ -4,14 +4,14 @@ import ListPostsViewControl from '../posts/list/list.vc';
 import SinglePostViewControl from '../posts/single/single.vc';
 
 export default class PublicViewControl extends BaseViewControl {
-    templateString = require('./main.vc.html');
-    context = {};
+    templateString: string = require('./main.vc.html');
+    context: {} = {};
     constructor(router: routing.Router) {
         super();
 
         router.configure([
             { pattern: '', view: ListPostsViewControl },
-            { pattern: 'posts/:id', view: SinglePostViewControl }
+            { pattern: 'posts/:slug', view: SinglePostViewControl }
         ]);
     }
 }
@@ -19,4 +19,3 @@ export default class PublicViewControl extends BaseViewControl {
 register.viewControl('public-vc', PublicViewControl, [
     routing.Router
 ]);
-

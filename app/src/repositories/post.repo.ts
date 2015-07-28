@@ -8,7 +8,7 @@ export default class PostRepository extends BaseRepository<PostFactory, PostServ
         super(Factory, service, 'posts');
     }
 
-	all(options?: services.IPublishedQuery): plat.async.IThenable<Array<models.IPost>> {
+	all(options?: services.IPublishedQuery): async.IThenable<Array<models.IPost>> {
 		return super.all(options);
 	}
 
@@ -17,7 +17,7 @@ export default class PostRepository extends BaseRepository<PostFactory, PostServ
     }
 }
 
-plat.register.injectable('postRespository', PostRepository, [
+register.injectable('postRespository', PostRepository, [
 	PostFactory,
 	PostService
 ]);

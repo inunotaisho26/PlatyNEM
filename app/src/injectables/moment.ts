@@ -1,7 +1,7 @@
 import {register} from 'platypus';
 import * as moment from 'moment';
 
-export function Moment() {
+export function Moment(): typeof moment {
 	return moment;
 }
 

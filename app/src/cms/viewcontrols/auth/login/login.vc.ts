@@ -5,12 +5,16 @@ import ForgotPasswordViewControl from '../forgot/forgot.vc';
 import UserRepository from '../../../../repositories/user.repo';
 
 export default class LoginViewControl extends BaseViewControl {
-    title = 'Login';
-    templateString = require('./login.vc.html');
-    context = {
+    title: string = 'Login';
+    templateString: string = require('./login.vc.html');
+    context: {
+        user: { email: string; password: string; };
+        registerView: typeof RegisterViewControl;
+        forgotView: typeof ForgotPasswordViewControl;
+    } = {
         user: {
             email: '',
-            password: '',
+            password: ''
         },
         registerView: RegisterViewControl,
         forgotView: ForgotPasswordViewControl
@@ -20,7 +24,7 @@ export default class LoginViewControl extends BaseViewControl {
         super();
     }
 
-    login(ev: Event) {
+    login(ev: Event): void {
         var context = this.context;
 
         ev.preventDefault();
@@ -39,7 +43,7 @@ export default class LoginViewControl extends BaseViewControl {
                 });
             }
         }, (error: server.errors.IValidationError) => {
-            this._globalAlert.setAlerts(error, 'fail');
+            this.globalAlert.setAlerts(error, 'fail');
         });
     }
 }
