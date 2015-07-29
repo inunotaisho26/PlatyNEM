@@ -99,6 +99,7 @@ var configure = (app: Application): void => {
         })
         .use((err: any, req: Request, res: Response, next: Function) => {
             if (isObject(err) && isString(err.message)) {
+                console.log(err.name);
                 console.log(err.toString());
                 switch (err.name) {
                 case 'ValidationError':
@@ -111,6 +112,12 @@ var configure = (app: Application): void => {
                     if (!isNumber(err.status) &&
                         (<string>err.toString()).toLowerCase().indexOf('not found') > -1) {
                         err.status = 404;
+                    }
+
+                    if (err.status === 401) {
+                        res.render('error', {
+                            error: err
+                        });
                     }
                 }
             }

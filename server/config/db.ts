@@ -101,7 +101,7 @@ function addArguments(request: tds.Request, args: any): void {
     for (var i = 0; i < length; ++i) {
         key = keys[i];
         value = args[key];
-        if (!isUndefined(value)) {
+        if (!(isNull(value) || isUndefined(value))) {
             request.addParameter(key, convertType(value), value);
         }
     }
@@ -176,6 +176,7 @@ var configure = (): void => {
     // Clean Sessions immediately and every 24 hours
     setInterval(clean, 1000 * 60 * 60 * 24);
     clean();
+
 };
 
 pool.on('error', (err: any) => {
