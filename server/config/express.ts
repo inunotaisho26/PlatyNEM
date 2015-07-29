@@ -83,6 +83,8 @@ var configure = (app: Application): void => {
         platui = '/node_modules/platypusui/dist/fonts',
         fontAwesome = '/node_modules/font-awesome/fonts';
 
+    images = '/images';
+
     app .use(images, accept(staticPath + images))
         .use(fonts, serve(staticPath + fonts, { index: false }))
         .use(images, serve(staticPath + images, { index: false }))
