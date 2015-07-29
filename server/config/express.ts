@@ -18,7 +18,8 @@ var cors = require('cors'),
 
 var configure = (app: Application): void => {
     var images = path.resolve(root, 'app/images');
-    app.set('views', root + '/server/views')
+    app.disable('x-powered-by')
+        .set('views', root + '/server/views')
         .set('view engine', 'ejs')
         .use(compress())
         .use(logger('dev'))
