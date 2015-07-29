@@ -1,7 +1,7 @@
 import * as tds from 'tedious';
 import * as Pool from 'tedious-connection-pool';
 import {Promise} from 'es6-promise';
-import {isArray, isBoolean, isDate, isNull, isNumber, isObject, isString, extend, forEach} from 'lodash';
+import {isArray, isBoolean, isUndefined, isDate, isNull, isNumber, isObject, isString, extend, forEach} from 'lodash';
 import {db} from './global';
 
 export var pool = new Pool({
@@ -101,7 +101,7 @@ function addArguments(request: tds.Request, args: any): void {
     for (var i = 0; i < length; ++i) {
         key = keys[i];
         value = args[key];
-        if (!isNull(value)) {
+        if (!isUndefined(value)) {
             request.addParameter(key, convertType(value), value);
         }
     }
@@ -119,7 +119,7 @@ function convertType(value: any): tds.TediousType {
     } else if (isDate(value)) {
         return tds.TYPES.DateTime2N;
     } else {
-        throw Error('Invalid data type.');
+        throw new Error('Invalid data type.');
     }
 }
 
