@@ -7,66 +7,52 @@
     @input-padding: 3%;
 
     .input-container {
-        margin-bottom: 2em;
+        margin-bottom: 1em;
+    }
 
-        & > div:first-child {
-            border-top-right-radius: @border-radius;
-            border-top-left-radius: @border-radius;
-        }
+    /// Base Input Styles
+    .input-control {
+        display: inline-block;
+        margin: 0.3em 0;
+        padding: 0.5em;
+        width: 100%;
+        outline: 0;
+        font-size: 100%;
+        background-color: @white;
+        border: 1px solid @light-grey;
+        border-radius: 3px;
+        transition: border-color 300ms;
 
-        & > div:last-child {
-            border-bottom-right-radius: @border-radius;
-            border-bottom-left-radius: @border-radius;
+        &:focus {
+            border: 1px solid @blue;
         }
     }
 
+    /// Avatar Selector
     label.avatar-input-label {
-        .flex-vertical-center();
         position: relative;
-        background-color: @white;
-        height: 3em;
-        padding-left: @input-padding;
-        width: 100%;
         cursor: pointer;
-        color: #dddddd;
+        color: @light-grey;
 
         input[type="file"] {
             display: none;
         }
     }
 
-    /// PlatypusUI Overrides
-
-    .plat-select {
-        width: 100%;
-        border-width: 0;
-        background-color: @white;
-        height: 3em;
-        padding: 0 @input-padding;
+    /// Placeholder Text
+    ::-webkit-input-placeholder {
+       color: @light-grey;
     }
 
-    .plat-input {
-        height: 3em;
-        width: 100%;
-        background-color: @white;
-        display: block;
+    :-moz-placeholder { /* Firefox 18- */
+       color: @light-grey;
+    }
 
-        .plat-input-container {
-            position: relative;
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: @light-grey;
+    }
 
-            input {
-                position: static;
-                padding: 0 @input-padding;
-                border: none;
-            }
-
-            .plat-input-action {
-                display: none;
-            }
-        }
-
-        &:last-child .plat-input-container:after {
-            height: 0;
-        }
+    :-ms-input-placeholder {
+       color: @light-grey;
     }
 }

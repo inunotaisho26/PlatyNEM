@@ -5,16 +5,18 @@
                 <plat-link plat-options="{ view: 'login-vc' }">Log In</plat-link>
             </li>
         </ul>
-        <social-auth></social-auth>
-        <div class="input-container">
-            <plat-input type="text" plat-bind="user.firstname" placeholder="First Name"></plat-input>
-            <plat-input type="text" plat-bind="user.lastname" placeholder="Last Name"></plat-input>
-            <plat-input type="email" plat-bind="user.email" placeholder="Email"></plat-input>
-            <label class="avatar-input-label">{{avatarPrompt}}
-                <input type="file" plat-bind="user.avatar" plat-change="avatarSelected()" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
-            </label>
-            <plat-input type="password" plat-bind="password" placeholder="New Password"></plat-input>
+        <div class="auth-options-container">
+            <social-auth></social-auth>
+            <div class="input-container">
+                <input type="text" plat-bind="user.firstname" placeholder="First Name" class="input-control" />
+                <input type="text" plat-bind="user.lastname" placeholder="Last Name" class="input-control" />
+                <input type="email" plat-bind="user.email" placeholder="Email" class="input-control" />
+                <label class="input-control avatar-input-label">{{avatarPrompt}}
+                    <input type="file" plat-bind="user.avatar" plat-change="avatarSelected()" placeholder="Avatar" name="avatar" id="avatar" accept=".jpg,.png,.gif,.jpeg" />
+                </label>
+                <input type="password" plat-bind="password" placeholder="Password" class="input-control" />
+            </div>
+            <plat-button plat-tap="register(user, password)" class="button-block button-primary">Sign Up</plat-button>
         </div>
-        <plat-button plat-tap="register(user, password)" class="button-block button-primary">Sign Up</plat-button>
     </div>
 </div>
