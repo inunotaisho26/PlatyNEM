@@ -64,10 +64,11 @@ export default class SessionStore implements server.middleware.session.IStore {
             return Promise.resolve<any>();
         }
 
-        return this.callProcedure(this.procedures.read, { sid: sid }).then((result: any = []) => {
-            var row = result[0] || {},
-                session = row.session || {},
-                json = (this.secret) ? this.decryptData(session.value) : session.value;
+        return this.callProcedure(this.procedures.read, { sid: sid }).then((result) => {
+            var row = result[0] || [],
+                res = row[0] || {},
+                session = res.session,
+                json = (this.secret) ? this.decryptData(session) : session;
 
             if (!this.utils.isString(json)) {
                 return cb();
@@ -108,9 +109,10 @@ export default class SessionStore implements server.middleware.session.IStore {
 
     length(cb: (err: any, length?: number) => void): Thenable<void> {
         return this.callProcedure(this.procedures.length).then((result) => {
-            var row = result[0] || {},
-                length = row.length || {};
-            cb(null, length.value);
+            var row = result[0] || [],
+                res = row[0] || {},
+                length = res.length;
+            cb(null, length);
         },(err: Error) => {
             cb(err);
         });
