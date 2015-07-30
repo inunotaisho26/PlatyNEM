@@ -89,10 +89,10 @@ export default class ViewControl extends CMSBaseViewControl {
     navigatedTo(params: any): void {
         var context = this.context;
 
-        if (!isNaN(Number(params.id))) {
+        if (!this.utils.isEmpty(params.slug)) {
             this.initializeEditorPromise = () => {
                 return this.postRepository
-                .read(params.id)
+                .read(params.slug)
                 .then((post) => {
                     context.post = post;
                     return post.content;

@@ -16,7 +16,7 @@ export default class AdminViewControl extends BaseViewControl {
         router.configure([
             { pattern: '', view: DashboardViewControl },
             { pattern: 'posts', view: ListPostsViewControl },
-            { pattern: 'posts/manage/:id', view: ManagePostViewControl },
+            { pattern: 'posts/manage/:slug', view: ManagePostViewControl },
             { pattern: 'users', view: ListUsersViewControl },
             { pattern: 'users/edit/:id', view: EditUsersViewControl },
             { pattern: 'logout', view: LogoutViewControl }
