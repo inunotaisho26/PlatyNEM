@@ -1,4 +1,4 @@
-import {async, controls, register} from 'platypus';
+import {async, controls, register, web} from 'platypus';
 import CMSBaseViewControl from '../../../base.vc';
 import PostRepository from '../../../../../repositories/post.repo';
 import UserRepository from '../../../../../repositories/user.repo';
@@ -16,6 +16,7 @@ export default class ViewControl extends CMSBaseViewControl {
     context: {
         post: models.IPost;
         user: models.IUser;
+        host: string;
     } = {
         post: {
             title: '',
@@ -23,12 +24,14 @@ export default class ViewControl extends CMSBaseViewControl {
             id: null,
             created: null
         },
-        user: null
+        user: null,
+        host: ''
     };
 
     constructor(private postRepository: PostRepository,
         private userRepository: UserRepository,
-        private quill: any) {
+        private quill: any,
+        private browser: web.Browser) {
         super();
     }
 
@@ -89,18 +92,22 @@ export default class ViewControl extends CMSBaseViewControl {
     navigatedTo(params: any): void {
         var context = this.context;
 
-        if (!this.utils.isEmpty(params.slug)) {
+        // Set host for slug input helper
+        context.host = this.browser.urlUtils().host + '/posts/';
+
+        if (!this.utils.isEmpty(params.slug) && params.slug !== 'undefined') {
             this.initializeEditorPromise = () => {
                 return this.postRepository
                 .read(params.slug)
                 .then((post) => {
                     context.post = post;
+                    console.log(post.content);
                     return post.content;
                 });
             };
         } else {
             this.initializeEditorPromise = () => {
-                return this.Promise.resolve('');
+                return this.Promise.resolve('Add your content here.');
             };
             this.userRepository
                 .current()
@@ -114,5 +121,6 @@ export default class ViewControl extends CMSBaseViewControl {
 register.viewControl('managepost-vc', ViewControl, [
     PostRepository,
     UserRepository,
-    quillFactory
+    quillFactory,
+    web.Browser
 ]);

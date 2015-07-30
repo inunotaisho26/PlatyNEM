@@ -1,0 +1,140 @@
+& {
+	#platui > #mixins;
+
+	[plat-control="managepost-vc"] {
+		background-color: @off-white;
+		height: 100%;
+	}
+
+	.manage-blog-container {
+		height: 100%;
+	}
+
+	/// The Title Row contains the title and slug inputs
+
+	@blog-title-row-height: 4em;
+
+	.blog-title-row {
+		height: @blog-title-row-height;
+		width: 100%;
+
+		& > [class*="col-"] {
+			padding: 0;
+		}
+
+		[class*="col-"] + [class*="col-"] {
+			padding-left: 8px;
+		}
+	}
+
+	.blog-title-input-label {
+		.flexbox();
+		.justify-content(stretch);
+		.align-items(center);
+		height: 2.5em;
+		padding: 0 0.5em;
+		width: 100%;
+		font-size: 1.2em;
+		border: 1px solid @accent;
+		background-color: @white;
+		transition: border-color 300ms;
+
+		&:focus {
+			border-color: @blue;
+		}
+	}
+
+	.blog-title-input-helper {
+		padding-right: 0.3em;
+		font-size: 0.7em;
+		color: @light-grey;
+		font-weight: bold;
+	}
+
+	.blog-title-input {
+		.flex(1);
+		border: none;
+		margin: 0;
+		height: 100%;
+		display: inline-block;
+		outline: none;
+		font-size: 1em;
+		text-align: center;
+	}
+
+	/// Contains the toolbar/controls and quill editor
+
+	@blog-editor-container-padding: 0.5em;
+
+	.blog-editor-container {
+		position: relative;
+		background-color: @white;
+		border: 1px solid @accent;
+		height: calc(~'100% - @{blog-title-row-height}');
+		width: 100%;
+		padding-left: 0.5em;
+		padding-top: @blog-format-control-height;
+	}
+
+	/// Blog Title Controls - Toolbar for formatting and controlling
+	/// contents in the Quill Editor
+
+	@blog-format-control-height: 2.2em;
+
+	.blog-format-controls {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		display: block;
+		height: @blog-format-control-height;
+		line-height: @blog-format-control-height;
+		width: 100%;
+		background-color: @accent;
+		overflow: auto;
+	}
+
+	.blog-format-control-group {
+		display: inline-block;
+		position: relative;
+		padding: 0 0.6em;
+
+		&:after {
+			position: absolute;
+			right: 0;
+			content: '';
+			top: 15%;
+			height: 70%;
+			width: 1px;
+			background-color: lighten(@text-control-grey, 15%);
+		}
+	}
+
+	.blog-format-control {
+		outline: none;
+		border-width: 0;
+		background-color: transparent;
+
+		& > i.fa {
+			color: @text-control-grey;
+			font-size: 1.6em;
+		}
+
+		&.disabled {
+			& > i.fa {
+				opacity: 0.5;
+				pointer-events: none;
+			}
+		}
+	}
+
+	// Override custom quill styles
+	.blog-quill-editor {
+		height: 100%!important;
+		outline: none;
+		overflow-y: auto;
+		overflow-x: hidden;
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+}

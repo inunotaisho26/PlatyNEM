@@ -1,50 +1,58 @@
 <div class="manage-blog-container">
 	<div class="blog-title-row">
-		<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled">
-		<div class="blog-title-controls" id="quill-toolbar">
-
+		<div class="col-tab-6">
+			<label for="title" class="blog-title-input-label">
+				<span class="blog-title-input-helper">Title</span>
+				<input type="text" class="blog-title-input" plat-bind="post.title" placeholder="Untitled" name="title">
+			</label>
+		</div>
+		<div class="col-tab-6">
+			<label for="slug" class="blog-title-input-label">
+				<span class="blog-title-input-helper">{{host}}</span>
+				<input type="text" class="blog-title-input" plat-bind="post.slug" placeholder="seo-friendly-url" name="slug">
+			</label>
+		</div>
+	</div>
+	<div class="blog-editor-container">
+		<div class="blog-format-controls" id="quill-toolbar">
 			<!--Font Style-->
-			<div class="blog-title-control-group">
+			<div class="blog-format-control-group">
 				<!--bold-->
-				<button class="blog-title-control ql-bold">
+				<button class="blog-format-control ql-bold">
 					<i class="fa fa-bold"></i>
 				</button>
 				<!--italic-->
-				<button class="blog-title-control ql-italic">
+				<button class="blog-format-control ql-italic">
 					<i class="fa fa-italic"></i>
 				</button>
 				<!--underline-->
-				<button class="blog-title-control ql-underline">
+				<button class="blog-format-control ql-underline">
 					<i class="fa fa-underline"></i>
 				</button>
 			</div>
-
 			<!--Lists-->
-			<div class="blog-title-control-group">
+			<div class="blog-format-control-group">
 				<!--list-->
-				<button class="blog-title-control ql-list">
+				<button class="blog-format-control ql-list">
 					<i class="fa fa-list-ol"></i>
 				</button>
 				<!--bullets-->
-				<button class="blog-title-control ql-bullet">
+				<button class="blog-format-control ql-bullet">
 					<i class="fa fa-list-ul"></i>
 				</button>
 			</div>
-
 			<!--Anchor/Code-->
-			<div class="blog-title-control-group">
+			<div class="blog-format-control-group">
 				<!--code-->
-				<button class="blog-title-control" plat-tap="formatCode">
+				<button class="blog-format-control" plat-tap="formatCode">
 					<i class="fa fa-code"></i>
 				</button>
 			</div>
-
 			<!--save-->
-			<button plat-tap="save(true)" class="blog-title-control" plat-name="savePostButton">
+			<button plat-tap="save(true)" class="blog-format-control" plat-name="savePostButton">
 				<i class="fa fa-save"></i>
 			</button>
 		</div>
+		<div plat-name="quillElement" class="blog-quill-editor" />
 	</div>
-	<input type="text" class="blog-title-input" plat-bind="post.slug" placeholder="Slug">
-	<div plat-name="quillElement" class="blog-quill-editor" />
 </div>

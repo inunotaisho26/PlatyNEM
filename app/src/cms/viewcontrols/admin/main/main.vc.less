@@ -2,18 +2,23 @@
     #platui > #mixins;
 
     .dashboard-container {
-        .flexbox();
-        .align-content(stretch);
         height: 100%;
         background-color: @off-white;
+        overflow: auto;
     }
 
+    @sidebar-width: 18em;
+
     .sidebar {
-        width: 20em;
+        width: @sidebar-width;
+        height: 100%;
+        float: left;
     }
 
     .dashboard {
-        height: auto;
+        float: left;
+        height: 100%;
+        width: calc(~'100% - @{sidebar-width}');
         overflow-y: auto;
         overflow-x: hidden;
 
