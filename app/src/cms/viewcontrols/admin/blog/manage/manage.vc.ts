@@ -69,13 +69,13 @@ export default class ViewControl extends CMSBaseViewControl {
 
     loaded(): void {
         this.quillEditor = new this.quill(this.quillElement.element, {
+            modules: {
+                'link-tooltip': true,
+                'image-tooltip': true
+            },
             styles: {
                 '.ql-editor': { 'font-size' : '16px' }
             }
-        });
-
-        this.quillElement.element.addEventListener('click', () => {
-           this.quillEditor.focus();
         });
 
         this.initializeEditorPromise().then((content) => {
@@ -84,6 +84,18 @@ export default class ViewControl extends CMSBaseViewControl {
 
         this.quillEditor.addModule('toolbar', {
             container: '#quill-toolbar'
+        });
+
+        this.quillElement.element.addEventListener('keydown', (ev) => {
+           var modifier = ev.ctrlKey || ev.metaKey;
+
+           if (ev.keyCode === 83 && modifier) {
+               ev.preventDefault();
+               ev.stopPropagation();
+               this.save(true);
+               return false;
+           }
+           return true;
         });
 
         this.quillEditor.focus();
