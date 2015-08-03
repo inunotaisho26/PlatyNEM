@@ -1,5 +1,5 @@
 <div class="dashboard-button-row">
-    <plat-link class="button button-primary button-small" plat-options="{ view: manageView }">
+    <plat-link class="button admin-button button-primary button-small" plat-options="{ view: manageView }">
         <i class="fa fa-lg fa-user-plus"></i>
     </plat-link>
     <span class="button-sidetext">Add New User</span>
@@ -31,8 +31,8 @@
 				<table class="cell-table">
 					<tr>
 						<td>
-							<plat-link class="button button-small" plat-options="{ view: @rootContext.manageView, parameters: { id: id }}">Edit</plat-link>
-							<plat-button class="button button-small button-danger" plat-tap="toggleDeleteModal(id)">Delete</plat-button>
+							<plat-link class="button admin-button button-small" plat-options="{ view: @rootContext.manageView, parameters: { id: id }}">Edit</plat-link>
+							<plat-button class="button admin-button button-small button-danger" plat-tap="toggleDeleteModal(id)">Delete</plat-button>
 						</td>
 					</tr>
 				</table>
