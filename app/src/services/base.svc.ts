@@ -54,6 +54,10 @@ export default class BaseService {
     }
 
     protected normalizeUrl(value: number | string): string {
+        if(this.utils.isString(value) && (<string>value).indexOf('://') > -1) {
+            return <string>value;
+        }
+
         var url = this.baseRoute;
 
         if(this.utils.isNull(value)) {
