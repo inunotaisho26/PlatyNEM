@@ -60,6 +60,35 @@ function queryRequest(sql: string, connection: Pool.PooledConnection): Thenable<
 	});
 }
 
+export var convertReturn = (value: any): any => {
+    if (!isObject(value)) {
+        return value;
+    } else if (isArray(value)) {
+        var l = value.length,
+            returnArray = <Array<any>>[];
+
+        for (let i = 0; i < l; ++i) {
+            returnArray.push(convertReturn(value[i]));
+        }
+
+        return returnArray;
+    }
+
+    var keys = Object.keys(value),
+        length = keys.length,
+        key: string,
+        args: { value: any; metadata: any },
+        ret = <any>{};
+
+    for (let i = 0; i < length; ++i) {
+        key = keys[i];
+        args = value[key];
+        ret[key] = args.value;
+    }
+
+    return ret;
+};
+
 function procRequest(proc: string, args: any, connection: Pool.PooledConnection): Thenable<Array<Array<any>>> {
 	return new Promise((resolve, reject) => {
         var returnRows: Array<Array<any>> = [],
@@ -122,35 +151,6 @@ function convertType(value: any): tds.TediousType {
         throw new Error('Invalid data type.');
     }
 }
-
-export var convertReturn = (value: any): any => {
-    if (!isObject(value)) {
-        return value;
-    } else if (isArray(value)) {
-        var l = value.length,
-            returnArray = <Array<any>>[];
-
-        for (let i = 0; i < l; ++i) {
-            returnArray.push(convertReturn(value[i]));
-        }
-
-        return returnArray;
-    }
-
-    var keys = Object.keys(value),
-        length = keys.length,
-        key: string,
-        args: { value: any; metadata: any },
-        ret = <any>{};
-
-    for (let i = 0; i < length; ++i) {
-        key = keys[i];
-        args = value[key];
-        ret[key] = args.value;
-    }
-
-    return ret;
-};
 
 export var query = (sql: string): Thenable<Array<any>> => {
 	return connection().then((connection) => {

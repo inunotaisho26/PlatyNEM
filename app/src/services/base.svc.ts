@@ -4,7 +4,7 @@ export default class BaseService {
     protected static _inject: any = {
         http: async.Http,
         utils: Utils,
-        promise: async.IPromise,
+        Promise: async.IPromise,
         log: debug.Log
     };
 
