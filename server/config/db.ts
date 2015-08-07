@@ -27,7 +27,7 @@ export var pool = new Pool({
 });
 
 function connection(): Thenable<Pool.PooledConnection> {
-	return 	new Promise((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		pool.acquire((err, connection) => {
 			if(isObject(err)) {
 				return reject(err);
