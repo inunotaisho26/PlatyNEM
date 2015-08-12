@@ -92,6 +92,6 @@
         "server/utils/response.ts",
         "app/src/cms/viewcontrols/admin/logout/logout.vc.ts",
         "server/utils/utils.ts",
-        "app/src/viewcontrols/base.vc.ts"
+        "app/src/viewcontrols/base/base.vc.ts"
     ]
 }

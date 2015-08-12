@@ -1,5 +1,5 @@
 import {register} from 'platypus';
-import BaseViewControl from '../../base.vc';
+import BaseViewControl from '../../base/base.vc';
 import PostRepository from '../../../repositories/post.repo';
 import SingleViewControl from '../single/single.vc';
 

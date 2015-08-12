@@ -1,5 +1,5 @@
 import {routing, register} from 'platypus';
-import BaseViewControl from '../base.vc';
+import BaseViewControl from '../base/base.vc';
 import ListPostsViewControl from '../posts/list/list.vc';
 import SinglePostViewControl from '../posts/single/single.vc';
 
