@@ -25,9 +25,9 @@ export default class GlobalAlert extends ui.TemplateControl {
         this.dom.addClass(this.element, 'alert-visible');
         this.context.alerts = alertList;
 
-        // setTimeout(() => {
-        //     this.dismissAlerts();
-        // }, 5000)
+        setTimeout(() => {
+            this.dismissAlerts();
+        }, 5000);
     }
 
     setAlertType(status: string): void {

@@ -44,9 +44,13 @@ export default class ListPostsViewControl extends CMSBaseViewControl {
     confirmDelete(): void {
         this.postRepository.destroy(this.toDeleteId).then((result) => {
            this.toDeleteId = null;
-           this.context.deleteModal = false;
-           this.globalAlert.setAlerts('Post has been deleted', 'success');
-           this.refreshPosts();
+        }).then(() => {
+            this.globalAlert.setAlerts('Post has been deleted', 'success');
+            this.refreshPosts();
+            this.context.deleteModal = false;
+        }, (err) => {
+            this.globalAlert.setAlerts(err, 'fail');
+            this.context.deleteModal = false;
         });
     }
 }

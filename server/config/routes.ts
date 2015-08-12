@@ -12,7 +12,7 @@ import user from '../controllers/user.ctrl';
 import post from '../controllers/post.ctrl';
 
 var configure = (baseRoute: string, router: Router): Router => {
-    router .route(baseRoute + '/*')
+    router.route(baseRoute + '/*')
         .put(auth.requiresLogin)
         .delete(auth.requiresLogin, auth.isAdmin);
 

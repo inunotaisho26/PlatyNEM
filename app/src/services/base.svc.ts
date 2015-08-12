@@ -4,7 +4,7 @@ export default class BaseService {
     protected static _inject: any = {
         http: async.Http,
         utils: Utils,
-        promise: async.IPromise,
+        Promise: async.IPromise,
         log: debug.Log
     };
 
@@ -23,19 +23,19 @@ export default class BaseService {
         return this.json(url + this.getQueryString(query), <any>options);
     }
 
-    protected post<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected post<T>(url: number | string = '', options: services.IHttpConfig = {}): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'POST'
         }));
     }
 
-    protected put<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected put<T>(url: number | string = '', options: services.IHttpConfig = {}): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'PUT'
         }));
     }
 
-    protected delete<T>(url: number | string = '', options?: services.IHttpConfig): async.IAjaxThenable<T> {
+    protected delete<T>(url: number | string = '', options: services.IHttpConfig = {}): async.IAjaxThenable<T> {
         return this.json(url, this.utils.extend(options, {
             method: 'DELETE'
         }));
@@ -54,6 +54,10 @@ export default class BaseService {
     }
 
     protected normalizeUrl(value: number | string): string {
+        if(this.utils.isString(value) && (<string>value).indexOf('://') > -1) {
+            return <string>value;
+        }
+
         var url = this.baseRoute;
 
         if(this.utils.isNull(value)) {
@@ -91,6 +95,7 @@ export default class BaseService {
                 throw response.data;
             case 'error':
                 this.log.warn(response.message);
+                throw new Error('Internal server error. Please try again at another time.');
                 break;
         }
     }
