@@ -11,7 +11,7 @@ export default class ViewControl extends CMSBaseViewControl {
     quillEditor: any;
     quillElement: controls.INamedElement<HTMLDivElement, any>;
     savePostButton: controls.INamedElement<HTMLElement, any>;
-    initializeEditorPromise: () => async.IThenable<string>;
+    initializeEditorPromise: async.IThenable<string>;
 
     context: {
         post: models.IPost;
@@ -68,6 +68,13 @@ export default class ViewControl extends CMSBaseViewControl {
     }
 
     loaded(): void {
+        this.initializeEditorPromise.then((content) => {
+            this.quillEditor.setHTML(content);
+            return this.userRepository.current()
+        }).then((user) => {
+            this.context.user = user;
+        });
+
         this.quillEditor = new this.quill(this.quillElement.element, {
             modules: {
                 'link-tooltip': true,
@@ -76,10 +83,6 @@ export default class ViewControl extends CMSBaseViewControl {
             styles: {
                 '.ql-editor': { 'font-size' : '16px' }
             }
-        });
-
-        this.initializeEditorPromise().then((content) => {
-            this.quillEditor.setHTML(content);
         });
 
         this.quillEditor.addModule('toolbar', {
@@ -104,28 +107,16 @@ export default class ViewControl extends CMSBaseViewControl {
     navigatedTo(params: any): void {
         var context = this.context;
 
-        // Set host for slug input helper
+        // Set's slug input helper for UI
         context.host = this.browser.urlUtils().host + '/posts/';
 
         if (!this.utils.isEmpty(params.slug) && params.slug !== 'undefined') {
-            this.initializeEditorPromise = () => {
-                return this.postRepository
-                .read(params.slug)
-                .then((post) => {
-                    context.post = post;
-                    console.log(post.content);
-                    return post.content;
-                });
-            };
+            this.initializeEditorPromise = this.postRepository.read(params.slug).then((post) => {
+                context.post = post;
+                return post.content;
+            });
         } else {
-            this.initializeEditorPromise = () => {
-                return this.Promise.resolve('Add your content here.');
-            };
-            this.userRepository
-                .current()
-                .then((user) => {
-                    context.user = user;
-                });
+            this.initializeEditorPromise = this.Promise.resolve('Add your content here.');
         }
     }
 }

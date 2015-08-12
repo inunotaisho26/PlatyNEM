@@ -41,7 +41,6 @@ class Controller extends Base<typeof repository, typeof model> {
                 return response;
             });
         }).then(null,(err: server.errors.IValidationErrors) => {
-            console.log('err', err);
             return this.format(err);
         }).then((response: server.utils.IFormattedResponse) => {
             Base.sendResponse(res, response);
@@ -217,10 +216,6 @@ class Controller extends Base<typeof repository, typeof model> {
             })(req, res, null);
         }).then((user: server.models.IUser) => {
             return this.login(user, req);
-        }).then((response) => {
-            return this.format(undefined, response);
-        }, (response) => {
-            return this.Promise.resolve(response);
         }).then((response) => {
             Base.sendResponse(res, response);
         });
